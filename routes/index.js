@@ -8,10 +8,9 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/users', async (req, res, next) => {
-  fetch('https://jsonplaceholder.typicode.com/users')
-    .then(data => data.json())
-    .then(users => res.json(users))
-    .catch(error => console.log(error));
+  const users = await fetch('https://jsonplaceholder.typicode.com/users');
+  res.json(await users.json());
+  //TODO: Need to add an error handler to wrap async calls
 });
 
 module.exports = router;
