@@ -4,11 +4,10 @@ import './App.css';
 class App extends Component {
   state = { users: [] }
 
-  componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(users => this.setState({ users }))
-      .catch(e => console.log(e));
+  async componentDidMount() {
+    const res = await fetch('/users');
+    const users = await res.json();
+    this.setState({ users });
   }
 
   render() {
