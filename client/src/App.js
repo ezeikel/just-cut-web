@@ -9,33 +9,30 @@ class App extends Component {
 
     this.state = {
       name: '',
-      address: ''
+      address: '',
+      users: []
     };
   }
 
-  // async componentDidMount() {
-  //   const res = await fetch('/users');
-  //   const users = await res.json();
-  //   this.setState({ users });
-  // }
-
-  // <h1>Users</h1>
-  // {this.state.users.map(user =>
-  //   <div key={user.id}>{user.username}</div>
-  //
+  async componentDidMount() {
+    const res = await fetch('/users');
+    const users = await res.json();
+    this.setState({ ...this.state, users });
+  }
 
   async componentDidUpdate() {
-     const response = await fetch('/add', {
+    if (this.state.name === '' || this.state.address === '') return;
+
+     await fetch('/add', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(this.state)
+      body: JSON.stringify({name: this.state.name, address: this.state.address})
     });
 
-    const body = await response.json();
-    console.log(body); // TODO: Redirect to new slug using React Router
+    // TODO: Redirect to new slug returned by BE to new shop slug
   }
 
   handleSubmit(e) {
@@ -44,7 +41,8 @@ class App extends Component {
     const name = this.name.value;
     const address = this.address.value;
 
-    this.setState({name, address});
+    this.setState({ ...this.state, name, address});
+    this.shopForm.reset();
   }
 
   render() {
@@ -57,6 +55,10 @@ class App extends Component {
           <textarea ref={(input) => this.address = input} name="address" onChange={this.handleChange}></textarea>
           <input type="submit" value="Save" />
         </form>
+        <h1>Users</h1>
+        {this.state.users.map(user =>
+          <div key={user.id}>{user.username}</div>
+        )}
       </div>
     );
   }

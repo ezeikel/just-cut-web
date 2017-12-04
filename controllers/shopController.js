@@ -8,5 +8,8 @@ const uuid = require('uuid');
 exports.createShop =  async (req, res) => {
   //req.body.author = req.user._id;
   const shop = await (new Shop(req.body).save());
-  res.json({"slug": `/shop/${shop.slug}`});
+
+  //TODO: Return the new slug to the FE and redirect
+  //res.json({"slug": `/shop/${shop.slug}`});
+  res.send('Success');
 }
