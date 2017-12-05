@@ -26,8 +26,8 @@ class Home extends Component {
         await fetch('/add', {
             method: 'POST',
             headers: {
-                'Accept': 'Mainlication/json',
-                'Content-Type': 'Mainlication/json'
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ name: this.state.name, address: this.state.address })
         });
