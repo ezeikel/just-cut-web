@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
-//import './Main.css';
 
 class Home extends Component {
-    constructor(props) {
-        super(props);
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-
-        this.state = {
-            name: '',
-            address: '',
-            users: []
-        };
-    }
+    state = {
+        name: '',
+        address: '',
+        users: []
+    };
 
     async componentDidMount() {
         const res = await fetch('/users');
@@ -35,7 +28,7 @@ class Home extends Component {
         // TODO: Redirect to new slug returned by BE to new shop slug
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
 
         const name = this.name.value;
