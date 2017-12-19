@@ -5,10 +5,11 @@ import './index.css';
 import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
-render(
+const app = (
     <BrowserRouter>
         <App />
-    </BrowserRouter>, 
-    document.querySelector('#root')
+    </BrowserRouter>
 );
+
+render(app, document.querySelector('#root'));
 registerServiceWorker();
