@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Aux from '../hoc/Aux';
+import Aux from '../../hoc/Aux';
 
 class AddShop extends Component {
     state = {
@@ -12,7 +12,7 @@ class AddShop extends Component {
         const res = await fetch('/users');
         const users = await res.json();
         
-        this.setState({...this.state, users});
+        this.setState({users});
     }
     
     handleChange = (e) => {

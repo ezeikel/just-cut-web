@@ -5,7 +5,7 @@ const Shop = mongoose.model('Shop');
 //const jimp = require('jimp');
 const uuid = require('uuid');
 
-exports.createShop =  async (req, res) => {
+exports.createShop = async (req, res) => {
   //req.body.author = req.user._id;
   
   const shop = await (new Shop(req.body).save());
@@ -13,4 +13,10 @@ exports.createShop =  async (req, res) => {
   //TODO: Return the new slug to the FE and redirect
   //res.json({"slug": `/shop/${shop.slug}`});
   res.send('Success');
+}
+
+exports.getShops = async (req, res) => {
+  const shopsPromise = Shop.find();
+  const stores = await shopsPromise;
+  res.json(stores);
 }

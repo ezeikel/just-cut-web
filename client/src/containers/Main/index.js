@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import AddShop from '../../components/AddShop';
-import Shops from '../Shops';
+import Shops from '../../components/Shops';
 import Reviews from '../Reviews';
 
 const Main = () => (
