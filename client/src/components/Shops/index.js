@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
 
+import Shop from '../../containers/Shop';
+
 class Shops extends Component {
     componentDidMount() {
         this.props.onFetchShops();
@@ -10,11 +12,7 @@ class Shops extends Component {
 
     render() {
         const shops = this.props.shops.map( shop => (
-            <div key={shop._id}>
-                <h3>{shop.name}</h3>
-                <address>{shop.address}</address>
-                <span>{shop.slug}</span>
-            </div>
+                <Shop key={shop._id} name={shop.name} address={shop.address} slug={shop.slug} />
         ));
         return (
             <div>
