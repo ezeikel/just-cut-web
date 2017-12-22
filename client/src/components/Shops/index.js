@@ -4,14 +4,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 class Shops extends Component {
-    state = {
-        shops: []
-    }
-
     componentDidMount() {
-        // let shops = await fetch('/shops');
-        // shops = await shops.json();
-        // this.setState({shops});
         this.props.onFetchShops();
     }
 
@@ -34,8 +27,8 @@ class Shops extends Component {
 
 const mapStateToProps = state => {
     return {
-        shops: state.shops.shops,
-        loading: state.shops.loading
+        shops: state.shop.shops,
+        loading: state.shop.loading
     };
 };
 

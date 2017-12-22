@@ -9,11 +9,13 @@ import './index.css';
 import App from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 import shopReducer from './store/reducers/shop';
+import reviewReducer from './store/reducers/review';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-    order: shopReducer
+    shop: shopReducer,
+    review: reviewReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(
