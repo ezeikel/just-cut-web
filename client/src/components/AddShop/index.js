@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Aux from '../../hoc/Aux';
 
-class AddShop extends Component {
-    state = {
-        name: '',
-        address: ''
-    };
+import * as actions from '../../store/actions/index';
 
-    handleChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
+class AddShop extends Component {
+    handleNameChange = (e) => {
+        this.props.onAddShopNameChanged(e.target.value);
+    }
+
+    handleAddressChange = (e) => {
+        this.props.onAddShopAddressChanged(e.target.value);    
     }
     
     handleSubmit = async (e) => {
@@ -34,9 +36,9 @@ class AddShop extends Component {
             <Aux>
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="name">Name:</label>
-                    <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+                    <input type="text" name="name" value={this.props.name} onChange={this.handleNameChange} />
                     <label htmlFor="address">Address</label>
-                    <textarea name="address" value={this.state.address} onChange={this.handleChange}></textarea>
+                    <textarea name="address" value={this.props.address} onChange={this.handleAddressChange}></textarea>
                     <input type="submit" value="Save" />
                 </form>
             </Aux>
@@ -44,4 +46,19 @@ class AddShop extends Component {
     }
 }
 
-export default AddShop;
+const mapStateToProps = state => {
+    return {
+        name: state.shop.name,
+        address: state.shop.address
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchShops: () => dispatch(actions.fetchShops()),
+        onAddShopNameChanged: (name) => dispatch(actions.addShopNameChanged(name)),
+        onAddShopAddressChanged: (address) => dispatch(actions.addShopAddressChanged(address))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddShop);

@@ -2,7 +2,9 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     shops: [],
-    loading: false
+    loading: false,
+    name: '',
+    address: ''
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,6 +24,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false
+            };
+        case actionTypes.ADD_SHOP_NAME_CHANGED:
+            return {
+                ...state,
+                name: action.name
+            };
+        case actionTypes.ADD_SHOP_ADDRESS_CHANGED:
+            return {
+                ...state,
+                address: action.address
             };
         default:
             return state;

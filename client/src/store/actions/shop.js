@@ -28,3 +28,18 @@ export const fetchShops = () => {
         dispatch(fetchShopsSuccess(fetchedShops));
     }
 }
+
+export const addShopNameChanged = (name) => {
+    console.log('NAME IN ACITION: ', name);
+    return {
+        type: actionTypes.ADD_SHOP_NAME_CHANGED,
+        name
+    }
+}
+
+export const addShopAddressChanged = (address) => {
+    return {
+        type: actionTypes.ADD_SHOP_ADDRESS_CHANGED,
+        address
+    }
+}

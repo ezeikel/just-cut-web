@@ -1,3 +1,5 @@
 export {
-    fetchShops
+    fetchShops,
+    addShopNameChanged,
+    addShopAddressChanged
 } from './shop';
