@@ -4,17 +4,9 @@ import Aux from '../../hoc/Aux';
 class AddShop extends Component {
     state = {
         name: '',
-        address: '',
-        users: []
+        address: ''
     };
 
-    async componentDidMount() {
-        const res = await fetch('/users');
-        const users = await res.json();
-        
-        this.setState({users});
-    }
-    
     handleChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
     }
@@ -38,7 +30,6 @@ class AddShop extends Component {
     }
 
     render() {
-        const users = this.state.users.map(user => <li key={user.id}>{user.username}</li>);
         return (
             <Aux>
                 <form onSubmit={this.handleSubmit}>
@@ -48,12 +39,6 @@ class AddShop extends Component {
                     <textarea name="address" value={this.state.address} onChange={this.handleChange}></textarea>
                     <input type="submit" value="Save" />
                 </form>
-                <div>
-                    <h1>Users</h1>
-                    <ul>
-                        {users}
-                    </ul>
-                </div>
             </Aux>
         );
     }
