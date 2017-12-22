@@ -10,7 +10,7 @@ class Shops extends Component {
 
     render() {
         const shops = this.props.shops.map( shop => (
-            <div>
+            <div key={shop._id}>
                 <h3>{shop.name}</h3>
                 <address>{shop.address}</address>
                 <span>{shop.slug}</span>

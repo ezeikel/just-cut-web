@@ -35,6 +35,23 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 address: action.address
             };
+        case actionTypes.ADD_SHOP_START:
+            return {
+                ...state,
+                loading: true
+            };
+        case actionTypes.ADD_SHOP_SUCCESS:
+            return {
+                ...state,
+                name: '',
+                address: '',
+                loading: false
+            };
+        case actionTypes.ADD_SHOP_FAIL:
+            return {
+                ...state,
+                loading: false
+            };
         default:
             return state;
     }

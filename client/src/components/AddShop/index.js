@@ -15,20 +15,8 @@ class AddShop extends Component {
     
     handleSubmit = async (e) => {
         e.preventDefault();
-
-        const {name, address} = this.state;
-        
-        await fetch('/add', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name, address })
-        });
-        
-        this.setState({name: '', address:''});
-        // TODO: Redirect to new shops page where new shop will be listed
+        const {name, address} = this.props;
+        this.props.onAddShop(name, address);
     }
 
     render() {
@@ -57,7 +45,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchShops: () => dispatch(actions.fetchShops()),
         onAddShopNameChanged: (name) => dispatch(actions.addShopNameChanged(name)),
-        onAddShopAddressChanged: (address) => dispatch(actions.addShopAddressChanged(address))
+        onAddShopAddressChanged: (address) => dispatch(actions.addShopAddressChanged(address)),
+        onAddShop: (name, address) => dispatch(actions.addShop(name, address))
     };
 };
 
