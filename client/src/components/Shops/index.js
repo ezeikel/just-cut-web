@@ -1,31 +1,48 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import * as actions from '../../store/actions/index';
 
 class Shops extends Component {
     state = {
-        stores: []
+        shops: []
     }
 
-    async componentDidMount() {
-        let stores = await fetch('/shops');
-        stores = await stores.json();
-        this.setState({stores});
+    componentDidMount() {
+        // let shops = await fetch('/shops');
+        // shops = await shops.json();
+        // this.setState({shops});
+        this.props.onFetchShops();
     }
 
     render() {
-        const stores = this.state.stores.map( store => (
+        const shops = this.props.shops.map( shop => (
             <div>
-                <h3>{store.name}</h3>
-                <address>{store.address}</address>
-                <span>{store.slug}</span>
+                <h3>{shop.name}</h3>
+                <address>{shop.address}</address>
+                <span>{shop.slug}</span>
             </div>
         ));
         return (
             <div>
                 <h2>Shops:</h2>
-                {stores}
+                {shops}
             </div>
         );     
     }
 }
 
-export default Shops;
+const mapStateToProps = state => {
+    return {
+        shops: state.shops.shops,
+        loading: state.shops.loading
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onFetchShops: () => dispatch(actions.fetchShops())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shops);

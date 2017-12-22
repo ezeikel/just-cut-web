@@ -1,0 +1,3 @@
+export {
+    fetchShops
+} from './shop';
