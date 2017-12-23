@@ -1,5 +1,5 @@
 export {
     fetchShops,
-    handleInputChange,
+    handleFormInputChange,
     addShop
 } from './shop';

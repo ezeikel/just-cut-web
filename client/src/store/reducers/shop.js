@@ -25,7 +25,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false
             };
-        case actionTypes.HANDLE_INPUT_CHANGED:
+        case actionTypes.HANDLE_FORM_INPUT_CHANGE:
             return {
                 ...state,
                 [action.name]: action.value

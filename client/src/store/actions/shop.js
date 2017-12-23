@@ -29,11 +29,11 @@ export const fetchShops = () => {
     };
 };
 
-export const handleInputChange = (name, value) => {
+export const handleFormInputChange = (name, value) => {
     return {
-        type: actionTypes.HANDLE_INPUT_CHANGED,
-        name: name,
-        value: value
+        type: actionTypes.HANDLE_FORM_INPUT_CHANGE,
+        name,
+        value
     };
 };
 

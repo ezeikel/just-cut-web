@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 class AddShop extends Component {
-    handleInputChange = (e) => {
-        this.props.onHandleInputChange(e.target.name, e.target.value);
+    handleFormInputChange = (e) => {
+        this.props.onHandleFormInputChange(e.target.name, e.target.value);
     }
 
     handleSubmit = async (e) => {
@@ -18,9 +18,9 @@ class AddShop extends Component {
         return (
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="name">Name:</label>
-                    <input type="text" name="name" value={this.props.name} onChange={this.handleInputChange} />
+                    <input type="text" name="name" value={this.props.name} onChange={this.handleFormInputChange} />
                     <label htmlFor="address">Address</label>
-                    <textarea name="address" value={this.props.address} onChange={this.handleInputChange}></textarea>
+                    <textarea name="address" value={this.props.address} onChange={this.handleFormInputChange}></textarea>
                     <input type="submit" value="Save" />
                 </form>
         );
@@ -37,7 +37,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchShops: () => dispatch(actions.fetchShops()),
-        onHandleInputChange: (name, value) => dispatch(actions.handleInputChange(name, value)),
+        onHandleFormInputChange: (name, value) => dispatch(actions.handleFormInputChange(name, value)),
         onAddShop: (name, address) => dispatch(actions.addShop(name, address))
     };
 };
