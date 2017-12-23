@@ -1,6 +1,5 @@
 export {
     fetchShops,
-    addShopNameChanged,
-    addShopAddressChanged,
+    handleInputChange,
     addShop
 } from './shop';

@@ -25,15 +25,10 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false
             };
-        case actionTypes.ADD_SHOP_NAME_CHANGED:
+        case actionTypes.HANDLE_INPUT_CHANGED:
             return {
                 ...state,
-                name: action.name
-            };
-        case actionTypes.ADD_SHOP_ADDRESS_CHANGED:
-            return {
-                ...state,
-                address: action.address
+                [action.name]: action.value
             };
         case actionTypes.ADD_SHOP_START:
             return {

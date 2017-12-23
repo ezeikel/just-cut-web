@@ -29,17 +29,11 @@ export const fetchShops = () => {
     };
 };
 
-export const addShopNameChanged = (name) => {
+export const handleInputChange = (name, value) => {
     return {
-        type: actionTypes.ADD_SHOP_NAME_CHANGED,
-        name
-    };
-};
-
-export const addShopAddressChanged = (address) => {
-    return {
-        type: actionTypes.ADD_SHOP_ADDRESS_CHANGED,
-        address
+        type: actionTypes.HANDLE_INPUT_CHANGED,
+        name: name,
+        value: value
     };
 };
 
