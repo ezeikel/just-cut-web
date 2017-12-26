@@ -5,6 +5,7 @@ import * as actions from '../../store/actions/index';
 
 class AddShop extends Component {
     handleFormInputChange = (e) => {
+        debugger;
         this.props.onHandleFormInputChange(e.target.name, e.target.value);
     }
 
@@ -20,7 +21,11 @@ class AddShop extends Component {
                     <label htmlFor="name">Name:</label>
                     <input type="text" name="name" value={this.props.name} onChange={this.handleFormInputChange} />
                     <label htmlFor="address">Address</label>
-                    <textarea name="address" value={this.props.address} onChange={this.handleFormInputChange}></textarea>
+                    <input type="text" name="location.address" value={this.props.location.address} onChange={this.handleFormInputChange} />
+                    <label htmlFor="address">Address Lng</label>
+                <input type="text" name="location.coordinates[0]" value={this.props.location.coordinates[0]} onChange={this.handleFormInputChange} />
+                    <label htmlFor="address">Address Lat</label>
+                <input type="text" name="location.coordinates[1]" value={this.props.location.coordinates[1]} onChange={this.handleFormInputChange} />
                     <input type="submit" value="Save" />
                 </form>
         );
@@ -30,7 +35,7 @@ class AddShop extends Component {
 const mapStateToProps = state => {
     return {
         name: state.shop.name,
-        address: state.shop.address
+        location: state.shop.location
     };
 };
 

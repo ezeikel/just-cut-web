@@ -5,7 +5,7 @@ export const fetchShopsSuccess = (shops) => {
         type: actionTypes.FETCH_SHOPS_SUCCESS,
         shops
     }
-}
+};
 
 export const fetchShopsFail = (error) => {
     return {
