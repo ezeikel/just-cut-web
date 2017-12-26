@@ -12,10 +12,14 @@ class AddShop extends Component {
         this.props.onHandleFormInputAddressChange(e.target.value);
     }
 
+    handleFormInputAddressCoordinatesChange = (e) => {
+        this.props.onHandleFormInputAddressCoordinatesChange(e.target.name, e.target.value);
+    }
+
     handleSubmit = async (e) => {
         e.preventDefault();
-        const {name, address} = this.props;
-        this.props.onAddShop(name, address);
+        const {name, location} = this.props;
+        this.props.onAddShop(name, location);
     }
 
     render() {
@@ -24,11 +28,11 @@ class AddShop extends Component {
                     <label htmlFor="name">Name:</label>
                     <input type="text" name="name" value={this.props.name} onChange={this.handleFormInputChange} />
                     <label htmlFor="address">Address</label>
-                    <input type="text" name="location.address" value={this.props.location.address} onChange={this.handleFormInputAddressChange} />
+                    <input type="text" name="address" value={this.props.location.address} onChange={this.handleFormInputAddressChange} />
                     <label htmlFor="address">Address Lng</label>
-                <input type="text" name="location.coordinates[0]" value={this.props.location.coordinates[0]} onChange={this.handleFormInputChange} />
+                <input type="text" name="lng" value={this.props.location.coordinates.lng} onChange={this.handleFormInputAddressCoordinatesChange} />
                     <label htmlFor="address">Address Lat</label>
-                <input type="text" name="location.coordinates[1]" value={this.props.location.coordinates[1]} onChange={this.handleFormInputChange} />
+                <input type="text" name="lat" value={this.props.location.coordinates.lat} onChange={this.handleFormInputAddressCoordinatesChange} />
                     <input type="submit" value="Save" />
                 </form>
         );
@@ -46,8 +50,9 @@ const mapDispatchToProps = dispatch => {
     return {
         onFetchShops: () => dispatch(actions.fetchShops()),
         onHandleFormInputChange: (name, value) => dispatch(actions.handleFormInputChange(name, value)),
-        onHandleFormInputAddressChange: (name, value) => dispatch(actions.handleFormInputAddressChange(name, value)),
-        onAddShop: (name, address) => dispatch(actions.addShop(name, address))
+        onHandleFormInputAddressChange: (value) => dispatch(actions.handleFormInputAddressChange(value)),
+        onHandleFormInputAddressCoordinatesChange: (name, value) => dispatch(actions.handleFormInputAddressCoordinatesChange(name, value)),
+        onAddShop: (name, location) => dispatch(actions.addShop(name, location))
     };
 };
 

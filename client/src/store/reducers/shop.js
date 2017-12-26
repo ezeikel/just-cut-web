@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import { debug } from 'util';
 
 const initialState = {
     shops: [],
@@ -6,7 +7,10 @@ const initialState = {
     name: '',
     location: {
         address: '',
-        coordinates: [0,0]
+        coordinates: {
+            lng: 0,
+            lat: 0
+        }
     }
 };
 
@@ -16,8 +20,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 location: {
-                    ...state.location.address,
-                    ...state.location.coordinates
+                    ...state.location,
+                    coordinates: {...state.location.coordinates}
                 },
                 loading: true
             };
@@ -25,8 +29,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 location: {
-                    ...state.location.address,
-                    ...state.location.coordinates
+                    ...state.location,
+                    coordinates: { ...state.location.coordinates }
                 },
                 shops: action.shops,
                 loading: false
@@ -35,8 +39,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 location: {
-                    ...state.location.address,
-                    ...state.location.coordinates
+                    ...state.location,
+                    coordinates: { ...state.location.coordinates }
                 },
                 loading: false
             };
@@ -45,7 +49,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 location: {
                     ...state.location,
-                    coordinates: [...state.location.coordinates]
+                    coordinates: {...state.location.coordinates}
                 },
                 [action.name]: action.value
             };
@@ -55,7 +59,18 @@ const reducer = (state = initialState, action) => {
                 location: {
                     ...state.location,
                     address: action.value,
-                    coordinates: [...state.location.coordinates]
+                    coordinates: {...state.location.coordinates}
+                },
+            };
+        case actionTypes.HANDLE_FORM_INPUT_ADDRESS_COORDINATES_CHANGE:
+            return {
+                ...state,
+                location: {
+                    ...state.location,
+                    coordinates: {
+                        ...state.location.coordinates,
+                        [action.name]: action.value
+                    } //TODO: Needs work
                 },
             };
         case actionTypes.ADD_SHOP_START:
@@ -63,7 +78,9 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 location: {
                     ...state.location.address,
-                    ...state.location.coordinates
+                    coordinates: {
+                        ...state.location.coordinates
+                    }
                 },
                 loading: true
             };
@@ -72,18 +89,20 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 location: {
                     address: '',
-                    coordinates: [0,0]
+                    coordinates: {
+                        lng: 0,
+                        lat: 0
+                    }
                 },
                 name: '',
-                address: '',
                 loading: false
             };
         case actionTypes.ADD_SHOP_FAIL:
             return {
                 ...state,
                 location: {
-                    ...state.location.address,
-                    ...state.location.coordinates
+                    ...state.location,
+                    coordinates: { ...state.location.coordinates }
                 },
                 loading: false
             };

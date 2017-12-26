@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const slug = require('slugs');
 
-const shopSchema =  new mongoose.Schema({
+const shopSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
@@ -33,6 +33,10 @@ const shopSchema =  new mongoose.Schema({
       trim: true
     }
   }
+},
+{
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
 });
 
 shopSchema.pre('save', async function(next) {

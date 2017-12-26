@@ -44,6 +44,14 @@ export const handleFormInputAddressChange = (value) => {
     };
 };
 
+export const handleFormInputAddressCoordinatesChange = (name, value) => {
+    return {
+        type: actionTypes.HANDLE_FORM_INPUT_ADDRESS_COORDINATES_CHANGE,
+        name,
+        value
+    };
+};
+
 export const addShopSuccess = () => {
     return {
         type: actionTypes.ADD_SHOP_SUCCESS
@@ -62,7 +70,9 @@ export const addShopStart = () => {
     };
 };
 
-export const addShop = (name, address) => {
+export const addShop = (name, location) => {
+    // Convert coordinates to array of values to match what DB expects
+    location.coordinates = Object.values(location.coordinates);
     return async dispatch => {
         dispatch(addShopStart());
         
@@ -72,7 +82,7 @@ export const addShop = (name, address) => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, address })
+            body: JSON.stringify({ name, location })
         });
         
 
