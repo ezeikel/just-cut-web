@@ -44,10 +44,19 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 location: {
-                    ...state.location.address,
-                    ...state.location.coordinates
+                    ...state.location,
+                    coordinates: [...state.location.coordinates]
                 },
                 [action.name]: action.value
+            };
+        case actionTypes.HANDLE_FORM_INPUT_ADDRESS_CHANGE:
+            return {
+                ...state,
+                location: {
+                    ...state.location,
+                    address: action.value,
+                    coordinates: [...state.location.coordinates]
+                },
             };
         case actionTypes.ADD_SHOP_START:
             return {

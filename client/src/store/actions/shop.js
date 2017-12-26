@@ -37,6 +37,13 @@ export const handleFormInputChange = (name, value) => {
     };
 };
 
+export const handleFormInputAddressChange = (value) => {
+    return {
+        type: actionTypes.HANDLE_FORM_INPUT_ADDRESS_CHANGE,
+        value
+    };
+};
+
 export const addShopSuccess = () => {
     return {
         type: actionTypes.ADD_SHOP_SUCCESS
