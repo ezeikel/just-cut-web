@@ -19,6 +19,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_SHOPS_START:
             return {
                 ...state,
+                shops: [...state.shops],
                 location: {
                     ...state.location,
                     coordinates: {...state.location.coordinates}
@@ -28,25 +29,27 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_SHOPS_SUCCESS:
             return {
                 ...state,
+                shops: action.shops,
                 location: {
                     ...state.location,
                     coordinates: { ...state.location.coordinates }
                 },
-                shops: action.shops,
                 loading: false
             };
         case actionTypes.FETCH_SHOPS_FAIL:
             return {
                 ...state,
+                shops: [...state.shops],
                 location: {
                     ...state.location,
-                    coordinates: { ...state.location.coordinates }
+                    coordinates: {...state.location.coordinates}
                 },
                 loading: false
             };
         case actionTypes.HANDLE_FORM_INPUT_CHANGE:
             return {
                 ...state,
+                shops: [...state.shops],
                 location: {
                     ...state.location,
                     coordinates: {...state.location.coordinates}
@@ -56,6 +59,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.HANDLE_FORM_INPUT_ADDRESS_CHANGE:
             return {
                 ...state,
+                shops: [...state.shops],
                 location: {
                     ...state.location,
                     address: action.value,
@@ -65,19 +69,21 @@ const reducer = (state = initialState, action) => {
         case actionTypes.HANDLE_FORM_INPUT_ADDRESS_COORDINATES_CHANGE:
             return {
                 ...state,
+                shops: [...state.shops],
                 location: {
                     ...state.location,
                     coordinates: {
                         ...state.location.coordinates,
                         [action.name]: action.value
-                    } //TODO: Needs work
+                    }
                 },
             };
         case actionTypes.ADD_SHOP_START:
             return {
                 ...state,
+                shops: [...state.shops],
                 location: {
-                    ...state.location.address,
+                    ...state.location,
                     coordinates: {
                         ...state.location.coordinates
                     }
@@ -87,19 +93,23 @@ const reducer = (state = initialState, action) => {
         case actionTypes.ADD_SHOP_SUCCESS:
             return {
                 ...state,
+                shops: [...state.shops],
+                name: '',
                 location: {
+                    ...state.location,
                     address: '',
                     coordinates: {
+                        ...state.location.coordinates,
                         lng: 0,
                         lat: 0
                     }
                 },
-                name: '',
                 loading: false
             };
         case actionTypes.ADD_SHOP_FAIL:
             return {
                 ...state,
+                shops: [...state.shops],
                 location: {
                     ...state.location,
                     coordinates: { ...state.location.coordinates }

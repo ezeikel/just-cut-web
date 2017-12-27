@@ -6,6 +6,14 @@ class AddShop extends Component {
     componentDidMount() {
         const input = document.querySelector('[name="address"]');
         const dropdown = new google.maps.places.Autocomplete(input); // eslint-disable-line
+
+        dropdown.addListener('place_changed', () => {
+            const place = dropdown.getPlace();
+            this.props.onHandleFormInputAddressChange(place.formatted_address);
+            this.props.onHandleFormInputAddressCoordinatesChange('lat', place.geometry.location.lat());
+            this.props.onHandleFormInputAddressCoordinatesChange('lng', place.geometry.location.lng());
+            console.log(place);
+        });
     }
 
     handleFormInputChange = (e) => {
