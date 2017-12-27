@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import * as actions from '../../store/actions/index';
 
 class AddShop extends Component {
+    componentDidMount() {
+        const input = document.querySelector('[name="address"]');
+        const dropdown = new google.maps.places.Autocomplete(input); // eslint-disable-line
+    }
+
     handleFormInputChange = (e) => {
         this.props.onHandleFormInputChange(e.target.name, e.target.value);
     }
