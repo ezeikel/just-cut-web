@@ -12,7 +12,7 @@ class Shops extends Component {
 
     render() {
         const shops = this.props.shops.map( shop => (
-                <Shop key={shop._id} name={shop.name} address={shop.address} slug={shop.slug} />
+                <Shop key={shop._id} name={shop.name} address={shop.location.address} slug={shop.slug} />
         ));
         return (
             <div>
