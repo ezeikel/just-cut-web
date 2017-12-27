@@ -42,9 +42,9 @@ class AddShop extends Component {
                     <label htmlFor="address">Address</label>
                     <input type="text" name="address" value={this.props.location.address} onChange={this.handleFormInputAddressChange} />
                     <label htmlFor="address">Address Lng</label>
-                <input type="text" name="lng" value={this.props.location.coordinates.lng} onChange={this.handleFormInputAddressCoordinatesChange} />
+                <input type="text" name="lng" value={this.props.location.coordinates.lng || 0} onChange={this.handleFormInputAddressCoordinatesChange} />
                     <label htmlFor="address">Address Lat</label>
-                <input type="text" name="lat" value={this.props.location.coordinates.lat} onChange={this.handleFormInputAddressCoordinatesChange} />
+                <input type="text" name="lat" value={this.props.location.coordinates.lat || 0} onChange={this.handleFormInputAddressCoordinatesChange} />
                     <input type="submit" value="Save" />
                 </form>
         );
