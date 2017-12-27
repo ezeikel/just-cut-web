@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import AddShopForm from '../../components/AddShopForm';
-import Shops from '../../components/Shops';
-import Reviews from '../Reviews';
+import AddShopForm from '../../components/AddShopForm/AddShopForm';
+import Shops from '../../components/Shops/Shops';
+import Reviews from '../Reviews/Reviews';
 
 const Main = () => (
     <main>
