@@ -11,8 +11,11 @@ const Header = () => (
                 <li><NavLink to="/shops">Shops</NavLink></li>
                 <li><NavLink to="/reviews">Reviews</NavLink></li>
             </ul>
+            <ul>
+                <li><NavLink to="/add-shop">Add Shop</NavLink></li>
+            </ul>
         </nav>
     </header>
-)
+);
 
 export default Header;
