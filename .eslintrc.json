@@ -1,3 +1,21 @@
 {
-    "extends": "airbnb"
+    "extends": "airbnb",
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "impliedStrict": true,
+            "classes": true
+        }
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "mongo": true
+    },
+    "rules": {
+        "react/prop-types": true
+    }
 }
