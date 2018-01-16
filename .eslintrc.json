@@ -16,6 +16,7 @@
         "mongo": true
     },
     "rules": {
-        "react/prop-types": true
+        "react/prop-types": true,
+        "comma-dangle": 0
     }
 }

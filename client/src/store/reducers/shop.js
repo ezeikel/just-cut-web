@@ -8,9 +8,9 @@ const initialState = {
     address: '',
     coordinates: {
       lng: 0,
-      lat: 0,
-    },
-  },
+      lat: 0
+    }
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,10 +22,10 @@ const reducer = (state = initialState, action) => {
         location: {
           ...state.location,
           coordinates: {
-            ...state.location.coordinates,
-          },
+            ...state.location.coordinates
+          }
         },
-        loading: true,
+        loading: true
       };
     case actionTypes.FETCH_SHOPS_SUCCESS:
       return {
@@ -34,10 +34,10 @@ const reducer = (state = initialState, action) => {
         location: {
           ...state.location,
           coordinates: {
-            ...state.location.coordinates,
-          },
+            ...state.location.coordinates
+          }
         },
-        loading: false,
+        loading: false
       };
     case actionTypes.FETCH_SHOPS_FAIL:
       return {
@@ -46,10 +46,10 @@ const reducer = (state = initialState, action) => {
         location: {
           ...state.location,
           coordinates: {
-            ...state.location.coordinates,
-          },
+            ...state.location.coordinates
+          }
         },
-        loading: false,
+        loading: false
       };
     case actionTypes.HANDLE_FORM_INPUT_CHANGE:
       return {
@@ -58,10 +58,10 @@ const reducer = (state = initialState, action) => {
         location: {
           ...state.location,
           coordinates: {
-            ...state.location.coordinates,
-          },
+            ...state.location.coordinates
+          }
         },
-        [action.name]: action.value,
+        [action.name]: action.value
       };
     case actionTypes.HANDLE_FORM_INPUT_ADDRESS_CHANGE:
       return {
@@ -71,8 +71,8 @@ const reducer = (state = initialState, action) => {
           ...state.location,
           address: action.value,
           coordinates: {
-            ...state.location.coordinates,
-          },
+            ...state.location.coordinates
+          }
         },
       };
     case actionTypes.HANDLE_FORM_INPUT_ADDRESS_COORDINATES_CHANGE:
@@ -83,8 +83,8 @@ const reducer = (state = initialState, action) => {
           ...state.location,
           coordinates: {
             ...state.location.coordinates,
-            [action.name]: action.value,
-          },
+            [action.name]: action.value
+          }
         },
       };
     case actionTypes.ADD_SHOP_START:
@@ -94,10 +94,10 @@ const reducer = (state = initialState, action) => {
         location: {
           ...state.location,
           coordinates: {
-            ...state.location.coordinates,
-          },
+            ...state.location.coordinates
+          }
         },
-        loading: true,
+        loading: true
       };
     case actionTypes.ADD_SHOP_SUCCESS:
       return {
@@ -110,10 +110,10 @@ const reducer = (state = initialState, action) => {
           coordinates: {
             ...state.location.coordinates,
             lng: 0,
-            lat: 0,
-          },
+            lat: 0
+          }
         },
-        loading: false,
+        loading: false
       };
     case actionTypes.ADD_SHOP_FAIL:
       return {
@@ -122,10 +122,10 @@ const reducer = (state = initialState, action) => {
         location: {
           ...state.location,
           coordinates: {
-            ...state.location.coordinates,
-          },
+            ...state.location.coordinates
+          }
         },
-        loading: false,
+        loading: false
       };
     default:
       return state;
