@@ -1,7 +1,7 @@
 export {
-    fetchShops,
-    handleFormInputChange,
-    handleFormInputAddressChange,
-    handleFormInputAddressCoordinatesChange,
-    addShop
+  fetchShops,
+  handleFormInputChange,
+  handleFormInputAddressChange,
+  handleFormInputAddressCoordinatesChange,
+  addShop
 } from './shop';

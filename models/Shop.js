@@ -1,46 +1,57 @@
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
 const slug = require('slugs');
 
-const shopSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    trim: true,
-    required: 'Please enter a shop name!'
-  },
-  slug: String,
-  description: {
-    type: String,
-    trim: true
-  },
-  tags: [String],
-  created: {
-    type: Date,
-    default: Date.now
-  },
-  location: {
-    type: {
+mongoose.Promise = global.Promise;
+
+const shopSchema = new mongoose.Schema(
+  {
+    name: {
       type: String,
-      default: 'Point'
+      trim: true,
+      required: 'Please enter a shop name!'
     },
-    coordinates: [{
-      type: Number,
-      required: 'You must supply coordinates!'
-    }],
-    address: {
+    slug: String,
+    description: {
       type: String,
-      required: 'You must supply an address!',
       trim: true
+    },
+    tags: [String],
+    created: {
+      type: Date,
+      default: Date.now
+    },
+    location: {
+      type: {
+        type: String,
+        default: 'Point'
+      },
+      coordinates: [{
+        type: Number,
+        required: 'You must supply coordinates!'
+      }],
+      address: {
+        type: String,
+        required: 'You must supply an address!',
+        trim: true
+      }
     }
+  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
-},
-{
-  toJSON: { virtuals: true },
-  toObject: { virtuals: true },
+);
+
+// define our indexs
+shopSchema.index({
+  name: 'text',
+  description: 'text'
 });
 
+shopSchema.index({ location: '2dsphere' });
+
 shopSchema.pre('save', async function(next) {
-  if(!this.isModified('name')) {
+  if (!this.isModified('name')) {
     next(); // skip it
     return; // stop this function from running
   }

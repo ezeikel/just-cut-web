@@ -28,7 +28,7 @@ class AddShop extends Component {
     this.props.onHandleFormInputAddressCoordinatesChange(e.target.name, e.target.value);
   }
 
-  handleSubmit = async (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
     const { name, location } = this.props;
     this.props.onAddShop(name, location);
