@@ -7,6 +7,12 @@ export const handleFormInputPostcodeChange = (value) => (
   }
 );
 
+export const lookupPostcodeStart = () => (
+  {
+    type: actionTypes.LOOKUP_POSTCODE_START
+  }
+);
+
 export const lookupPostcodeSuccess = (latitude, longitude) => (
   {
     type: actionTypes.LOOKUP_POSTCODE_SUCCESS,
@@ -15,9 +21,23 @@ export const lookupPostcodeSuccess = (latitude, longitude) => (
   }
 );
 
-export const lookupPostcodeStart = () => (
+export const findShopsStart = () => (
   {
-    type: actionTypes.LOOKUP_POSTCODE_START
+    type: actionTypes.FIND_SHOPS_START
+  }
+);
+
+export const findShopsSuccess = (shops) => (
+  {
+    type: actionTypes.FIND_SHOPS_SUCCESS,
+    shops
+  }
+);
+
+export const findShopsFail = (error) => (
+  {
+    type: actionTypes.FIND_SHOPS_FAIL,
+    error
   }
 );
 
@@ -25,11 +45,30 @@ export const lookupPostcode = (postcode) => (
   async dispatch => {
     dispatch(lookupPostcodeStart());
 
-    const response = await fetch(`http://api.postcodes.io/postcodes/${postcode}`);
-    const json = await response.json();
+    const postcodeResponse = await fetch(`http://api.postcodes.io/postcodes/${postcode}`);
+    const postcodeJson = await postcodeResponse.json();
 
-    const { latitude, longitude } = json.result;
+    const { latitude, longitude } = postcodeJson.result;
 
     dispatch(lookupPostcodeSuccess(latitude, longitude));
+
+    dispatch(findShopsStart());
+
+    const shopsResponse = await fetch('/find-shops', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        coordinates: [longitude, latitude],
+        minDistance: 0,
+        maxDistance: 8046.72
+      })
+    });
+
+    const shopsJson = await shopsResponse.json();
+
+    dispatch(findShopsSuccess(shopsJson));
   }
 );

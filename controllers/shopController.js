@@ -9,6 +9,20 @@ exports.createShop = async (req, res) => {
 
 exports.getShops = async (req, res) => {
   const shopsPromise = Shop.find();
-  const stores = await shopsPromise;
-  res.json(stores);
+  const shops = await shopsPromise;
+  res.json(shops);
+};
+
+exports.findShops = async (req, res) => {
+  const shopsPromise = Shop.find({
+    location: {
+      $near: {
+        $geometry: { type: 'Point', coordinates: req.body.coordinates },
+        $minDistance: req.body.minDistance,
+        $maxDistance: req.body.maxDistance
+      }
+    }
+  });
+  const shops = await shopsPromise;
+  res.json(shops);
 };

@@ -24,8 +24,7 @@ class Search extends Component {
           </div>
         </form>
         <section>
-          <span>Lat: {this.props.lat}</span>
-          <span>Lng: {this.props.lng}</span>
+          {this.props.foundShops.map(shop => <p key={shop._id}>{shop.name}</p>)}
         </section>
       </div>
     );
@@ -36,7 +35,8 @@ const mapStateToProps = state => (
   {
     postcode: state.search.postcode,
     lat: state.search.lat,
-    lng: state.search.lng
+    lng: state.search.lng,
+    foundShops: state.search.foundShops
   }
 );
 
