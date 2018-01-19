@@ -9,25 +9,23 @@ import './index.css';
 import App from './containers/App/App';
 import registerServiceWorker from './registerServiceWorker';
 import shopReducer from './store/reducers/shop';
-import reviewReducer from './store/reducers/review';
+import searchReducer from './store/reducers/search';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-    shop: shopReducer,
-    review: reviewReducer
+  shop: shopReducer,
+  search: searchReducer
 });
 
-const store = createStore(rootReducer, composeEnhancers(
-    applyMiddleware(thunk)
-));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 
 const app = (
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 
 render(app, document.querySelector('#root'));

@@ -5,3 +5,8 @@ export {
   handleFormInputAddressCoordinatesChange,
   addShop
 } from './shop';
+
+export {
+  lookupPostcode,
+  handleFormInputPostcodeChange
+} from './search';
