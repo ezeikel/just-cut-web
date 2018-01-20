@@ -3,17 +3,48 @@ import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
 class Search extends Component {
+  state = {
+    valid: true,
+    submitted: false
+  }
+
+  validatePostcode = async (postcode) => {
+    const response = await fetch(`http://api.postcodes.io/postcodes/${postcode}/validate`);
+    const data = await response.json();
+    return data.result;
+  }
+
   handleFormInputPostcodeChange = (e) => {
     this.props.onHandleFormInputPostcodeChange(e.target.value);
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
+
     const { postcode } = this.props;
-    this.props.onLookupPostcode(postcode);
+    const valid = await this.validatePostcode(postcode);
+
+    this.setState({ valid, submitted: true });
+
+    if (this.state.valid) {
+      this.props.onLookupPostcode(postcode);
+    }
   }
 
   render() {
+    let results;
+    let error;
+
+    if (!this.state.valid && this.state.submitted) {
+      error = <div><p>Oops, that doesn't seem like a valid postcode. Are you sure you're entering it correctly (for example, W1T 6PZ)?</p></div>;
+    }
+
+    if (this.props.foundShops.length > 0 && this.state.valid) {
+      results = this.props.foundShops.map(shop => <p key={shop._id}>{shop.name}</p>);
+    } else if (this.state.valid && this.state.submitted) {
+      results = <div><p>No shops found :(</p></div>;
+    }
+
     return (
       <div>
         <form onSubmit={this.handleSubmit} className="landing-page-search">
@@ -23,8 +54,9 @@ class Search extends Component {
             <input type="submit" />
           </div>
         </form>
+        {error}
         <section>
-          {this.props.foundShops.map(shop => <p key={shop._id}>{shop.name}</p>)}
+          {results}
         </section>
       </div>
     );
