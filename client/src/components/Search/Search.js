@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
+import SearchResult from './SearchResult/SearchResult';
+
 class Search extends Component {
   state = {
     valid: true,
@@ -40,7 +42,7 @@ class Search extends Component {
     }
 
     if (this.props.foundShops.length > 0 && this.state.valid) {
-      results = this.props.foundShops.map(shop => <p key={shop._id}>{shop.name}</p>);
+      results = this.props.foundShops.map(shop => <SearchResult key={shop._id} lng={shop.location.coordinates[0]} lat={shop.location.coordinates[1]} name={shop.name} />);
     } else if (this.state.valid && this.state.submitted) {
       results = <div><p>No shops found :(</p></div>;
     }
