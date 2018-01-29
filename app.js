@@ -72,6 +72,16 @@ app.use((req, res, next) => {
 // after allll that above middleware, we finally handle our own routes!
 app.use('/', routes);
 
+if (app.get('env') === 'production') {
+  // express will serve up production assets like main.js or main.css
+  app.use(express.static('client/build'));
+
+  // express will serve up the index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 // if that above routes didnt work, we 404 them and forward to error handler
 app.use(errorHandlers.notFound);
 
