@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const promisify = require('es6-promisify');
-const flash = require('connect-flash');
 const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
@@ -19,10 +18,6 @@ const favicon = require('serve-favicon');
 
 // create our Express app
 const app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views')); // this is the folder where we keep our pug files
-app.set('view engine', 'pug'); // we use the engine pug, mustache or EJS work great too
 
 // serves up static files from the public folder. Anything in public/ will just be served up as the file it is
 app.use(express.static(path.join(__dirname, 'public')));
@@ -51,13 +46,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// the flash middleware lets us use req.flash('error', 'Shit!'), which will then pass thatg message to the next page the user requests
-app.use(flash());
-
 // pass variables to our templates + helpers
 app.use((req, res, next) => {
   res.locals.h = helpers;
-  res.locals.flashes = req.flash();
   res.locals.user = req.user || null;
   res.locals.currentPath = req.path;
   next();
@@ -84,9 +75,6 @@ if (app.get('env') === 'production') {
 
 // if that above routes didnt work, we 404 them and forward to error handler
 app.use(errorHandlers.notFound);
-
-// one of our error handlers will see if these errors are just validation errors
-app.use(errorHandlers.flashValidationErrors);
 
 // otherwise this was a really bad error we didnt expect!
 if (app.get('env') === 'development') {
