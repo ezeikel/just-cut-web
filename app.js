@@ -19,8 +19,11 @@ const favicon = require('serve-favicon');
 // create our Express app
 const app = express();
 
+// view engine setup
+app.set('view engine', 'pug'); // we use the engine pug, mustache or EJS work great too
+
 // serves up static files from the public folder. Anything in public/ will just be served up as the file it is
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 // takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json());
@@ -36,7 +39,7 @@ app.use(cookieParser());
 // this keeps user logged in and allows us to send flash messages
 app.use(session({
   secret: process.env.SECRET,
-  key: process.env.KEY,
+  key: process.env.COOKIE_KEY,
   resave: false,
   saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection })
