@@ -11,7 +11,7 @@ class Search extends Component {
   }
 
   validatePostcode = async (postcode) => {
-    const response = await fetch(`http://api.postcodes.io/postcodes/${postcode}/validate`);
+    const response = await fetch(`https://api.postcodes.io/postcodes/${postcode}/validate`);
     const data = await response.json();
     return data.result;
   }
