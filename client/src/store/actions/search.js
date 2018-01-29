@@ -45,12 +45,13 @@ export const lookupPostcode = (postcode) => (
   async dispatch => {
     dispatch(lookupPostcodeStart());
 
-    const postcodeResponse = await fetch(`https://api.postcodes.io/postcodes/${postcode}`);
+    const postcodeResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=AIzaSyDQmv3K2R7X6wHANEARZFVxeh7szakcxKs`);
+
+
     const postcodeJson = await postcodeResponse.json();
+    const { lat, lng } = postcodeJson.results[0].geometry.location;
 
-    const { latitude, longitude } = postcodeJson.result;
-
-    dispatch(lookupPostcodeSuccess(latitude, longitude));
+    dispatch(lookupPostcodeSuccess(lat, lng));
 
     dispatch(findShopsStart());
 
@@ -61,7 +62,7 @@ export const lookupPostcode = (postcode) => (
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        coordinates: [longitude, latitude],
+        coordinates: [lng, lat  ],
         minDistance: 0,
         maxDistance: 8046.72
       })
