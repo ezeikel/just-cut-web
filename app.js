@@ -13,7 +13,6 @@ const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 
 // kept from express-generator
-const logger = require('morgan');
 const favicon = require('serve-favicon');
 
 // create our Express app
@@ -21,9 +20,6 @@ const app = express();
 
 // view engine setup
 app.set('view engine', 'pug'); // we use the engine pug, mustache or EJS work great too
-
-// serves up static files from the public folder. Anything in public/ will just be served up as the file it is
-//app.use(express.static(path.join(__dirname, 'public')));
 
 // takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json());
