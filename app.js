@@ -72,7 +72,7 @@ app.use((req, res, next) => {
 // after allll that above middleware, we finally handle our own routes!
 app.use('/', routes);
 
-if (app.get('env') === 'production') {
+if (process.env.NODE_ENV === 'production') {
   // express will serve up production assets like main.js or main.css
   app.use(express.static('client/build'));
 
@@ -89,7 +89,7 @@ app.use(errorHandlers.notFound);
 app.use(errorHandlers.flashValidationErrors);
 
 // otherwise this was a really bad error we didnt expect!
-if (app.get('env') === 'development') {
+if (process.env.NODE_ENV === 'development') {
   /* Development Error Handler - Prints stack trace */
   app.use(errorHandlers.developmentErrors);
 } else {
