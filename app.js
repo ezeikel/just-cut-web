@@ -79,16 +79,15 @@ app.use(errorHandlers.notFound);
 app.use(errorHandlers.flashValidationErrors);
 
 // otherwise this was a really bad error we didnt expect!
-if(app.get('env') === 'development') {
+if (app.get('env') === 'development') {
   /* Development Error Handler - Prints stack trace */
   app.use(errorHandlers.developmentErrors);
+} else {
+  // production error handler
+  app.use(errorHandlers.productionErrors);
 }
 
-// production error handler
-app.use(errorHandlers.productionErrors);
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // done! we export is so we can start the site in start.js
 module.exports = app;
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

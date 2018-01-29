@@ -10,7 +10,7 @@ mongoose.connection.on('error', (err) => {
     console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
 });
 
-// READY?! Let's go!
+// Load mongodb collections on start up
 require('./models/Shop');
 
 // Start our app!
