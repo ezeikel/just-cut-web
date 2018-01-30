@@ -18,9 +18,6 @@ const favicon = require('serve-favicon');
 // create our Express app
 const app = express();
 
-// view engine setup
-app.set('view engine', 'pug'); // we use the engine pug, mustache or EJS work great too
-
 // takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
