@@ -45,11 +45,10 @@ export const lookupPostcode = (postcode) => (
   async dispatch => {
     dispatch(lookupPostcodeStart());
 
-    const postcodeResponse = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=AIzaSyDQmv3K2R7X6wHANEARZFVxeh7szakcxKs`);
+    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=AIzaSyDQmv3K2R7X6wHANEARZFVxeh7szakcxKs`);
 
-
-    const postcodeJson = await postcodeResponse.json();
-    const { lat, lng } = postcodeJson.results[0].geometry.location;
+    const json = await response.json();
+    const { lat, lng } = json.results[0].geometry.location;
 
     dispatch(lookupPostcodeSuccess(lat, lng));
 
