@@ -81,8 +81,6 @@
 
 __webpack_require__(0);
 
-var _bling = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./modules/bling\""); e.code = 'MODULE_NOT_FOUND';; throw e; }()));
-
 /***/ })
 /******/ ]);
 //# sourceMappingURL=App.bundle.js.map
