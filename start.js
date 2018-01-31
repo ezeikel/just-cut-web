@@ -13,10 +13,15 @@ mongoose.connection.on('error', (err) => {
 // Load mongodb collections on start up
 require('./models/Shop');
 
-// Start our app!
+// scrambles a connection string, showing only relevant info
+const scramble = (connection_string) => connection_string.replace(/:\/\/.*?\//, "://***/");
+
+// Start our app & notify console of server boot and current settings
 const app = require('./app');
 app.set('port', process.env.PORT || 7777);
 const server = app.listen(app.get('port'), () => {
+    console.log(`Just Cutt API ✂️`);
     console.log(`Express running → PORT ${server.address().port}`);
     console.log(`Environment → ${app.get('env')}`);
+    console.log(`DATABASE → ${scramble(process.env.DATABASE)}`);
 });

@@ -22,6 +22,17 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// configure app to handle CORS
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With, content-type, Authorization"
+  );
+  next();
+});
+
 // Exposes a bunch of methods for validation data
 app.use(expressValidator());
 
