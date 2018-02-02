@@ -1,21 +1,17 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom'; // eslint-disable-line
+import { Link } from 'react-router-dom';
 
 import './Header.css';
 
 const Header = () => (
   <header>
-    <h1>Header works!</h1>
-    {/* <nav>
+    <Link to="/"><h1>Just Cutt</h1></Link>
+    <nav>
       <ul>
-        <li><NavLink to="/" exact>Home</NavLink></li>
-        <li><NavLink to="/shops">Shops</NavLink></li>
-        <li><NavLink to="/reviews">Reviews</NavLink></li>
+        <li><Link to="/login">Login</Link></li>
+        <li><Link to="/help">Help</Link></li>
       </ul>
-      <ul>
-        <li><NavLink to="/add-shop">Add Shop</NavLink></li>
-      </ul>
-    </nav> */}
+    </nav>
   </header>
 );
 

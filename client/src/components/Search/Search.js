@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
-import SearchResult from './SearchResult/SearchResult';
+import SearchResults from './SearchResults/SearchResults';
 
 class Search extends Component {
   state = {
@@ -33,20 +33,17 @@ class Search extends Component {
     }
   }
 
-  render() {
-    let results;
-    let error;
-
+  renderSearchResults() {
     if (!this.state.valid && this.state.submitted) {
-      error = <div><p>Oops, that doesn't seem like a valid postcode. Are you sure you're entering it correctly (for example, W1T 6PZ)?</p></div>;
-    }
-
-    if (this.props.foundShops.length > 0 && this.state.valid) {
-      results = this.props.foundShops.map(shop => <SearchResult key={shop._id} lng={shop.location.coordinates[0]} lat={shop.location.coordinates[1]} name={shop.name} />);
+      return <div><p>Oops, that doesn't seem like a valid postcode. Are you sure you're entering it correctly (for example, W1T 6PZ)?</p></div>;
     } else if (this.state.valid && this.state.submitted) {
-      results = <div><p>No shops found :(</p></div>;
+      return <SearchResults postcode={this.props.postcode} results={this.props.foundShops} />
+    } else {
+      return null;
     }
+  }
 
+  render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit} className="landing-page-search">
@@ -56,9 +53,8 @@ class Search extends Component {
             <input type="submit" />
           </div>
         </form>
-        {error}
         <section>
-          {results}
+          {this.renderSearchResults()}
         </section>
       </div>
     );

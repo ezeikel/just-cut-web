@@ -1,5 +1,5 @@
 import React from 'react';
-import GoogleMap from '../../GoogleMap/GoogleMap';
+import GoogleMap from '../../../GoogleMap/GoogleMap';
 
 const SearchResult = (props) => (
   <div>
