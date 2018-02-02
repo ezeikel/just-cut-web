@@ -11,7 +11,7 @@ class SearchResults extends Component {
   render() {
     return (
     <div>
-      <header>{this.props.results.length} barbershops in {this.props.postcode.toUpperCase()} Brixton </header>
+      <header>{this.props.results.length} barbershops in {this.props.postcode.toUpperCase()} {this.props.area} </header>
       {this.renderSearchResults()};
     </div>
     )

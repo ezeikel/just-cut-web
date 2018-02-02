@@ -13,11 +13,12 @@ export const lookupPostcodeStart = () => (
   }
 );
 
-export const lookupPostcodeSuccess = (latitude, longitude) => (
+export const lookupPostcodeSuccess = (latitude, longitude, area) => (
   {
     type: actionTypes.LOOKUP_POSTCODE_SUCCESS,
     latitude,
-    longitude
+    longitude,
+    area
   }
 );
 
@@ -49,8 +50,9 @@ export const lookupPostcode = (postcode) => (
 
     const json = await response.json();
     const { lat, lng } = json.results[0].geometry.location;
+    const area = json.results[0].address_components[1].short_name;
 
-    dispatch(lookupPostcodeSuccess(lat, lng));
+    dispatch(lookupPostcodeSuccess(lat, lng, area));
 
     dispatch(findShopsStart());
 

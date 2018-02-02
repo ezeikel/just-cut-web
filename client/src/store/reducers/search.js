@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
   loading: false,
   postcode: '',
+  area: '',
   lat: 0,
   lng: 0,
   foundShops: []
@@ -25,6 +26,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         lat: action.latitude,
         lng: action.longitude,
+        area: action.area,
         loading: false
       };
     case actionTypes.FIND_SHOPS_START:
