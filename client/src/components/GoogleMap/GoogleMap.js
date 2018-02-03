@@ -1,30 +1,32 @@
 import React, { Component } from 'react';
 
 class GoogleMap extends Component {
-    shouldComponentUpdate() {
-        return false;
-    }
+  componentDidMount() {
+    const shop = { lat: this.props.lat, lng: this.props.lng };
+    this.map = new google.maps.Map(this.mapEl, { // eslint-disable-line
+      zoom: 15,
+      center: shop
+    });
 
-    componentWillReceiveProps(nextProps) {
-        this.map.panTo({ lat: nextProps.lat, lng: nextProps.lng });
-    }
+    new google.maps.Marker({ // eslint-disable-line
+      position: shop,
+      map: this.map
+    });
+  }
 
-    componentDidMount() {
-       const shop = {lat: this.props.lat, lng: this.props.lng};
-       this.map = new google.maps.Map(this.refs.map, { // eslint-disable-line
-           zoom: 15,
-           center: shop
-       });
+  componentWillReceiveProps(nextProps) {
+    this.map.panTo({ lat: nextProps.lat, lng: nextProps.lng });
+  }
 
-       new google.maps.Marker({ // eslint-disable-line
-           position: shop,
-           map: this.map
-       });
-    }
+  shouldComponentUpdate() {
+    return false;
+  }
 
-    render() {
-       return <div className="map" ref="map" />
-    }
+  render() {
+    return (
+      <div className="map" ref={(div) => { this.mapEl = div; }} />
+    );
+  }
 }
 
 export default GoogleMap;

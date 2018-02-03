@@ -40,6 +40,8 @@ class AddShop extends Component {
         <label htmlFor="name">Name:</label>
         <input type="text" name="name" value={this.props.name} onChange={this.handleFormInputChange} />
         <label htmlFor="address">Address</label>
+        <label htmlFor="photo">Photo:</label>
+        <input type="file" name="photo" accept="image/gif, image/png, image/jpeg" />
         <input type="text" name="address" value={this.props.location.address} onChange={this.handleFormInputAddressChange} />
         <label htmlFor="address">Address Lng</label>
         <input type="text" name="lng" value={this.props.location.coordinates.lng || 0} onChange={this.handleFormInputAddressCoordinatesChange} />

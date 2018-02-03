@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
-
 const slug = require('slugs');
+
+const { Schema } = mongoose;
 
 mongoose.Promise = global.Promise;
 
@@ -36,7 +36,8 @@ const shopSchema = new Schema(
         required: 'You must supply an address!',
         trim: true
       }
-    }
+    },
+    photo: String
   },
   {
     toJSON: { virtuals: true },
