@@ -70,6 +70,8 @@ app.use((req, res, next) => {
 // after allll that above middleware, we finally handle our own routes!
 app.use('/', routes);
 
+app.use('/public', express.static(path.join(__dirname, '/public')));
+
 if (app.get('env') === 'production') {
   // express will serve up production assets like main.js or main.css
   app.use(express.static('client/build'));
