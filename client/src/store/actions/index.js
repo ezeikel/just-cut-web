@@ -1,12 +1,15 @@
 export {
-  fetchShops,
+  lookupPostcode,
+  handleFormInputPostcodeChange
+} from './search';
+
+export {
+  fetchShops
+} from './shop';
+
+export {
   handleFormInputChange,
   handleFormInputAddressChange,
   handleFormInputAddressCoordinatesChange,
   addShop
-} from './shop';
-
-export {
-  lookupPostcode,
-  handleFormInputPostcodeChange
-} from './search';
+} from './addShop';

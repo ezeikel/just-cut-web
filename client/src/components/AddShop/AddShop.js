@@ -55,14 +55,13 @@ class AddShop extends Component {
 
 const mapStateToProps = state => (
   {
-    name: state.shop.name,
-    location: state.shop.location
+    name: state.addShop.name,
+    location: state.addShop.location
   }
 );
 
 const mapDispatchToProps = dispatch => (
   {
-    onFetchShops: () => dispatch(actions.fetchShops()),
     onHandleFormInputChange: (name, value) => dispatch(actions.handleFormInputChange(name, value)),
     onHandleFormInputAddressChange: (value) => dispatch(actions.handleFormInputAddressChange(value)),
     onHandleFormInputAddressCoordinatesChange: (name, value) => dispatch(actions.handleFormInputAddressCoordinatesChange(name, value)),

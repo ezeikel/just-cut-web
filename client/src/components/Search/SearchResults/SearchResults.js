@@ -9,9 +9,17 @@ class SearchResults extends Component {
   }
 
   render() {
+    let header;
+
+    if (this.props.results.length > 1) {
+      header = <header>{this.props.results.length} barbershops near {this.props.postcode.toUpperCase()} {this.props.area}</header>
+    } else {
+      header = <header>{this.props.results.length} barbershop near {this.props.postcode.toUpperCase()} {this.props.area}</header>
+    }
+
     return (
     <div>
-      <header>{this.props.results.length} barbershops near {this.props.postcode.toUpperCase()} {this.props.area}</header>
+      {header}
       {this.renderSearchResults()};
     </div>
     )

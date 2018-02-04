@@ -8,14 +8,16 @@ import thunk from 'redux-thunk';
 import './index.css';
 import App from './containers/App/App';
 import registerServiceWorker from './registerServiceWorker';
-import shopReducer from './store/reducers/shop';
 import searchReducer from './store/reducers/search';
+import shopReducer from './store/reducers/shop';
+import addShopReducer from './store/reducers/addShop';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
+  search: searchReducer,
   shop: shopReducer,
-  search: searchReducer
+  addShop: addShopReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
