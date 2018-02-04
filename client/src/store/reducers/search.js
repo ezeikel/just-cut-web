@@ -6,7 +6,7 @@ const initialState = {
   area: '',
   lat: 0,
   lng: 0,
-  foundShops: []
+  results: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -37,7 +37,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FIND_SHOPS_SUCCESS:
       return {
         ...state,
-        foundShops: action.shops,
+        results: action.shops,
         loading: false
       };
     default:
