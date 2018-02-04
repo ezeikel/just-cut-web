@@ -20,8 +20,8 @@ const scramble = (connection_string) => connection_string.replace(/:\/\/.*?\//, 
 const app = require('./app');
 app.set('port', process.env.PORT || 7777);
 const server = app.listen(app.get('port'), () => {
-    console.log(`Just Cutt API ✂️`);
-    console.log(`Express running → PORT ${server.address().port}`);
-    console.log(`Environment → ${app.get('env')}`);
+    console.log(`Just Cutt Express Server running ✂️✂️✂️`);
+    console.log(`PORT → ${server.address().port}`);
+    console.log(`ENVIRONMENT → ${app.get('env')}`);
     console.log(`DATABASE → ${scramble(process.env.DATABASE)}`);
 });
