@@ -9,6 +9,10 @@ router.get('/users', catchErrors(userController.testApi));
 router.get('/shops', catchErrors(shopController.getShops));
 router.post('/find-shops', catchErrors(shopController.findShops));
 
-router.post('/add', catchErrors(shopController.createShop));
+router.post('/add',
+  shopController.upload,
+  catchErrors(shopController.resize),
+  catchErrors(shopController.createShop)
+);
 
 module.exports = router;

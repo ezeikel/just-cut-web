@@ -72,27 +72,28 @@ export const addShopStart = () => (
   }
 );
 
-export const addShop = (name, location) => {
+export const addShop = (name, location, photo) => {
   // Converting coordinates object to array so that it can be stored as Point in mongodb
   const { lng, lat } = location.coordinates;
   const coordinates = [lng, lat];
+
+  const mongoLocation = {
+    ...location,
+    coordinates
+  }
+
+  const formData = new FormData();
+  formData.append('name', name);
+  // objects must be encoded to be sent with formData
+  formData.append('location', JSON.stringify(mongoLocation));
+  formData.append('photo', photo);
 
   return async dispatch => {
     dispatch(addShopStart());
 
     await fetch('/add', {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name,
-        location: {
-          ...location,
-          coordinates
-        }
-      })
+      body: formData
     });
 
     dispatch(addShopSuccess());

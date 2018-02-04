@@ -31,7 +31,7 @@ class AddShop extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { name, location } = this.props;
-    this.props.onAddShop(name, location);
+    this.props.onAddShop(name, location, this.fileInput.files[0]);
   }
 
   render() {
@@ -41,7 +41,7 @@ class AddShop extends Component {
         <input type="text" name="name" value={this.props.name} onChange={this.handleFormInputChange} />
         <label htmlFor="address">Address</label>
         <label htmlFor="photo">Photo:</label>
-        <input type="file" name="photo" accept="image/gif, image/png, image/jpeg" />
+        <input type="file" name="photo" accept="image/gif, image/png, image/jpeg" ref={(input) => { this.fileInput = input; }}/>
         <input type="text" name="address" value={this.props.location.address} onChange={this.handleFormInputAddressChange} />
         <label htmlFor="address">Address Lng</label>
         <input type="text" name="lng" value={this.props.location.coordinates.lng || 0} onChange={this.handleFormInputAddressCoordinatesChange} />
@@ -66,7 +66,7 @@ const mapDispatchToProps = dispatch => (
     onHandleFormInputChange: (name, value) => dispatch(actions.handleFormInputChange(name, value)),
     onHandleFormInputAddressChange: (value) => dispatch(actions.handleFormInputAddressChange(value)),
     onHandleFormInputAddressCoordinatesChange: (name, value) => dispatch(actions.handleFormInputAddressCoordinatesChange(name, value)),
-    onAddShop: (name, location) => dispatch(actions.addShop(name, location))
+    onAddShop: (name, location, photo) => dispatch(actions.addShop(name, location, photo))
   }
 );
 
