@@ -4,7 +4,7 @@ import SearchResult from './SearchResult/SearchResult';
 class SearchResults extends Component {
   renderSearchResults() {
     if (this.props.results.length > 0) {
-      return this.props.results.map(shop => <SearchResult key={shop._id} id={shop._id} lng={shop.location.coordinates[0]} lat={shop.location.coordinates[1]} name={shop.name} photo={shop.photo} />);
+      return this.props.results.map(shop => <SearchResult key={shop._id} slug={shop.slug} lng={shop.location.coordinates[0]} lat={shop.location.coordinates[1]} name={shop.name} photo={shop.photo} />);
     }
   }
 

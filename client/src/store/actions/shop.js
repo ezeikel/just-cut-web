@@ -1,32 +1,32 @@
 import * as actionTypes from './actionTypes';
 
-export const fetchShopsSuccess = (shops) => (
+export const fetchShopSuccess = (shop) => (
   {
-    type: actionTypes.FETCH_SHOPS_SUCCESS,
-    shops
+    type: actionTypes.FETCH_SHOP_SUCCESS,
+    shop
   }
 );
 
-export const fetchShopsFail = (error) => (
+export const fetchShopFail = (error) => (
   {
-    type: actionTypes.FETCH_SHOPS_FAIL,
+    type: actionTypes.FETCH_SHOP_FAIL,
     error
   }
 );
 
-export const fetchShopsStart = () => (
+export const fetchShopStart = () => (
   {
-    type: actionTypes.FETCH_SHOPS_START
+    type: actionTypes.FETCH_SHOP_START
   }
 );
 
-export const fetchShops = () => (
+export const fetchShop = (slug) => (
   async dispatch => {
-    dispatch(fetchShopsStart());
+    dispatch(fetchShopStart());
 
-    let fetchedShops = await fetch('/shops');
-    fetchedShops = await fetchedShops.json();
+    let fetchedShop = await fetch(`/shop/${slug}`);
+    fetchedShop = await fetchedShop.json();
 
-    dispatch(fetchShopsSuccess(fetchedShops));
+    dispatch(fetchShopSuccess(fetchedShop));
   }
 );

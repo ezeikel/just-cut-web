@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 class GoogleMap extends Component {
   componentDidMount() {
+    //debugger;
     const shop = { lat: this.props.lat, lng: this.props.lng };
     this.map = new google.maps.Map(this.mapEl, { // eslint-disable-line
       zoom: 15,

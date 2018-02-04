@@ -36,19 +36,6 @@ exports.resize = async (req, res, next) => {
   next();
 }
 
-exports.createShop = async (req, res) => {
-  // turn location json back into an object
-  req.body.location = JSON.parse(req.body.location);
-  const shop = await (new Shop(req.body).save());
-  res.send(`Success. Created the ${shop.name} shop.`);
-};
-
-exports.getShops = async (req, res) => {
-  const shopsPromise = Shop.find();
-  const shops = await shopsPromise;
-  res.json(shops);
-};
-
 exports.findShops = async (req, res) => {
   const shopsPromise = Shop.find({
     location: {
@@ -61,4 +48,22 @@ exports.findShops = async (req, res) => {
   });
   const shops = await shopsPromise;
   res.json(shops);
+};
+
+exports.getShops = async (req, res) => {
+  const shops = await Shop.find();
+  res.json(shops);
+};
+
+exports.getShopBySlug = async (req, res, next) => {
+  const shop = await Shop.findOne({ slug: req.params.slug });
+  if (!shop) return next();
+  res.json(shop);
+};
+
+exports.createShop = async (req, res) => {
+  // turn location json back into an object
+  req.body.location = JSON.parse(req.body.location);
+  const shop = await (new Shop(req.body).save());
+  res.send(`Success. Created the ${shop.name} shop.`);
 };

@@ -8,6 +8,10 @@ export {
 } from './shop';
 
 export {
+  fetchShop
+} from './shop';
+
+export {
   handleFormInputChange,
   handleFormInputAddressChange,
   handleFormInputAddressCoordinatesChange,

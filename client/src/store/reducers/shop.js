@@ -1,43 +1,34 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  loading: false,
-  shop: {}
+  shop: {
+    name: '',
+    photo: '',
+    slug: '',
+    location: {
+      address: '',
+      coordinates: [0,0]
+    }
+  },
+  loading: false
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.FETCH_SHOPS_START:
+    case actionTypes.FETCH_SHOP_START:
       return {
         ...state,
-        location: {
-          ...state.location,
-          coordinates: {
-            ...state.location.coordinates
-          }
-        },
         loading: true
       };
-    case actionTypes.FETCH_SHOPS_SUCCESS:
+    case actionTypes.FETCH_SHOP_SUCCESS:
       return {
         ...state,
-        location: {
-          ...state.location,
-          coordinates: {
-            ...state.location.coordinates
-          }
-        },
+        shop: action.shop,
         loading: false
       };
-    case actionTypes.FETCH_SHOPS_FAIL:
+    case actionTypes.FETCH_SHOP_FAIL:
       return {
         ...state,
-        location: {
-          ...state.location,
-          coordinates: {
-            ...state.location.coordinates
-          }
-        },
         loading: false
       };
     default:
