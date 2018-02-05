@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 class GoogleMap extends Component {
-  componentDidMount() {
-    const shop = { lat: this.props.lat, lng: this.props.lng };
+  componentWillReceiveProps(nextProps) {
+    const shop = { lat: nextProps.lat, lng: nextProps.lng };
     this.map = new google.maps.Map(this.mapEl, { // eslint-disable-line
       zoom: 15,
       center: shop
@@ -14,13 +14,8 @@ class GoogleMap extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    // TODO: Fix issue where new coords props come through but not updated via render
-    this.map.panTo({ lat: nextProps.lat, lng: nextProps.lng });
-  }
-
-  shouldComponentUpdate() {
-    return false;
+  shouldComponentUpdate(nextProps) {
+    return this.props.lat !== nextProps.lat;
   }
 
   render() {

@@ -18,11 +18,11 @@ class Shop extends Component {
         <span>{this.props.shop.slug}</span>
         <address>{this.props.shop.location.address}</address>
         <img src={this.props.shop.photo ? `/public/uploads/${this.props.shop.photo}` : 'http://lorempixel.com/output/business-q-g-640-480-8.jpg'} alt={this.props.shop.slug} />
-        <GoogleMap lat={this.props.shop.location.coordinates[0]} lng={this.props.shop.location.coordinates[1]} />
+        <GoogleMap lat={this.props.shop.location.coordinates[1]} lng={this.props.shop.location.coordinates[0]} />
       </Aux>
-    )
+    );
   }
-};
+}
 
 const mapStateToProps = state => (
   {

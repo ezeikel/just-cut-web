@@ -1,14 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 
-//TODO: Figure out a way to just have an empty shop object to start off with - Breaks google maps coords
 const initialState = {
   shop: {
-    name: '',
-    photo: '',
-    slug: '',
     location: {
-      address: '',
-      coordinates: [0,0]
+      coordinates: [0, 0]
     }
   },
   loading: false
