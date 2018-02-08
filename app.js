@@ -32,16 +32,16 @@ const books = [
 // The GraphQL schema in string form
 // TODO: Figure out how to represent objects/date in schema
 const typeDefs = `
-  type Query { 
+  type Query {
     books: [Book],
-    shops: [Shop] 
+    shops: [Shop]
   }
   type Book { title: String, author: String }
-  type Shop { 
-    name: String, 
+  type Shop {
+    name: String,
     slug: String,
     description: String,
-    tags: [String], 
+    tags: [String],
     photo: String
   }
 `;
