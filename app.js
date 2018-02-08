@@ -11,6 +11,51 @@ const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
+const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
+const { makeExecutableSchema } = require('graphql-tools');
+
+// Some fake data
+const books = [
+  {
+    title: "Harry Potter and the Sorcerer's stone",
+    author: 'J.K. Rowling',
+  },
+  {
+    title: 'Jurassic Park',
+    author: 'Michael Crichton',
+  },
+];
+
+// The GraphQL schema in string form
+const typeDefs = `
+  type Query { books: [Book] }
+  type Book { title: String, author: String }
+`;
+
+// const typeDefs = [`
+//   type Query {
+//     hello: String
+//   }
+
+//   schema {
+//     query: Query
+//   }`];
+
+// The resolvers
+const resolvers = {
+  Query: { books: () => books },
+};
+
+// const resolvers = {
+//   Query: {
+//     hello(root) {
+//       return 'world';
+//     }
+//   }
+// };
+
+// Put together a schema
+const schema = makeExecutableSchema({typeDefs, resolvers});
 
 // kept from express-generator
 const favicon = require('serve-favicon');
@@ -69,6 +114,11 @@ app.use((req, res, next) => {
 
 // after allll that above middleware, we finally handle our own routes!
 app.use('/', routes);
+
+// The GraphQL endpoint
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+// GraphiQL, a visual editor for queries
+app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
