@@ -11,8 +11,11 @@ const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
+
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
+// TODO: Probably need to move this and lines above into a seperate graphql file
+const Shop = mongoose.model('Shop');
 
 // Some fake data
 const books = [
@@ -27,35 +30,32 @@ const books = [
 ];
 
 // The GraphQL schema in string form
+// TODO: Figure out how to represent objects/date in schema
 const typeDefs = `
-  type Query { books: [Book] }
+  type Query { 
+    books: [Book],
+    shops: [Shop] 
+  }
   type Book { title: String, author: String }
+  type Shop { 
+    name: String, 
+    slug: String,
+    description: String,
+    tags: [String], 
+    photo: String
+  }
 `;
-
-// const typeDefs = [`
-//   type Query {
-//     hello: String
-//   }
-
-//   schema {
-//     query: Query
-//   }`];
 
 // The resolvers
 const resolvers = {
-  Query: { books: () => books },
+  Query: {
+    books: () => books,
+    shops: async () => Shop.find()
+  }
 };
 
-// const resolvers = {
-//   Query: {
-//     hello(root) {
-//       return 'world';
-//     }
-//   }
-// };
-
 // Put together a schema
-const schema = makeExecutableSchema({typeDefs, resolvers});
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 // kept from express-generator
 const favicon = require('serve-favicon');
@@ -68,12 +68,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // configure app to handle CORS
-app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT');
   res.setHeader(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With, content-type, Authorization"
+    'Access-Control-Allow-Headers',
+    'X-Requested-With, content-type, Authorization'
   );
   next();
 });

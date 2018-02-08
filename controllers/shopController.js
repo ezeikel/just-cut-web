@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const Shop = mongoose.model('Shop');
 const multer = require('multer');
 const jimp = require('jimp');
@@ -34,7 +35,7 @@ exports.resize = async (req, res, next) => {
   await photo.write(`./public/uploads/${req.body.photo}`);
   // once we have written the photo to our filesystem, keep going!
   next();
-}
+};
 
 exports.findShops = async (req, res) => {
   const shopsPromise = Shop.find({
