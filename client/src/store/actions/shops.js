@@ -24,9 +24,15 @@ export const fetchShops = () => (
   async dispatch => {
     dispatch(fetchShopsStart());
 
-    let fetchedShops = await fetch('/shops');
+    let fetchedShops = await fetch('/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: '{ shops { name, slug, photo } books { author, title } }' }) // TODO: seem to have to always specify fields
+    });
     fetchedShops = await fetchedShops.json();
 
-    dispatch(fetchShopsSuccess(fetchedShops));
+    const { shops } = fetchedShops.data;
+
+    dispatch(fetchShopsSuccess(shops));
   }
 );

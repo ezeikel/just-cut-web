@@ -10,7 +10,6 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_SHOPS_START:
       return {
         ...state,
-        shops: [...state.shops],
         loading: true
       };
     case actionTypes.FETCH_SHOPS_SUCCESS:
@@ -22,7 +21,6 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_SHOPS_FAIL:
       return {
         ...state,
-        shops: [...state.shops],
         loading: false
       };
     default:

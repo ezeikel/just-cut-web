@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
 
-import Shop from './Shop/Shop';
-
 class Shops extends Component {
   componentDidMount() {
     this.props.onFetchShops();
@@ -12,7 +10,11 @@ class Shops extends Component {
 
   render() {
     const shops = this.props.shops.map(shop => (
-      <Shop key={shop._id} lng={shop.location.coordinates[0]} lat={shop.location.coordinates[1]} name={shop.name} photo={shop.photo} />
+      <div key={shop.slug}>
+        <h3>{shop.name}</h3>
+        <span>{shop.slug}</span>
+        <img height={300} width={300} src={`/public/uploads/${shop.photo}`} alt={shop.slug} />
+      </div>
     ));
     return (
       <div>
@@ -25,8 +27,8 @@ class Shops extends Component {
 
 const mapStateToProps = state => (
   {
-    shops: state.shop.shops,
-    loading: state.shop.loading
+    shops: state.shops.shops,
+    loading: state.shops.loading
   }
 );
 

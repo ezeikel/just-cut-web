@@ -12,9 +12,10 @@ const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 
-const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
-// TODO: Probably need to move this and lines above into a seperate graphql file
+const { buildSchema } = require('graphql');
+const graphqlHTTP = require('express-graphql');
+
+// TODO: Probably need to move this related graphql stuff into a seperate graphql file
 const Shop = mongoose.model('Shop');
 
 // Some fake data
@@ -30,8 +31,8 @@ const books = [
 ];
 
 // The GraphQL schema in string form
-// TODO: Figure out how to represent objects/date in schema
-const typeDefs = `
+// TODO: Figure out how to represent objects/dates in schema
+const schema = buildSchema(`
   type Query {
     books: [Book],
     shops: [Shop]
@@ -44,18 +45,13 @@ const typeDefs = `
     tags: [String],
     photo: String
   }
-`;
+`);
 
 // The resolvers
 const resolvers = {
-  Query: {
-    books: () => books,
-    shops: async () => Shop.find()
-  }
+  books: () => books,
+  shops: async () => Shop.find()
 };
-
-// Put together a schema
-const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 // kept from express-generator
 const favicon = require('serve-favicon');
@@ -116,9 +112,11 @@ app.use((req, res, next) => {
 app.use('/', routes);
 
 // The GraphQL endpoint
-app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-// GraphiQL, a visual editor for queries
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+app.use('/graphql', graphqlHTTP({
+  schema,
+  rootValue: resolvers,
+  graphiql: true // GraphiQL, a visual editor for queries
+}));
 
 app.use('/public', express.static(path.join(__dirname, '/public')));
 

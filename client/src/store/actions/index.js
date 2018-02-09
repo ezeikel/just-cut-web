@@ -5,7 +5,7 @@ export {
 
 export {
   fetchShops
-} from './shop';
+} from './shops';
 
 export {
   fetchShop

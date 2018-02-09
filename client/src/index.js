@@ -10,6 +10,7 @@ import App from './containers/App/App';
 import registerServiceWorker from './registerServiceWorker';
 import searchReducer from './store/reducers/search';
 import shopReducer from './store/reducers/shop';
+import shopsReducer from './store/reducers/shops';
 import addShopReducer from './store/reducers/addShop';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -17,6 +18,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers({
   search: searchReducer,
   shop: shopReducer,
+  shops: shopsReducer,
   addShop: addShopReducer
 });
 
