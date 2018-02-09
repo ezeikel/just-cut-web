@@ -10,7 +10,7 @@ const promisify = require('es6-promisify');
 const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
-const errorHandlers = require('./handlers/errorHandlers');
+// const errorHandlers = require('./handlers/errorHandlers');
 
 const { buildSchema } = require('graphql');
 const graphqlHTTP = require('express-graphql');
