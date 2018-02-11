@@ -3,23 +3,26 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../../store/actions/index';
 
-import Aux from '../../../hoc/Aux/Aux';
 import GoogleMap from '../../GoogleMap/GoogleMap';
 
 class Shop extends Component {
   componentDidMount() {
-    this.props.onFetchShop(this.props.match.params.slug);
+    if (this.props.match) {
+      this.props.onFetchShop(this.props.match.params.slug);
+    }
   }
 
   render() {
+    const props = this.props.match ? this.props.shop : this.props;
+
     return (
-      <Aux>
-        <h3>{this.props.shop.name}</h3>
-        <span>{this.props.shop.slug}</span>
-        <address>{this.props.shop.location.address}</address>
-        <img src={this.props.shop.photo ? `/public/uploads/${this.props.shop.photo}` : 'http://lorempixel.com/output/business-q-g-640-480-8.jpg'} alt={this.props.shop.slug} />
-        <GoogleMap lat={this.props.shop.location.coordinates[1]} lng={this.props.shop.location.coordinates[0]} />
-      </Aux>
+      <section data-id={props.id}>
+        <h3>{props.name}</h3>
+        <span>{props.slug}</span>
+        <address>{props.location.address}</address>
+        <img height={300} width={300} src={props.photo ? `/public/uploads/${props.photo}` : 'http://lorempixel.com/output/business-q-g-640-480-8.jpg'} alt={props.slug} />
+        <GoogleMap lat={props.location.coordinates[1]} lng={props.location.coordinates[0]} />
+      </section>
     );
   }
 }

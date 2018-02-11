@@ -37,10 +37,10 @@ class Search extends Component {
     if (!this.state.valid && this.state.submitted) {
       return <div><p>Oops, that doesn't seem like a valid postcode. Are you sure you're entering it correctly (for example, W1T 6PZ)?</p></div>;
     } else if (this.state.valid && this.state.submitted) {
-      return <SearchResults postcode={this.props.postcode} area={this.props.area} results={this.props.results} />
-    } else {
-      return null;
+      return <SearchResults postcode={this.props.postcode} area={this.props.area} results={this.props.results} />;
     }
+
+    return null;
   }
 
   render() {

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
 
+import Shop from './Shop/Shop';
+
 class Shops extends Component {
   componentDidMount() {
     this.props.onFetchShops();
@@ -10,11 +12,7 @@ class Shops extends Component {
 
   render() {
     const shops = this.props.shops.map(shop => (
-      <div key={shop.slug}>
-        <h3>{shop.name}</h3>
-        <span>{shop.slug}</span>
-        <img height={300} width={300} src={`/public/uploads/${shop.photo}`} alt={shop.slug} />
-      </div>
+      <Shop key={shop.id} id={shop.id} name={shop.name} slug={shop.slug} location={shop.location} photo={shop.photo} />
     ));
     return (
       <div>

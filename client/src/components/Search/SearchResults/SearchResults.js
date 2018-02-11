@@ -12,17 +12,19 @@ class SearchResults extends Component {
     let header;
 
     if (this.props.results.length > 1) {
-      header = <header>{this.props.results.length} barbershops near {this.props.postcode.toUpperCase()} {this.props.area}</header>
+      header = <header>{this.props.results.length} barbershops near {this.props.postcode.toUpperCase()} {this.props.area}</header>;
     } else {
-      header = <header>{this.props.results.length} barbershop near {this.props.postcode.toUpperCase()} {this.props.area}</header>
+      header = <header>{this.props.results.length} barbershop near {this.props.postcode.toUpperCase()} {this.props.area}</header>;
     }
 
     return (
-    <div>
-      {header}
-      {this.renderSearchResults()};
-    </div>
-    )
+      <section className="search-results">
+        {header}
+        <ul className="search-results__list">
+          {this.renderSearchResults()};
+        </ul>
+      </section>
+    );
   }
 }
 

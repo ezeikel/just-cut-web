@@ -27,7 +27,7 @@ export const fetchShops = () => (
     let fetchedShops = await fetch('/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: '{ shops { name, slug, photo } books { author, title } }' }) // TODO: seem to have to always specify fields
+      body: JSON.stringify({ query: '{ shops { id, name, slug, photo, location { coordinates, address } } books { author, title } }' })
     });
     fetchedShops = await fetchedShops.json();
 

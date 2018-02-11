@@ -34,16 +34,22 @@ const books = [
 // TODO: Figure out how to represent objects/dates in schema
 const schema = buildSchema(`
   type Query {
-    books: [Book],
-    shops: [Shop]
+    books: [Book!]!,
+    shops: [Shop!]!
   }
   type Book { title: String, author: String }
   type Shop {
+    id: ID,
     name: String,
     slug: String,
     description: String,
     tags: [String],
+    location: Location,
     photo: String
+  }
+  type Location {
+    coordinates: [Float],
+    address: String
   }
 `);
 
