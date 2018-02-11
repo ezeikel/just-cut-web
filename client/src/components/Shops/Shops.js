@@ -15,10 +15,12 @@ class Shops extends Component {
       <Shop key={shop.id} id={shop.id} name={shop.name} slug={shop.slug} location={shop.location} photo={shop.photo} />
     ));
     return (
-      <div>
+      <section>
         <h2>Shops:</h2>
-        {shops}
-      </div>
+        <ul>
+          {shops}
+        </ul>
+      </section>
     );
   }
 }
