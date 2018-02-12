@@ -80,7 +80,7 @@ export const addShop = (name, location, photo) => {
   const mongoLocation = {
     ...location,
     coordinates
-  }
+  };
 
   const formData = new FormData();
   formData.append('name', name);
@@ -91,9 +91,17 @@ export const addShop = (name, location, photo) => {
   return async dispatch => {
     dispatch(addShopStart());
 
-    await fetch('/add', {
+    // TODO: using REST
+    // await fetch('/add', {
+    //   method: 'POST',
+    //   body: formData
+    // });
+
+    // Sending mutation via graphql api
+    await fetch('/graphql', {
       method: 'POST',
-      body: formData
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: `mutation { createShop(name: "${name}") { name }}` })
     });
 
     dispatch(addShopSuccess());

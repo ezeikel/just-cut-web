@@ -31,11 +31,14 @@ const books = [
 ];
 
 // The GraphQL schema in string form
-// TODO: Figure out how to represent objects/dates in schema
+// TODO: Get location object and file upload to work in mutation
 const schema = buildSchema(`
   type Query {
     books: [Book!]!,
     shops: [Shop!]!
+  }
+  type Mutation {
+    createShop(name: String): Shop
   }
   type Book { title: String, author: String }
   type Shop {
@@ -54,9 +57,20 @@ const schema = buildSchema(`
 `);
 
 // The resolvers
-const resolvers = {
+const root = {
   books: () => books,
-  shops: async () => Shop.find()
+  shops: async () => Shop.find(),
+  createShop: async (shopData) => {
+    // TODO: Temporarily hardcoding location for now
+    const model = { ...shopData };
+    model.location = {
+      address: '123 Fake Street',
+      coordinates: [-0.017383099999960905, 51.4334656]
+    };
+    const shop = new Shop(model).save();
+
+    return shop;
+  }
 };
 
 // kept from express-generator
@@ -120,7 +134,8 @@ app.use('/', routes);
 // The GraphQL endpoint
 app.use('/graphql', graphqlHTTP({
   schema,
-  rootValue: resolvers,
+  rootValue: root,
+  pretty: true,
   graphiql: true // GraphiQL, a visual editor for queries
 }));
 

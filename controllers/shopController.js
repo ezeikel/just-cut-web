@@ -20,7 +20,6 @@ const multerOptions = {
 exports.upload = multer(multerOptions).single('photo');
 
 exports.resize = async (req, res, next) => {
-
   // check if there is no new file to resize
   if (!req.file) {
     next(); // skip to the next middleware
@@ -38,7 +37,7 @@ exports.resize = async (req, res, next) => {
 };
 
 exports.findShops = async (req, res) => {
-  const shopsPromise = Shop.find({
+  const shops = await Shop.find({
     location: {
       $near: {
         $geometry: { type: 'Point', coordinates: req.body.coordinates },
@@ -47,7 +46,6 @@ exports.findShops = async (req, res) => {
       }
     }
   });
-  const shops = await shopsPromise;
   res.json(shops);
 };
 
