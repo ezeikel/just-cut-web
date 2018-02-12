@@ -36,7 +36,8 @@ const schema = buildSchema(`
   type Query {
     books: [Book!]!,
     shops: [Shop!]!,
-    getShopBySlug(slug: String!): Shop
+    getShopBySlug(slug: String!): Shop,
+    findNearestShops(coordinates: [Float]): [Shop]
   }
   type Mutation {
     createShop(name: String): Shop
@@ -72,7 +73,16 @@ const root = {
 
     return shop;
   },
-  getShopBySlug: async ({ slug }) => Shop.findOne({ slug })
+  getShopBySlug: async ({ slug }) => Shop.findOne({ slug }),
+  findNearestShops: async ({ coordinates }) => Shop.find({
+    location: {
+      $near: {
+        $geometry: { type: 'Point', coordinates },
+        $minDistance: 0,
+        $maxDistance: 8046.72
+      }
+    }
+  })
 };
 
 // kept from express-generator

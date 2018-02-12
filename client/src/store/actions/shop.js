@@ -28,14 +28,14 @@ export const fetchShop = (slug) => (
       query: `{ getShopBySlug(slug: "${slug}") { name, slug, location { coordinates, address }, photo } }`
     };
 
-    let fetchedShop = await fetch('/graphql', {
+    const response = await fetch('/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(query)
     });
 
-    fetchedShop = await fetchedShop.json();
-    const shop = fetchedShop.data.getShopBySlug;
+    const json = await response.json();
+    const shop = json.data.getShopBySlug;
 
     dispatch(fetchShopSuccess(shop));
   }

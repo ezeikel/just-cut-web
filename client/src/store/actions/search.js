@@ -56,21 +56,20 @@ export const lookupPostcode = (postcode) => (
 
     dispatch(findShopsStart());
 
-    const shopsResponse = await fetch('/find-shops', {
+    const coordinates = [lng, lat];
+    const query = {
+      query: `{ findNearestShops(coordinates: [${coordinates}]) { name, slug, location { coordinates, address }, photo } }`
+    };
+
+    const shopsResponse = await fetch('/graphql', {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        coordinates: [lng, lat  ],
-        minDistance: 0,
-        maxDistance: 8046.72
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(query)
     });
 
     const shopsJson = await shopsResponse.json();
+    const shops = shopsJson.data.findNearestShops;
 
-    dispatch(findShopsSuccess(shopsJson));
+    dispatch(findShopsSuccess(shops));
   }
 );
