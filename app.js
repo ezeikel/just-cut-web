@@ -36,7 +36,7 @@ const schema = buildSchema(`
   type Query {
     books: [Book!]!,
     shops: [Shop!]!,
-    getShop(slug: String!): Shop
+    getShopBySlug(slug: String!): Shop
   }
   type Mutation {
     createShop(name: String): Shop
@@ -72,7 +72,7 @@ const root = {
 
     return shop;
   },
-  getShop: async ({ slug }) => Shop.findOne({ slug })
+  getShopBySlug: async ({ slug }) => Shop.findOne({ slug })
 };
 
 // kept from express-generator

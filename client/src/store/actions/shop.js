@@ -24,9 +24,19 @@ export const fetchShop = (slug) => (
   async dispatch => {
     dispatch(fetchShopStart());
 
-    let fetchedShop = await fetch(`/shop/${slug}`);
-    fetchedShop = await fetchedShop.json();
+    const query = {
+      query: `{ getShopBySlug(slug: "${slug}") { name, slug, location { coordinates, address }, photo } }`
+    };
 
-    dispatch(fetchShopSuccess(fetchedShop));
+    let fetchedShop = await fetch('/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(query)
+    });
+
+    fetchedShop = await fetchedShop.json();
+    const shop = fetchedShop.data.getShopBySlug;
+
+    dispatch(fetchShopSuccess(shop));
   }
 );
