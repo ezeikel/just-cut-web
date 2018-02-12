@@ -25,7 +25,7 @@ class SearchResults extends Component {
       <section className="search-results">
         {header}
         <ul className="search-results__list">
-          {this.renderSearchResults()};
+          {this.renderSearchResults()}
         </ul>
       </section>
     );
