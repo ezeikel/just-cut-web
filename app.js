@@ -18,7 +18,7 @@ const graphqlHTTP = require('express-graphql');
 // TODO: Probably need to move this related graphql stuff into a seperate graphql file
 const Shop = mongoose.model('Shop');
 
-// Some fake data
+// some fake data
 const books = [
   {
     title: "Harry Potter and the Sorcerer's stone",
@@ -30,12 +30,13 @@ const books = [
   },
 ];
 
-// The GraphQL schema in string form
+// the GraphQL schema in string form
 // TODO: Get location object and file upload to work in mutation
 const schema = buildSchema(`
   type Query {
     books: [Book!]!,
-    shops: [Shop!]!
+    shops: [Shop!]!,
+    getShop(slug: String!): Shop
   }
   type Mutation {
     createShop(name: String): Shop
@@ -56,7 +57,7 @@ const schema = buildSchema(`
   }
 `);
 
-// The resolvers
+// the root provides a resolver function for each API endpoint
 const root = {
   books: () => books,
   shops: async () => Shop.find(),
@@ -70,7 +71,8 @@ const root = {
     const shop = new Shop(model).save();
 
     return shop;
-  }
+  },
+  getShop: async ({ slug }) => Shop.findOne({ slug })
 };
 
 // kept from express-generator
@@ -94,7 +96,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// Exposes a bunch of methods for validation data
+// exposes a bunch of methods for validation data
 app.use(expressValidator());
 
 // populates req.cookies with any cookies that came along with the request
@@ -131,7 +133,7 @@ app.use((req, res, next) => {
 // after allll that above middleware, we finally handle our own routes!
 app.use('/', routes);
 
-// The GraphQL endpoint
+// the GraphQL endpoint
 app.use('/graphql', graphqlHTTP({
   schema,
   rootValue: root,

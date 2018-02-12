@@ -24,10 +24,14 @@ export const fetchShops = () => (
   async dispatch => {
     dispatch(fetchShopsStart());
 
+    const query = {
+      query: '{ shops { id, name, slug, photo, location { coordinates, address } } books { author, title } }'
+    };
+
     let fetchedShops = await fetch('/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: '{ shops { id, name, slug, photo, location { coordinates, address } } books { author, title } }' })
+      body: JSON.stringify(query)
     });
     fetchedShops = await fetchedShops.json();
 
