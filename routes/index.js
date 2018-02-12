@@ -10,7 +10,8 @@ router.get('/shops', catchErrors(shopController.getShops));
 router.get('/shop/:slug', catchErrors(shopController.getShopBySlug));
 router.post('/find-shops', catchErrors(shopController.findShops));
 
-router.post('/add',
+router.post(
+  '/add',
   shopController.upload,
   catchErrors(shopController.resize),
   catchErrors(shopController.createShop)

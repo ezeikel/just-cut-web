@@ -12,7 +12,9 @@ class Shops extends Component {
 
   render() {
     const shops = this.props.shops.map(shop => (
-      <Shop key={shop.id} id={shop.id} name={shop.name} slug={shop.slug} location={shop.location} photo={shop.photo} />
+      <li>
+        <Shop key={shop.id} id={shop.id} name={shop.name} slug={shop.slug} location={shop.location} photo={shop.photo} />
+      </li>
     ));
     return (
       <section>
