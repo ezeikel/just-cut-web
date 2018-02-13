@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './Header.css';
+import styled from 'styled-components';
+
+const Title = styled.h1`
+  font-size: 2.5rem;
+  color: palevioletred;
+  text-transform: uppercase;
+`;
 
 const Header = () => (
   <header>
-    <Link to="/"><h1>Just Cutt</h1></Link>
+    <Link to="/"><Title>Just Cutt</Title></Link>
     <nav>
       <ul>
         <li><Link to="/login">Login</Link></li>

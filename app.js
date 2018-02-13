@@ -37,7 +37,7 @@ const schema = buildSchema(`
     books: [Book!]!,
     shops: [Shop!]!,
     getShopBySlug(slug: String!): Shop,
-    findNearestShops(coordinates: [Float]): [Shop]
+    findNearestShops(coordinates: [Float!]!): [Shop]
   }
   type Mutation {
     createShop(name: String): Shop
