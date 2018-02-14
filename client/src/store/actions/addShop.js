@@ -97,11 +97,15 @@ export const addShop = (name, location, photo) => {
     //   body: formData
     // });
 
+    const query = {
+      query: `mutation {createShop(name: "${name}", location: {coordinates: [${coordinates}], address: "${location.address}"}) {id, name}}`
+    }
+
     // Sending mutation via graphql api
     await fetch('/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: `mutation { createShop(name: "${name}") { name }}` })
+      body: JSON.stringify(query)
     });
 
     dispatch(addShopSuccess());

@@ -31,17 +31,8 @@ const books = [
 ];
 
 // the GraphQL schema in string form
-// TODO: Get location object and file upload to work in mutation
+// TODO: get file upload to work in mutation
 const schema = buildSchema(`
-  type Query {
-    books: [Book!]!,
-    shops: [Shop!]!,
-    getShopBySlug(slug: String!): Shop,
-    findNearestShops(coordinates: [Float!]!): [Shop]
-  }
-  type Mutation {
-    createShop(name: String): Shop
-  }
   type Book { title: String, author: String }
   type Shop {
     id: ID,
@@ -52,9 +43,22 @@ const schema = buildSchema(`
     location: Location,
     photo: String
   }
+  input LocationInput {
+    coordinates: [Float],
+    address: String
+  }
   type Location {
     coordinates: [Float],
     address: String
+  }
+  type Query {
+    books: [Book!]!,
+    shops: [Shop!]!,
+    getShopBySlug(slug: String!): Shop,
+    findNearestShops(coordinates: [Float!]!): [Shop]
+  }
+  type Mutation {
+    createShop(name: String, location: LocationInput): Shop
   }
 `);
 
@@ -62,17 +66,7 @@ const schema = buildSchema(`
 const root = {
   books: () => books,
   shops: async () => Shop.find(),
-  createShop: async (shopData) => {
-    // TODO: Temporarily hardcoding location for now
-    const model = { ...shopData };
-    model.location = {
-      address: '123 Fake Street',
-      coordinates: [-0.017383099999960905, 51.4334656]
-    };
-    const shop = new Shop(model).save();
-
-    return shop;
-  },
+  createShop: async (obj) => new Shop(obj).save(),
   getShopBySlug: async ({ slug }) => Shop.findOne({ slug }),
   findNearestShops: async ({ coordinates }) => Shop.find({
     location: {
