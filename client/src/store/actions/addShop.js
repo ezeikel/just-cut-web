@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import { encodeData } from '../../utils/encode';
 
 export const fetchShopsSuccess = (shops) => (
   {
@@ -73,35 +74,23 @@ export const addShopStart = () => (
 );
 
 export const addShop = (name, location, photo) => {
-  // Converting coordinates object to array so that it can be stored as Point in mongodb
+  // converting coordinates object to array so that it can be stored as Point in mongodb
   const { lng, lat } = location.coordinates;
   const coordinates = [lng, lat];
-
-  const mongoLocation = {
-    ...location,
-    coordinates
-  };
-
-  const formData = new FormData();
-  formData.append('name', name);
-  // objects must be encoded to be sent with formData
-  formData.append('location', JSON.stringify(mongoLocation));
-  formData.append('photo', photo);
 
   return async dispatch => {
     dispatch(addShopStart());
 
-    // TODO: using REST
-    // await fetch('/add', {
-    //   method: 'POST',
-    //   body: formData
-    // });
+    const base64 = await encodeData(photo);
+
+    // TODO: Send base64 image to api endpoint as part of the mutation
+    console.log({ base64 });
 
     const query = {
       query: `mutation {createShop(name: "${name}", location: {coordinates: [${coordinates}], address: "${location.address}"}) {id, name}}`
-    }
+    };
 
-    // Sending mutation via graphql api
+    // sending mutation via graphql api
     await fetch('/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
