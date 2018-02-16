@@ -10,10 +10,10 @@ const Wrapper = styled.header`
   grid-template-columns: 1fr;
   align-items: center;
   justify-content: space-between;
-  background-color: #fff;
-  color: #000;
+  background-color: var(--color-white);
+  color: var(--color-black);;
   h1 {
-    color: #000;
+    color: var(--color-black);
     text-align: center;
   }
   @media (min-width: 792px) {

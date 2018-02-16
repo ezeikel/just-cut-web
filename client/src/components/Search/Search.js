@@ -13,7 +13,7 @@ const SearchWrapper = styled.div`
 const SearchForm = styled.form`
   display: grid;
   grid-template-rows: auto 1fr;
-  grid-gap: 16px;
+  grid-gap: var(--spacing-medium);
 `;
 
 const InputText = styled.input`

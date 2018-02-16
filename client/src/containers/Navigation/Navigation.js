@@ -8,10 +8,10 @@ const NavLinks = styled.ul`
   @media (min-width: 792px) {
     display: flex;
     li {
-      padding: 16px;
+      padding: var(--spacing-medium);;
     }
     a {
-      color: #000;
+      color: #var(--color-black);;
     }
   }
 `;
