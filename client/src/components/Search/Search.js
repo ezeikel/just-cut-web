@@ -1,8 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
+
 import * as actions from '../../store/actions/index';
 
 import SearchResults from './SearchResults/SearchResults';
+
+const SearchWrapper = styled.div`
+  display: grid;
+`;
+
+const SearchForm = styled.form`
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 16px;
+`;
+
+const InputText = styled.input`
+  height: 45px;
+  padding: 13px 16px;
+  border: 0;
+  text-transform: uppercase;
+`;
+
+const InputSubmit = styled.input`
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 15px 90px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transition: background-color 0.3s ease-in-out;
+  text-transform: uppercase;
+`;
 
 class Search extends Component {
   state = {
@@ -45,18 +75,18 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit} className="landing-page-search">
+      <SearchWrapper>
+        <SearchForm onSubmit={this.handleSubmit} className="landing-page-search">
           <label className="landing-page-search__search-label" htmlFor="postcode">Enter your postcode</label>
           <div className="landing-page-search__input">
-            <input type="text" name="postcode" className="search-input" placeholder="e.g. EC4R 3TE" autoComplete="on" value={this.props.postcode} onChange={this.handleFormInputPostcodeChange} />
-            <input type="submit" />
+            <InputText type="text" name="postcode" className="search-input" placeholder="e.g. EC4R 3TE" autoComplete="on" value={this.props.postcode} onChange={this.handleFormInputPostcodeChange} />
+            <InputSubmit type="submit" value="search" />
           </div>
-        </form>
+        </SearchForm>
         <section>
           {this.renderSearchResults()}
         </section>
-      </div>
+      </SearchWrapper>
     );
   }
 }
