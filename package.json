@@ -14,7 +14,7 @@
     "server": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "sample": "node ./data/load-sample-data.js",
-    "blowitallaway": "node ./data/load-sample-data.js --d elete"
+    "blowitallaway": "node ./data/load-sample-data.js --delete"
   },
   "cacheDirectories": [
     "node_modules",
@@ -22,6 +22,7 @@
   ],
   "browserslist": "last 3 versions",
   "dependencies": {
+    "aws-sdk": "^2.202.0",
     "body-parser": "1.17.1",
     "connect-flash": "0.1.1",
     "connect-mongo": "1.3.2",

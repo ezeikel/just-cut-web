@@ -10,6 +10,8 @@ const promisify = require('es6-promisify');
 const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
+const aws = require('aws-sdk');
+const uuid = require('uuid');
 // const errorHandlers = require('./handlers/errorHandlers');
 
 const { buildSchema } = require('graphql');
@@ -51,6 +53,10 @@ const schema = buildSchema(`
     coordinates: [Float],
     address: String
   }
+  type S3Payload {
+    signedRequest: String!,
+    url: String!
+  }
   type Query {
     books: [Book!]!,
     shops: [Shop!]!,
@@ -58,7 +64,8 @@ const schema = buildSchema(`
     findNearestShops(coordinates: [Float!]!): [Shop]
   }
   type Mutation {
-    createShop(name: String, location: LocationInput): Shop
+    createShop(name: String, location: LocationInput, photo: String): Shop,
+    signS3(filetype: String!): S3Payload!
   }
 `);
 
@@ -76,7 +83,30 @@ const root = {
         $maxDistance: 8046.72
       }
     }
-  })
+  }),
+  signS3: async ({ filetype }) => {
+    const extension = filetype.split('/')[1];
+    const name = `${uuid.v4()}.${extension}`;
+
+    const s3 = new aws.S3({
+      signatureVersion: 'v4',
+      region: 'eu-west-2'
+    });
+
+    const s3Params = {
+      Bucket: process.env.S3_BUCKET,
+      Key: `uploads/${name}`,
+      Expires: 60 * 5,
+      ContentType: filetype
+    };
+
+    const signedRequest = await s3.getSignedUrl('putObject', s3Params);
+    const url = `https://${process.env.S3_BUCKET}.s3.amazonaws.com/uploads/${name}`;
+    return {
+      signedRequest,
+      url
+    };
+  }
 };
 
 // kept from express-generator

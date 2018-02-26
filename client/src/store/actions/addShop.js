@@ -1,5 +1,5 @@
+import axios from 'axios';
 import * as actionTypes from './actionTypes';
-import { encodeData } from '../../utils/encode';
 
 export const fetchShopsSuccess = (shops) => (
   {
@@ -81,16 +81,31 @@ export const addShop = (name, location, photo) => {
   return async dispatch => {
     dispatch(addShopStart());
 
-    const base64 = await encodeData(photo);
-
-    // TODO: Send base64 image to api endpoint as part of the mutation
-    console.log({ base64 });
-
-    const query = {
-      query: `mutation {createShop(name: "${name}", location: {coordinates: [${coordinates}], address: "${location.address}"}) {id, name}}`
+    const signQuery = {
+      query: `mutation {signS3(filetype: "${photo.type}") {signedRequest, url}}`
     };
 
     // sending mutation via graphql api
+    const response = await fetch('/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(signQuery)
+    });
+
+    const json = await response.json();
+    const { signedRequest, url } = json.data.signS3;
+
+    const options = {
+      method: 'PUT',
+      headers: { 'Content-Type': `${photo.type}` }
+    };
+
+    await axios.put(signedRequest, photo, options);
+
+    const query = {
+      query: `mutation {createShop(name: "${name}", location: {coordinates: [${coordinates}], address: "${location.address}"}, photo: "${url}") {id, name}}`
+    };
+
     await fetch('/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

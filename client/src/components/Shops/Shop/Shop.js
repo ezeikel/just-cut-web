@@ -20,7 +20,7 @@ class Shop extends Component {
         <h3>{props.name}</h3>
         <span>{props.slug}</span>
         <address>{props.location.address}</address>
-        <img height={300} width={300} src={props.photo ? `/public/uploads/${props.photo}` : 'http://lorempixel.com/output/business-q-g-640-480-8.jpg'} alt={props.slug} />
+        <img height={300} width={300} src={props.photo ? `${props.photo}` : 'http://lorempixel.com/output/business-q-g-640-480-8.jpg'} alt={props.slug} />
         <GoogleMap lat={props.location.coordinates[1]} lng={props.location.coordinates[0]} />
       </div>
     );
