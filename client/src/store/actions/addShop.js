@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 export const fetchShopsSuccess = (shops) => (
@@ -95,12 +94,11 @@ export const addShop = (name, location, photo) => {
     const json = await response.json();
     const { signedRequest, url } = json.data.signS3;
 
-    const options = {
+    await fetch(signedRequest, {
       method: 'PUT',
+      body: photo,
       headers: { 'Content-Type': `${photo.type}` }
-    };
-
-    await axios.put(signedRequest, photo, options);
+    });
 
     const query = {
       query: `mutation {createShop(name: "${name}", location: {coordinates: [${coordinates}], address: "${location.address}"}, photo: "${url}") {id, name}}`
