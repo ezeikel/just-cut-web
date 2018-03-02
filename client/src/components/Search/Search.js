@@ -30,7 +30,6 @@ class Search extends Component {
   }
 
   handleFormInputPostcodeChange = (e) => {
-    console.log("input changed..."); // eslint-disable-line
     this.props.onHandleFormInputPostcodeChange(e.target.value);
   }
 
@@ -61,7 +60,7 @@ class Search extends Component {
     return (
       <SearchWrapper>
         <SearchForm onSubmit={this.handleSubmit}>
-          <SearchInput postcode={this.props.postcode} />
+          <SearchInput postcode={this.props.postcode} handleChange={this.handleFormInputPostcodeChange} />
         </SearchForm>
         <section>
           {this.renderSearchResults()}
@@ -83,6 +82,7 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => (
   {
+    onHandleFormInputPostcodeChange: (value) => dispatch(actions.handleFormInputPostcodeChange(value)),
     onLookupPostcode: (postcode) => dispatch(actions.lookupPostcode(postcode))
   }
 );

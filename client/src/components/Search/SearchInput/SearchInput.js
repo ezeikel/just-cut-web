@@ -38,22 +38,13 @@ const SearchInputWrapper = styled.div`
 `;
 
 class SearchInput extends Component {
-  state = {
-    postcode: ''
-  };
-
-  handleChange = ({ target }) => {
-    this.setState({ postcode: target.value });
-  }
-
   render() {
     return (
       <Aux>
-        <div>{this.props.postcode}</div>
         <div>{this.props.handleFormInputPostcodeChange}</div>
-        <label htmlFor="postcode">Enter your postcode</label>
+        <label htmlFor="postcode">Enter your postcode {this.props.test}</label>
         <SearchInputWrapper>
-          <SearchInputText type="text" name="postcode" placeholder="e.g. EC4R 3TE" value={this.state.postcode} onChange={this.handleChange} />
+          <SearchInputText type="text" name="postcode" placeholder="e.g. EC4R 3TE" value={this.props.postcode} onChange={this.props.handleChange} />
           <SearchInputSubmit type="submit" value="Find Shops" />
         </SearchInputWrapper>
       </Aux>
