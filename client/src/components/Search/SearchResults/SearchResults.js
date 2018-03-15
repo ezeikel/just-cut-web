@@ -1,5 +1,28 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
 import SearchResult from './SearchResult/SearchResult';
+
+const SearchResultsWrapper = styled.div`
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-row-gap: var(--spacing-large);
+  .search-results {
+    &__header {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-column-gap: var(--spacing-medium);
+      align-items: center;
+    }
+    &__list {
+      display: grid;
+      grid-row-gap: var(--spacing-large);
+    }
+    &__number {
+      font-size: 32px;
+    }
+  }
+`;
 
 class SearchResults extends Component {
   renderSearchResults() {
@@ -16,18 +39,18 @@ class SearchResults extends Component {
     let header;
 
     if (this.props.results.length > 1) {
-      header = <header>{this.props.results.length} barbershops near {this.props.postcode.toUpperCase()} {this.props.area}</header>;
+      header = <header className="search-results__header"><span className="search-results__number">{this.props.results.length}</span> barbershops near {this.props.postcode.toUpperCase()} {this.props.area}</header>;
     } else {
-      header = <header>{this.props.results.length} barbershop near {this.props.postcode.toUpperCase()} {this.props.area}</header>;
+      header = <header className="search-results__header"><span className="search-results__number">{this.props.results.length}</span> barbershop near {this.props.postcode.toUpperCase()} {this.props.area}</header>;
     }
 
     return (
-      <section className="search-results">
+      <SearchResultsWrapper className="search-results">
         {header}
         <ul className="search-results__list">
           {this.renderSearchResults()}
         </ul>
-      </section>
+      </SearchResultsWrapper>
     );
   }
 }

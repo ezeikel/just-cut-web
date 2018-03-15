@@ -5,22 +5,25 @@ import Aux from '../../../hoc/Aux/Aux';
 import searchIcon from '../../../assets/icons/search.svg';
 
 const SearchInputText = styled.input`
-  height: 100%;
-  padding: 13px 16px;
-  margin: 0;
-  border: 0;
+  height: 45px;
+  padding: var(--spacing-small) !important; //TODO: Fix specifity
+  margin: 0 !important;
+  border: none;
   text-transform: uppercase;
 `;
 
 const SearchInputSubmit = styled.input`
   display: block;
-  height: 100%;
+  height: 45px;
   width: 100%;
-  padding: 16px 32px;
+  padding: var(--spacing-small) !important;
+  margin: 0 !important;
+  border: none !important;
   background-color: var(--color-primary);
   background-image: url(${searchIcon});
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 18px;
   cursor: pointer;
   color: var(--color-white);
   transition: background-color 0.3s ease-in-out;
@@ -41,7 +44,6 @@ class SearchInput extends Component {
   render() {
     return (
       <Aux>
-        <div>{this.props.handleFormInputPostcodeChange}</div>
         <label htmlFor="postcode">Enter your postcode {this.props.test}</label>
         <SearchInputWrapper>
           <SearchInputText type="text" name="postcode" placeholder="e.g. EC4R 3TE" value={this.props.postcode} onChange={this.props.handleChange} />

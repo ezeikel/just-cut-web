@@ -8,7 +8,7 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 80px 1fr;
-  padding: 16px;
+  padding: var(--spacing-large);
 `;
 
 const App = () => (

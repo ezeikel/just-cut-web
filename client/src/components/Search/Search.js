@@ -9,6 +9,7 @@ import SearchResults from './SearchResults/SearchResults';
 
 const SearchWrapper = styled.div`
   display: grid;
+  grid-row-gap: var(--spacing-large);
 `;
 
 const SearchForm = styled.form`
