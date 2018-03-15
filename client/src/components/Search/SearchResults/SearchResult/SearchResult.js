@@ -38,7 +38,7 @@ const SearchResultTags = styled.span`
 const SearchResult = (props) => (
   <StyledLink to={`shop/${props.slug}`}>
     <SearchResultTitle>{props.name}</SearchResultTitle>
-    <SearchResultImage photo={props.photo}></SearchResultImage>
+    <SearchResultImage photo={props.photo} />
     <SearchResultDetails>
       <SearchResultPostCode>{props.location.address}</SearchResultPostCode>
       <SearchResultTags>{props.tags}</SearchResultTags>
