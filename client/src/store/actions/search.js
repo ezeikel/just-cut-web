@@ -58,7 +58,7 @@ export const lookupPostcode = (postcode) => (
 
     const coordinates = [lng, lat];
     const query = {
-      query: `{ findNearestShops(coordinates: [${coordinates}]) { id, name, slug, location { coordinates, address }, photo } }`
+      query: `{ findNearestShops(coordinates: [${coordinates}]) { id, name, slug, location { coordinates, address }, photo, tags } }`
     };
 
     const shopsResponse = await fetch('/graphql', {

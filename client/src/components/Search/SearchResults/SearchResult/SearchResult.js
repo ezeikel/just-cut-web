@@ -13,35 +13,44 @@ const SearchResultImage = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 300px;
+  height: 200px;
 `;
 
 const SearchResultTitle = styled.h3`
   margin: 0;
-  font-size: 24px;
+  font-size: 16px;
   color: var(--color-black);
   text-transform: uppercase;
 `;
 
 const SearchResultDetails = styled.div`
-  color: lightslategray;
+  color: #828585;
 `;
 
 const SearchResultPostCode = styled.span`
   font-size: 14px;
 `;
 
-const SearchResultTags = styled.span`
+const SearchResultTags = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-gap: var(--spacing-small);
   font-size: 14px;
+  li {
+    padding: 4px;
+    background-color: palevioletred;
+    color: var(--color-white)
+  }
 `;
 
 const SearchResult = (props) => (
   <StyledLink to={`shop/${props.slug}`}>
-    <SearchResultTitle>{props.name}</SearchResultTitle>
     <SearchResultImage photo={props.photo} />
+    <SearchResultTitle>{props.name}</SearchResultTitle>
     <SearchResultDetails>
-      <SearchResultPostCode>{props.location.address}</SearchResultPostCode>
-      <SearchResultTags>{props.tags}</SearchResultTags>
+      <SearchResultTags>
+        {props.tags.map(tag => (<li>{tag}</li>))}
+      </SearchResultTags>
     </SearchResultDetails>
   </StyledLink>
 );
