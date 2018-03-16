@@ -33,7 +33,6 @@ const books = [
 ];
 
 // the GraphQL schema in string form
-// TODO: get file upload to work in mutation
 const schema = buildSchema(`
   type Book { title: String, author: String }
   type Shop {
@@ -75,15 +74,17 @@ const root = {
   shops: async () => Shop.find(),
   createShop: async (obj) => new Shop(obj).save(),
   getShopBySlug: async ({ slug }) => Shop.findOne({ slug }),
-  findNearestShops: async ({ coordinates }) => Shop.find({
-    location: {
-      $near: {
-        $geometry: { type: 'Point', coordinates },
-        $minDistance: 0,
-        $maxDistance: 8046.72
+  findNearestShops: async ({ coordinates }) => Shop.aggregate([
+    {
+      $geoNear: {
+        near: { type: 'Point', coordinates },
+        distanceField: 'dist',
+        minDistance: 0,
+        maxDistance: 8046.72,
+        spherical: true
       }
     }
-  }),
+  ]),
   signS3: async ({ filetype }) => {
     const extension = filetype.split('/')[1];
     const name = `${uuid.v4()}.${extension}`;
