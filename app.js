@@ -42,6 +42,7 @@ const schema = buildSchema(`
     description: String,
     tags: [String],
     location: Location,
+    distance: Float,
     photo: String
   }
   input LocationInput {
@@ -78,7 +79,7 @@ const root = {
     {
       $geoNear: {
         near: { type: 'Point', coordinates },
-        distanceField: 'dist',
+        distanceField: 'distance',
         minDistance: 0,
         maxDistance: 8046.72,
         spherical: true
