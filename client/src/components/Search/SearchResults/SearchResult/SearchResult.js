@@ -49,7 +49,7 @@ const SearchResult = (props) => (
     <SearchResultTitle>{props.name}</SearchResultTitle>
     <SearchResultDetails>
       <SearchResultTags>
-        {props.tags.map(tag => (<li>{tag}</li>))}
+        {props.tags.map(tag => (<li key={tag}>{tag}</li>))}
       </SearchResultTags>
     </SearchResultDetails>
   </StyledLink>
