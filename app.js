@@ -79,9 +79,10 @@ const root = {
     {
       $geoNear: {
         near: { type: 'Point', coordinates },
+        distanceMultiplier: 0.000621371,
         distanceField: 'distance',
         minDistance: 0,
-        maxDistance: 8046.72,
+        maxDistance: 5 * 1609.344,
         spherical: true
       }
     }

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import markerIcon from '../../../../assets/icons/map-marker.svg';
+
 const StyledLink = styled(Link)`
   display: grid;
   grid-template-rows: 1fr auto auto;
@@ -24,7 +26,10 @@ const SearchResultTitle = styled.h3`
 `;
 
 const SearchResultDetails = styled.div`
-  color: #828585;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-row-gap: var(--spacing-small);
+    color: #828585;
 `;
 
 const SearchResultPostCode = styled.span`
@@ -43,6 +48,13 @@ const SearchResultTags = styled.ul`
   }
 `;
 
+const SearchResultDistance = styled.div`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: 4px;
+  align-items: center;
+`;
+
 const SearchResult = (props) => (
   <StyledLink to={`shop/${props.slug}`}>
     <SearchResultImage photo={props.photo} />
@@ -51,6 +63,9 @@ const SearchResult = (props) => (
       <SearchResultTags>
         {props.tags.map(tag => (<li key={tag}>{tag}</li>))}
       </SearchResultTags>
+      <SearchResultDistance>
+        <span><img src={markerIcon}/></span><span>{Math.round(props.distance * 10) / 10}miles</span>
+      </SearchResultDistance>
     </SearchResultDetails>
   </StyledLink>
 );
