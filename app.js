@@ -3,6 +3,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const path = require('path');
+const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -117,6 +118,9 @@ const favicon = require('serve-favicon');
 
 // create our Express app
 const app = express();
+
+// log every request to the console
+app.use(morgan('dev'));
 
 // takes the raw requests and turns them into usable properties on req.body
 app.use(bodyParser.json());
