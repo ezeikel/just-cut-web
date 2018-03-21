@@ -32,10 +32,6 @@ const SearchResultDetails = styled.div`
     color: #828585;
 `;
 
-const SearchResultPostCode = styled.span`
-  font-size: 14px;
-`;
-
 const SearchResultTags = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
@@ -64,7 +60,7 @@ const SearchResult = (props) => (
         {props.tags.map(tag => (<li key={tag}>{tag}</li>))}
       </SearchResultTags>
       <SearchResultDistance>
-        <span><img src={markerIcon}/></span><span>{Math.round(props.distance * 10) / 10}miles</span>
+        <span><img src={markerIcon} alt="marker-icon" /></span><span>{Math.round(props.distance * 10) / 10}miles</span>
       </SearchResultDistance>
     </SearchResultDetails>
   </StyledLink>

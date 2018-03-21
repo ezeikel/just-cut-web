@@ -1,5 +1,6 @@
-@import url("./assets/normalize.css");
+import { injectGlobal } from 'styled-components';
 
+export default injectGlobal`
 /* CSS Variables */
 
 :root {
@@ -109,3 +110,5 @@ select {
   width: 100%;
   height: 300px;
 }
+`;
+
