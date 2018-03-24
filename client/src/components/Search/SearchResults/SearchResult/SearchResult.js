@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Rating from '../../../Rating/Rating';
 
 import markerIcon from '../../../../assets/icons/map-marker.svg';
 
@@ -62,6 +63,7 @@ const SearchResult = (props) => (
       <SearchResultDistance>
         <span><img src={markerIcon} alt="marker-icon" /></span><span>{Math.round(props.distance * 10) / 10}miles</span>
       </SearchResultDistance>
+      <Rating />
     </SearchResultDetails>
   </StyledLink>
 );
