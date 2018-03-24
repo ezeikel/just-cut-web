@@ -38,6 +38,9 @@ const SearchResultTags = styled.ul`
   grid-gap: var(--spacing-small);
   font-size: 14px;
   li {
+    display: grid;
+    justify-items: center;
+    align-items: center;
     padding: 4px;
     background-color: palevioletred;
     color: var(--color-white)
