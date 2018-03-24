@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import * as actions from '../../../store/actions/index';
 import GoogleMap from '../../GoogleMap/GoogleMap';
+import Rating from '../../Rating/Rating';
 
 const ShopWrapper = styled.div`
   display: grid;
@@ -44,6 +45,7 @@ class Shop extends Component {
         <ShopTitle>{props.name}</ShopTitle>
         <ShopDetails>
           <address>{props.location.address}</address>
+          <Rating />
         </ShopDetails>
         <ShopImage photo={props.photo ? props.photo : 'http://lorempixel.com/output/business-q-g-640-480-8.jpg'} />
         <GoogleMap lat={props.location.coordinates[1]} lng={props.location.coordinates[0]} />
