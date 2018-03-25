@@ -19,6 +19,10 @@ const ShopTitle = styled.h3`
 `;
 
 const ShopDetails = styled.div`
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: var(--spacing-small);
+  align-items: center;
   color: lightslategray;
 `;
 

@@ -1,4 +1,4 @@
-import { injectGlobal } from 'styled-components';
+import { injectGlobal, keyframes } from 'styled-components';
 
 export default injectGlobal`
 /* CSS Variables */
@@ -110,5 +110,17 @@ select {
   width: 100%;
   height: 300px;
 }
+`;
+
+export const spinKeyframe = keyframes`
+  0% {
+    transform: rotate(0);
+  }
+  50% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
 `;
 
