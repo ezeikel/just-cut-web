@@ -7,7 +7,8 @@ import goldStarIcon from '../../assets/icons/gold-star.svg';
 
 const RatingWrapper = styled.section`
   display: grid;
-  grid-template-columns: repeat(5, 35px);
+  grid-template-columns: repeat(5, 35px) auto;
+  align-items: center;
 `;
 
 const RatingInput = styled.input`
@@ -25,6 +26,10 @@ const RatingLabel = styled.label`
     background-image: url(${goldStarIcon});
     animation: ${spinKeyframe} 0.3s ease-in-out;
   }
+`;
+
+const RatingTotal = styled.span`
+  padding-left: var(--spacing-medium);
 `;
 
 class Rating extends Component {
@@ -58,6 +63,14 @@ class Rating extends Component {
     });
   }
 
+  totalRatings = () => {
+    if (this.props.ratings && this.props.ratings.length) {
+      return `${this.props.ratings.length} Rating${this.props.ratings.length > 1 ? 's' : ''}`;
+    }
+
+    return `No ratings yet.`;
+  }
+
   render() {
     return (
       <RatingWrapper>
@@ -71,6 +84,9 @@ class Rating extends Component {
         <RatingLabel className={this.state.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
         <RatingInput id="5" type="radio" value="5" onClick={this.updatRating} />
         <RatingLabel className={this.state.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
+        <RatingTotal>
+          {this.totalRatings()}
+        </RatingTotal>
       </RatingWrapper>
     );
   }
