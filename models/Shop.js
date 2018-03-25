@@ -22,6 +22,7 @@ const shopSchema = new Schema(
       type: Date,
       default: Date.now
     },
+    ratings: [Number],
     location: {
       type: {
         type: String,

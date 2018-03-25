@@ -25,7 +25,7 @@ export const fetchShops = () => (
     dispatch(fetchShopsStart());
 
     const query = {
-      query: '{ shops { id, name, slug, photo, location { coordinates, address } } books { author, title } }'
+      query: '{ shops { id, name, slug, photo, location { coordinates, address }, tags, ratings } }'
     };
 
     const response = await fetch('/graphql', {

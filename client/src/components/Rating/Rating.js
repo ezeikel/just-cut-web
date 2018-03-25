@@ -32,7 +32,27 @@ class Rating extends Component {
     rating: 0
   }
 
-  updatRating = ({target}) => {
+  componentWillMount() {
+    if (this.props.ratings && this.props.ratings.length > 0) {
+      this.calculateAverageRating(this.props.ratings);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.ratings && nextProps.ratings.length > 0) {
+      this.calculateAverageRating(nextProps.ratings);
+    }
+  }
+
+  calculateAverageRating = (ratings) => {
+    const sum = ratings.reduce((a, b) => a + b);
+    const avg = sum / ratings.length;
+    this.setState({
+      rating: avg
+    });
+  }
+
+  updatRating = ({ target }) => {
     this.setState({
       rating: target.id
     });
