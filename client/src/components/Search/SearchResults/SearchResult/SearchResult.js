@@ -66,7 +66,7 @@ const SearchResult = (props) => (
       <SearchResultDistance>
         <span><img src={markerIcon} alt="marker-icon" /></span><span>{Math.round(props.distance * 10) / 10}miles</span>
       </SearchResultDistance>
-      <Rating active="false" ratings={props.ratings} />
+      <Rating readonly ratings={props.ratings} />
     </SearchResultDetails>
   </StyledLink>
 );

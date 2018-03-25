@@ -5,10 +5,14 @@ import { spinKeyframe } from '../../globalStyles';
 import starIcon from '../../assets/icons/star.svg';
 import goldStarIcon from '../../assets/icons/gold-star.svg';
 
-const RatingWrapper = styled.section`
+const RatingWrapper = styled.form`
   display: grid;
   grid-template-columns: repeat(5, 35px) auto;
   align-items: center;
+  &.submitted {
+    //TODO: Maybe swap DOM with feedback message instead of this
+    display: none;
+  }
 `;
 
 const RatingInput = styled.input`
@@ -32,9 +36,18 @@ const RatingTotal = styled.span`
   padding-left: var(--spacing-medium);
 `;
 
+const SubmitRating = styled.button`
+  display: none;
+  &.active {
+    display: block;
+  }
+`;
+
 class Rating extends Component {
   state = {
-    rating: 0
+    rating: 0,
+    selected: false,
+    submitted: false
   }
 
   componentWillMount() {
@@ -59,7 +72,8 @@ class Rating extends Component {
 
   updatRating = ({ target }) => {
     this.setState({
-      rating: target.id
+      rating: target.id,
+      selected: true
     });
   }
 
@@ -71,9 +85,37 @@ class Rating extends Component {
     return `No ratings yet.`;
   }
 
-  render() {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`Submit rating of ${this.state.rating} to the DB..`);
+    this.setState({
+      submitted: true
+    });
+  }
+
+  renderRating = () => {
+    if (this.props.readonly) {
+      return (
+        <RatingWrapper>
+          <RatingInput id="1" type="radio" value="1" />
+          <RatingLabel className={this.state.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
+          <RatingInput id="2" type="radio" value="2" />
+          <RatingLabel className={this.state.rating >= 2 ? 'active' : ''} htmlFor="2">Poor</RatingLabel>
+          <RatingInput id="3" type="radio" value="3" />
+          <RatingLabel className={this.state.rating >= 3 ? 'active' : ''} htmlFor="3">Alright</RatingLabel>
+          <RatingInput id="4" type="radio" value="4" />
+          <RatingLabel className={this.state.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
+          <RatingInput id="5" type="radio" value="5" />
+          <RatingLabel className={this.state.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
+          <RatingTotal>
+            {this.totalRatings()}
+          </RatingTotal>
+        </RatingWrapper>
+      );
+    }
+
     return (
-      <RatingWrapper>
+      <RatingWrapper onSubmit={this.handleSubmit} className={this.state.submitted ? 'submitted' : ''}>
         <RatingInput id="1" type="radio" value="1" onClick={this.updatRating} />
         <RatingLabel className={this.state.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
         <RatingInput id="2" type="radio" value="2" onClick={this.updatRating} />
@@ -84,11 +126,13 @@ class Rating extends Component {
         <RatingLabel className={this.state.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
         <RatingInput id="5" type="radio" value="5" onClick={this.updatRating} />
         <RatingLabel className={this.state.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
-        <RatingTotal>
-          {this.totalRatings()}
-        </RatingTotal>
+        <SubmitRating className={this.state.selected ? 'active' : ''}>Submit Rating</SubmitRating>
       </RatingWrapper>
     );
+  }
+
+  render() {
+    return this.renderRating();
   }
 }
 
