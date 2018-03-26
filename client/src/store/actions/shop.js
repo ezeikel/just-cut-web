@@ -40,3 +40,46 @@ export const fetchShop = (slug) => (
     dispatch(fetchShopSuccess(shop));
   }
 );
+
+export const updateRating = (rating) => (
+  {
+    type: actionTypes.UPDATE_RATING,
+    rating
+  }
+);
+
+export const addRatingStart = () => (
+  {
+    type: actionTypes.ADD_RATING_START
+  }
+);
+
+export const addRatingSuccess = () => (
+  {
+    type: actionTypes.ADD_RATING_SUCCESS
+  }
+);
+
+export const addRatingFail = () => (
+  {
+    type: actionTypes.ADD_RATING_FAIL
+  }
+);
+
+export const addRating = (rating) => (
+  async dispatch => {
+    dispatch(addRatingStart());
+
+    const query = {
+      query: `mutation {addRating(rating: "${rating}") {id, name}}`
+    };
+
+    await fetch('/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(query)
+    });
+
+    dispatch(fetchShopSuccess());
+  }
+);

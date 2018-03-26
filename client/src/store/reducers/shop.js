@@ -6,6 +6,7 @@ const initialState = {
       coordinates: [0, 0]
     }
   },
+  rating: 0,
   loading: false
 };
 
@@ -26,6 +27,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false
+      };
+    case actionTypes.UPDATE_RATING:
+      return {
+        ...state,
+        rating: action.rating
       };
     default:
       return state;

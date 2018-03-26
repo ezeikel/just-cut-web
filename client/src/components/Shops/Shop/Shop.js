@@ -35,10 +35,39 @@ const ShopImage = styled.div`
 `;
 
 class Shop extends Component {
+  state = {
+    ratingChanged: false,
+    ratingSubmitted: false
+  }
+
   componentDidMount() {
     if (this.props.match) {
       this.props.onFetchShop(this.props.match.params.slug);
     }
+  }
+
+  updateRating = ({ target }) => {
+    // this.setState({
+    //   rating: target.id,
+    //   selected: true
+    // });
+    this.setState({
+      ratingChanged: true
+    });
+
+    this.props.onUpdateRating(target.id);
+  }
+
+  handleSubmit = (e) => {
+    debugger;
+    e.preventDefault();
+    console.log(`Submit rating of ${this.props.rating} to the DB..`);
+    // this.setState({
+    //   ratingSubmitted: true
+    // });
+
+    //TODO: Add code to handle this in the reducers + new GraphQL mutation
+    this.props.onAddRating(this.props.rating);
   }
 
   render() {
@@ -49,7 +78,7 @@ class Shop extends Component {
         <ShopTitle>{props.name}</ShopTitle>
         <ShopDetails>
           <address>{props.location.address}</address>
-          <Rating />
+          <Rating rating={this.props.rating} updateRating={this.updateRating} handleSubmit={this.handleSubmit} changed={this.state.ratingChanged} />
         </ShopDetails>
         <ShopImage photo={props.photo ? props.photo : 'http://lorempixel.com/output/business-q-g-640-480-8.jpg'} />
         <GoogleMap lat={props.location.coordinates[1]} lng={props.location.coordinates[0]} />
@@ -61,12 +90,17 @@ class Shop extends Component {
 const mapStateToProps = state => (
   {
     shop: state.shop.shop,
+    rating: state.shop.rating,
     loading: state.shop.loading
   }
 );
 
 const mapDispatchToProps = dispatch => (
-  { onFetchShop: (slug) => dispatch(actions.fetchShop(slug)) }
+  { 
+    onFetchShop: (slug) => dispatch(actions.fetchShop(slug)),
+    onAddRating: (rating) => dispatch(actions.addRating(rating)),
+    onUpdateRating: (rating) => dispatch(actions.updateRating(rating))
+  }
 );
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

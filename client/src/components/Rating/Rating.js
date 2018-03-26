@@ -45,8 +45,6 @@ const SubmitRating = styled.button`
 
 class Rating extends Component {
   state = {
-    rating: 0,
-    selected: false,
     submitted: false
   }
 
@@ -70,13 +68,6 @@ class Rating extends Component {
     });
   }
 
-  updatRating = ({ target }) => {
-    this.setState({
-      rating: target.id,
-      selected: true
-    });
-  }
-
   totalRatings = () => {
     if (this.props.ratings && this.props.ratings.length) {
       return `${this.props.ratings.length} Rating${this.props.ratings.length > 1 ? 's' : ''}`;
@@ -85,48 +76,40 @@ class Rating extends Component {
     return `No ratings yet.`;
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(`Submit rating of ${this.state.rating} to the DB..`);
-    this.setState({
-      submitted: true
-    });
-  }
-
   renderRating = () => {
     if (this.props.readonly) {
       return (
         <RatingWrapper>
           <RatingInput id="1" type="radio" value="1" />
-          <RatingLabel className={this.state.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
+          <RatingLabel className={this.props.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
           <RatingInput id="2" type="radio" value="2" />
-          <RatingLabel className={this.state.rating >= 2 ? 'active' : ''} htmlFor="2">Poor</RatingLabel>
+          <RatingLabel className={this.props.rating >= 2 ? 'active' : ''} htmlFor="2">Poor</RatingLabel>
           <RatingInput id="3" type="radio" value="3" />
-          <RatingLabel className={this.state.rating >= 3 ? 'active' : ''} htmlFor="3">Alright</RatingLabel>
+          <RatingLabel className={this.props.rating >= 3 ? 'active' : ''} htmlFor="3">Alright</RatingLabel>
           <RatingInput id="4" type="radio" value="4" />
-          <RatingLabel className={this.state.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
+          <RatingLabel className={this.props.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
           <RatingInput id="5" type="radio" value="5" />
-          <RatingLabel className={this.state.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
+          <RatingLabel className={this.props.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
           <RatingTotal>
             {this.totalRatings()}
           </RatingTotal>
         </RatingWrapper>
-      );
+      );  
     }
 
     return (
-      <RatingWrapper onSubmit={this.handleSubmit} className={this.state.submitted ? 'submitted' : ''}>
-        <RatingInput id="1" type="radio" value="1" onClick={this.updatRating} />
-        <RatingLabel className={this.state.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
-        <RatingInput id="2" type="radio" value="2" onClick={this.updatRating} />
-        <RatingLabel className={this.state.rating >= 2 ? 'active' : ''} htmlFor="2">Poor</RatingLabel>
-        <RatingInput id="3" type="radio" value="3" onClick={this.updatRating} />
-        <RatingLabel className={this.state.rating >= 3 ? 'active' : ''} htmlFor="3">Alright</RatingLabel>
-        <RatingInput id="4" type="radio" value="4" onClick={this.updatRating} />
-        <RatingLabel className={this.state.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
-        <RatingInput id="5" type="radio" value="5" onClick={this.updatRating} />
-        <RatingLabel className={this.state.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
-        <SubmitRating className={this.state.selected ? 'active' : ''}>Submit Rating</SubmitRating>
+      <RatingWrapper onSubmit={this.props.handleSubmit} className={this.state.submitted ? 'submitted' : ''}>
+        <RatingInput id="1" type="radio" value="1" onClick={this.props.updateRating} />
+        <RatingLabel className={this.props.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
+        <RatingInput id="2" type="radio" value="2" onClick={this.props.updateRating} />
+        <RatingLabel className={this.props.rating >= 2 ? 'active' : ''} htmlFor="2">Poor</RatingLabel>
+        <RatingInput id="3" type="radio" value="3" onClick={this.props.updateRating} />
+        <RatingLabel className={this.props.rating >= 3 ? 'active' : ''} htmlFor="3">Alright</RatingLabel>
+        <RatingInput id="4" type="radio" value="4" onClick={this.props.updateRating} />
+        <RatingLabel className={this.props.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
+        <RatingInput id="5" type="radio" value="5" onClick={this.props.updateRating} />
+        <RatingLabel className={this.props.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
+        <SubmitRating className={this.props.changed ? 'active' : ''}>Submit Rating</SubmitRating>
       </RatingWrapper>
     );
   }

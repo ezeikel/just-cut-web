@@ -8,7 +8,9 @@ export {
 } from './shops';
 
 export {
-  fetchShop
+  fetchShop,
+  updateRating,
+  addRating
 } from './shop';
 
 export {
