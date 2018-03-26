@@ -9,7 +9,7 @@ const Shop = mongoose.model('Shop');
 // the GraphQL schema in string form
 module.exports.schema = buildSchema(`
   type Shop {
-    id: ID,
+    _id: ID,
     name: String,
     slug: String,
     description: String,
