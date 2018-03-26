@@ -28,8 +28,8 @@ class SearchResults extends Component {
   renderSearchResults() {
     if (this.props.results.length > 0) {
       return this.props.results.map(shop => (
-        <li key={shop.slug} className="search-results__list-item">
-          <SearchResult id={shop.id} slug={shop.slug} location={shop.location} distance={shop.distance} lng={shop.location.coordinates[0]} lat={shop.location.coordinates[1]} name={shop.name} photo={shop.photo} tags={shop.tags} ratings={shop.ratings} />
+        <li key={shop.id} className="search-results__list-item">
+          <SearchResult id={shop._id} slug={shop.id} location={shop.location} distance={shop.distance} lng={shop.location.coordinates[0]} lat={shop.location.coordinates[1]} name={shop.name} photo={shop.photo} tags={shop.tags} ratings={shop.ratings} />
         </li>
       ));
     }
