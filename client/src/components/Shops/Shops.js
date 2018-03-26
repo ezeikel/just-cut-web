@@ -12,8 +12,8 @@ class Shops extends Component {
 
   render() {
     const shops = this.props.shops.map(shop => (
-      <li>
-        <Shop key={shop.id} id={shop.id} name={shop.name} slug={shop.slug} location={shop.location} photo={shop.photo} ratings={shop.ratings} />
+      <li key={shop._id}>
+        <Shop id={shop._id} name={shop.name} slug={shop.slug} location={shop.location} photo={shop.photo} ratings={shop.ratings} />
       </li>
     ));
     return (
