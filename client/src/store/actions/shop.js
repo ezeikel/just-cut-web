@@ -72,7 +72,7 @@ export const addRating = (id, rating) => (
     dispatch(addRatingStart());
 
     const query = {
-      query: `mutation {addRating(_id: "${id}", rating: ${rating}) {_id, name}}`
+      query: `mutation {addRating(_id: "${id}", rating: ${rating}) {_id, name, ratings}}`
     };
 
     await fetch('/graphql', {
