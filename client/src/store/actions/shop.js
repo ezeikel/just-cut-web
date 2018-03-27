@@ -68,7 +68,6 @@ export const addRatingFail = () => (
 
 export const addRating = (id, rating) => (
   async dispatch => {
-    console.log({id, rating});
     dispatch(addRatingStart());
 
     const query = {
@@ -81,6 +80,6 @@ export const addRating = (id, rating) => (
       body: JSON.stringify(query)
     });
 
-    dispatch(fetchShopSuccess());
+    dispatch(addRatingSuccess());
   }
 );

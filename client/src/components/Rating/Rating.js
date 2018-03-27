@@ -44,10 +44,6 @@ const SubmitRating = styled.button`
 `;
 
 class Rating extends Component {
-  state = {
-    submitted: false
-  }
-
   componentWillMount() {
     if (this.props.ratings && this.props.ratings.length > 0) {
       this.calculateAverageRating(this.props.ratings);
@@ -98,7 +94,7 @@ class Rating extends Component {
     }
 
     return (
-      <RatingWrapper onSubmit={this.props.handleSubmit} className={this.state.submitted ? 'submitted' : ''}>
+      <RatingWrapper onSubmit={this.props.handleSubmit} className={this.props.submitted ? 'submitted' : ''}>
         <RatingInput id="1" type="radio" value="1" onClick={this.props.updateRating} />
         <RatingLabel className={this.props.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
         <RatingInput id="2" type="radio" value="2" onClick={this.props.updateRating} />
