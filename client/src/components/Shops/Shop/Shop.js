@@ -47,10 +47,6 @@ class Shop extends Component {
   }
 
   updateRating = ({ target }) => {
-    // this.setState({
-    //   rating: target.id,
-    //   selected: true
-    // });
     this.setState({
       ratingChanged: true
     });
@@ -59,15 +55,9 @@ class Shop extends Component {
   }
 
   handleSubmit = (e) => {
-    debugger;
     e.preventDefault();
     console.log(`Submit rating of ${this.props.rating} to the DB..`);
-    // this.setState({
-    //   ratingSubmitted: true
-    // });
-
-    //TODO: Add code to handle this in the reducers + new GraphQL mutation
-    this.props.onAddRating(this.props.rating);
+    this.props.onAddRating(this.props.shop._id, this.props.rating);
   }
 
   render() {
@@ -98,7 +88,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   { 
     onFetchShop: (slug) => dispatch(actions.fetchShop(slug)),
-    onAddRating: (rating) => dispatch(actions.addRating(rating)),
+    onAddRating: (id, rating) => dispatch(actions.addRating(id, rating)),
     onUpdateRating: (rating) => dispatch(actions.updateRating(rating))
   }
 );

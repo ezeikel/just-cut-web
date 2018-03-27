@@ -25,7 +25,7 @@ export const fetchShop = (slug) => (
     dispatch(fetchShopStart());
 
     const query = {
-      query: `{ getShopBySlug(slug: "${slug}") { name, slug, location { coordinates, address }, photo, ratings } }`
+      query: `{ getShopBySlug(slug: "${slug}") { _id, name, slug, location { coordinates, address }, photo, ratings } }`
     };
 
     const response = await fetch('/graphql', {
@@ -66,12 +66,13 @@ export const addRatingFail = () => (
   }
 );
 
-export const addRating = (rating) => (
+export const addRating = (id, rating) => (
   async dispatch => {
+    console.log({id, rating});
     dispatch(addRatingStart());
 
     const query = {
-      query: `mutation {addRating(rating: "${rating}") {id, name}}`
+      query: `mutation {addRating(_id: "${id}", rating: ${rating}) {_id, name}}`
     };
 
     await fetch('/graphql', {

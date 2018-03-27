@@ -38,7 +38,8 @@ module.exports.schema = buildSchema(`
   }
   type Mutation {
     createShop(name: String, location: LocationInput, photo: String): Shop,
-    signS3(filetype: String!): S3Payload!
+    signS3(filetype: String!): S3Payload!,
+    addRating(_id: ID!, rating: Int!): Shop
   }
 `);
 
@@ -81,5 +82,19 @@ module.exports.root = {
       signedRequest,
       url
     };
+  },
+  addRating: async ({_id, rating}) => {
+    console.log({_id, rating});
+    Shop.findOneAndUpdate(
+      { "_id": _id },
+      { $push: { "ratings": rating }},
+      { returnOriginal: false },
+      (err, doc) => {
+        if(err) {
+          console.log("something went wrong")
+        }
+        console.log({doc});
+      }
+    )
   }
 };

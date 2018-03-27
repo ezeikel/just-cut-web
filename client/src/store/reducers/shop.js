@@ -33,6 +33,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         rating: action.rating
       };
+    case actionTypes.ADD_RATING_START:
+      return {
+        ...state,
+        loading: true
+      };
+    case actionTypes.ADD_RATING_SUCCESS:
+      return {
+        ...state,
+        loading: false
+      };
     default:
       return state;
   }
