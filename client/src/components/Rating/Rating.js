@@ -77,15 +77,15 @@ class Rating extends Component {
       return (
         <RatingWrapper>
           <RatingInput id="1" type="radio" value="1" />
-          <RatingLabel className={this.props.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
+          <RatingLabel className={this.state.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
           <RatingInput id="2" type="radio" value="2" />
-          <RatingLabel className={this.props.rating >= 2 ? 'active' : ''} htmlFor="2">Poor</RatingLabel>
+          <RatingLabel className={this.state.rating >= 2 ? 'active' : ''} htmlFor="2">Poor</RatingLabel>
           <RatingInput id="3" type="radio" value="3" />
-          <RatingLabel className={this.props.rating >= 3 ? 'active' : ''} htmlFor="3">Alright</RatingLabel>
+          <RatingLabel className={this.state.rating >= 3 ? 'active' : ''} htmlFor="3">Alright</RatingLabel>
           <RatingInput id="4" type="radio" value="4" />
-          <RatingLabel className={this.props.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
+          <RatingLabel className={this.state.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
           <RatingInput id="5" type="radio" value="5" />
-          <RatingLabel className={this.props.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
+          <RatingLabel className={this.state.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
           <RatingTotal>
             {this.totalRatings()}
           </RatingTotal>
