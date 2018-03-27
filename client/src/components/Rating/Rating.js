@@ -44,6 +44,10 @@ const SubmitRating = styled.button`
 `;
 
 class Rating extends Component {
+  state = {
+    rating: 0
+  }
+
   componentWillMount() {
     if (this.props.ratings && this.props.ratings.length > 0) {
       this.calculateAverageRating(this.props.ratings);
