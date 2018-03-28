@@ -6,6 +6,7 @@ import * as actions from '../../store/actions/index';
 
 import SearchInput from './SearchInput/SearchInput';
 import SearchResults from './SearchResults/SearchResults';
+import spinnerIcon from '../../assets/icons/spinner.svg';
 
 const SearchWrapper = styled.div`
   display: grid;
@@ -17,6 +18,13 @@ const SearchForm = styled.form`
   grid-template-rows: auto 1fr;
   grid-gap: var(--spacing-medium);
 `;
+
+const Spinner = styled.div`
+  height: 100px;
+  background-image: url(${spinnerIcon});
+  background-repeat: no-repeat;
+  background-position: center;
+`
 
 class Search extends Component {
   state = {
@@ -64,7 +72,7 @@ class Search extends Component {
           <SearchInput postcode={this.props.postcode} handleChange={this.handleFormInputPostcodeChange} />
         </SearchForm>
         <section>
-          {this.renderSearchResults()}
+          {this.props.loading ? <Spinner /> : this.renderSearchResults()}
         </section>
       </SearchWrapper>
     );
@@ -77,6 +85,7 @@ const mapStateToProps = state => (
     area: state.search.area,
     lat: state.search.lat,
     lng: state.search.lng,
+    loading: state.search.loading,
     results: state.search.results
   }
 );

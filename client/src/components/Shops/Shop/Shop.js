@@ -6,6 +6,8 @@ import * as actions from '../../../store/actions/index';
 import GoogleMap from '../../GoogleMap/GoogleMap';
 import Rating from '../../Rating/Rating';
 
+import spinnerIcon from '../../../assets/icons/spinner.svg';
+
 const ShopWrapper = styled.div`
   display: grid;
   grid-row-gap: var(--spacing-medium);
@@ -33,6 +35,13 @@ const ShopImage = styled.div`
   background-size: cover;
   height: 300px;
 `;
+
+const Spinner = styled.div`
+  height: 100px;
+  background-image: url(${spinnerIcon});
+  background-repeat: no-repeat;
+  background-position: center;
+`
 
 class Shop extends Component {
   state = {
@@ -62,7 +71,7 @@ class Shop extends Component {
     })
   }
 
-  render() {
+  renderShop() {
     const props = this.props.match ? this.props.shop : this.props;
 
     return (
@@ -76,6 +85,10 @@ class Shop extends Component {
         <GoogleMap lat={props.location.coordinates[1]} lng={props.location.coordinates[0]} />
       </ShopWrapper>
     );
+  }
+
+  render() {
+    return this.props.loading ? <Spinner /> : this.renderShop();
   }
 }
 
