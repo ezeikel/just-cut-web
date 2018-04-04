@@ -94,7 +94,7 @@ class Rating extends Component {
             {this.totalRatings()}
           </RatingTotal>
         </RatingWrapper>
-      );  
+      );
     }
 
     return (
