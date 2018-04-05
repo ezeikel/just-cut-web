@@ -49,8 +49,11 @@ class Search extends Component {
         // timeout: 5000,
         maximumAge: 0
       };
-      const success = pos => {
-        this.props.onLookupCoordinates(pos.coords.latitude, pos.coords.longitude);
+      const success = async ({ coords }) => {
+        const lat = coords.latitude;
+        const lng = coords.longitude;
+
+        this.props.onLookupCoordinates(lat, lng);
         this.setState({
           loadingCurrentLocation: false,
           submitted: true

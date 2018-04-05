@@ -29,14 +29,19 @@ const reducer = (state = initialState, action) => {
         area: action.area,
         loading: false
       };
-    case actionTypes.LOOKUP_COORDINATES:
+    case actionTypes.LOOKUP_COORDINATES_START:
+      return {
+        ...state,
+        loading: true
+      };
+    case actionTypes.LOOKUP_COORDINATES_SUCCESS:
       return {
         ...state,
         lat: action.latitude,
         lng: action.longitude,
-
-        // area: action.area, TODO: Maybe take coords and lookup area if needed?
-        // loading: false
+        postcode: action.postcode,
+        area: action.area,
+        loading: false
       };
     case actionTypes.FIND_SHOPS_START:
       return {

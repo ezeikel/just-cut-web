@@ -74,8 +74,38 @@ export const lookupPostcode = (postcode) => (
   }
 );
 
+export const lookupCoordinatesStart = () => (
+  {
+    type: actionTypes.LOOKUP_COORDINATES_START
+  }
+);
+
+export const lookupCoordinatesSuccess = (latitude, longitude, postcode, area) => (
+  {
+    type: actionTypes.LOOKUP_COORDINATES_SUCCESS,
+    latitude,
+    longitude,
+    postcode,
+    area
+  }
+);
+
+export const lookupCoordinatesFail = (error) => (
+  {
+    type: actionTypes.LOOKUP_COORDINATES_FAIL,
+    error
+  }
+);
+
 export const lookupCoordinates = (lat, lng) => (
   async dispatch => {
+    dispatch(lookupCoordinatesStart());
+
+    const response = await fetch(`http://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}`);
+    const data = await response.json();
+    const { postcode, admin_ward } = data.result[0];
+
+    dispatch(lookupCoordinatesSuccess(lat, lng, postcode, admin_ward));
     dispatch(findShopsStart());
 
     const coordinates = [lng, lat];
