@@ -46,17 +46,15 @@ export const lookupPostcode = (postcode) => (
   async dispatch => {
     dispatch(lookupPostcodeStart());
 
-    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=AIzaSyDQmv3K2R7X6wHANEARZFVxeh7szakcxKs`);
-
+    const response = await fetch(`https://api.postcodes.io/postcodes/${postcode}`);
     const json = await response.json();
-    const { lat, lng } = json.results[0].geometry.location;
-    const area = json.results[0].address_components[1].short_name;
+    const { longitude, latitude, admin_ward } = json.result;
 
-    dispatch(lookupPostcodeSuccess(lat, lng, area));
+    dispatch(lookupPostcodeSuccess(latitude, longitude, admin_ward));
 
     dispatch(findShopsStart());
 
-    const coordinates = [lng, lat];
+    const coordinates = [longitude, latitude];
     const query = {
       query: `{ findNearestShops(coordinates: [${coordinates}]) { _id, name, slug, location { coordinates, address }, distance, photo, tags, ratings } }`
     };
@@ -101,9 +99,9 @@ export const lookupCoordinates = (lat, lng) => (
   async dispatch => {
     dispatch(lookupCoordinatesStart());
 
-    const response = await fetch(`http://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}`);
-    const data = await response.json();
-    const { postcode, admin_ward } = data.result[0];
+    const response = await fetch(`https://api.postcodes.io/postcodes?lon=${lng}&lat=${lat}`);
+    const json = await response.json();
+    const { postcode, admin_ward } = json.result[0];
 
     dispatch(lookupCoordinatesSuccess(lat, lng, postcode, admin_ward));
     dispatch(findShopsStart());
