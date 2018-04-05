@@ -1,5 +1,6 @@
 export {
   lookupPostcode,
+  lookupCoordinates,
   handleFormInputPostcodeChange
 } from './search';
 

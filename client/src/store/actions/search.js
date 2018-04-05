@@ -73,3 +73,25 @@ export const lookupPostcode = (postcode) => (
     dispatch(findShopsSuccess(shops));
   }
 );
+
+export const lookupCoordinates = (lat, lng) => (
+  async dispatch => {
+    dispatch(findShopsStart());
+
+    const coordinates = [lng, lat];
+    const query = {
+      query: `{ findNearestShops(coordinates: [${coordinates}]) { _id, name, slug, location { coordinates, address }, distance, photo, tags, ratings } }`
+    };
+
+    const shopsResponse = await fetch('/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(query)
+    });
+
+    const shopsJson = await shopsResponse.json();
+    const shops = shopsJson.data.findNearestShops;
+
+    dispatch(findShopsSuccess(shops));
+  }
+);

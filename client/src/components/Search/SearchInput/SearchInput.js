@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import Aux from '../../../hoc/Aux/Aux';
 import searchIcon from '../../../assets/icons/search.svg';
 
 const SearchInputText = styled.input`
@@ -41,28 +40,15 @@ const SearchInputWrapper = styled.div`
 `;
 
 class SearchInput extends Component {
-  useCurrentLocation = () => {
-    if ('geolocation' in navigator) {
-      console.log('Checking current location...');
-      navigator.geolocation.getCurrentPosition((
-        position => console.log({ lat: position.coords.latitude, lng: position.coords.longitude }), // TODO: Trigger handleChange or postcode
-        () => console.log('Sorry, no position available.')
-      ));
-    } else {
-      console.log('geolocation is not available.');
-    }
-  }
-
   render() {
     return (
-      <Aux>
-        <label htmlFor="postcode">Enter your postcode {this.props.test}</label>
-        <span onClick={this.useCurrentLocation}>Or use current location</span>
+      <React.Fragment>
+        <label htmlFor="postcode">Enter your postcode</label>
         <SearchInputWrapper>
           <SearchInputText type="text" name="postcode" placeholder="e.g. EC4R 3TE" value={this.props.postcode} onChange={this.props.handleChange} />
           <SearchInputSubmit type="submit" value="Find Shops" />
         </SearchInputWrapper>
-      </Aux>
+      </React.Fragment>
     );
   }
 }

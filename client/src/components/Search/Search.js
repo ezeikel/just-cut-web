@@ -24,12 +24,45 @@ const Spinner = styled.div`
   background-image: url(${spinnerIcon});
   background-repeat: no-repeat;
   background-position: center;
-`
+`;
+
+const CurrentLocation = styled.button`
+  display: grid;
+`;
 
 class Search extends Component {
   state = {
     valid: true,
-    submitted: false
+    submitted: false,
+    loadingCurrentLocation: false
+  };
+
+  useCurrentLocation = (e) => {
+    e.preventDefault();
+    if ('geolocation' in navigator) {
+      this.setState({
+        loadingCurrentLocation: true
+      });
+
+      const options = {
+        enableHighAccuracy: true,
+        // timeout: 5000,
+        maximumAge: 0
+      };
+      const success = pos => {
+        this.props.onLookupCoordinates(pos.coords.latitude, pos.coords.longitude);
+        this.setState({
+          loadingCurrentLocation: false,
+          submitted: true
+        });
+      };
+      const error = err => console.warn(`ERROR(${err.code}): ${err.message}`);
+
+      console.log('Checking current location...');
+      navigator.geolocation.getCurrentPosition(success, error, options);
+    } else {
+      console.log('geolocation is not available.');
+    }
   }
 
   validatePostcode = async (postcode) => {
@@ -71,6 +104,7 @@ class Search extends Component {
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchInput postcode={this.props.postcode} handleChange={this.handleFormInputPostcodeChange} />
         </SearchForm>
+        <CurrentLocation onClick={this.useCurrentLocation}>Or use current location {this.state.loadingCurrentLocation ? <Spinner /> : ''}</CurrentLocation>
         <section>
           {this.props.loading ? <Spinner /> : this.renderSearchResults()}
         </section>
@@ -93,7 +127,8 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   {
     onHandleFormInputPostcodeChange: (value) => dispatch(actions.handleFormInputPostcodeChange(value)),
-    onLookupPostcode: (postcode) => dispatch(actions.lookupPostcode(postcode))
+    onLookupPostcode: (postcode) => dispatch(actions.lookupPostcode(postcode)),
+    onLookupCoordinates: (lat, lng) => dispatch(actions.lookupCoordinates(lat, lng))
   }
 );
 

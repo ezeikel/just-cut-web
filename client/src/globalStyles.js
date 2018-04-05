@@ -82,6 +82,10 @@ select {
   background-color: var(--color-white);
 }
 
+input, button, submit {
+  border: none;
+}
+
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: var(--color-light-grey);
