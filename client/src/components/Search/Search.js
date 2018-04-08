@@ -69,13 +69,16 @@ class Search extends Component {
   }
 
   validatePostcode = async (postcode) => {
-    const response = await fetch(`https://api.postcodes.io/postcodes/${postcode}/validate`);
+    const response = await fetch(`https://api.postcodes.io/postcodes/${postcode.toLowerCase()}/validate`);
     const data = await response.json();
     return data.result;
   }
 
   handleFormInputPostcodeChange = (e) => {
     this.props.onHandleFormInputPostcodeChange(e.target.value);
+    this.setState({
+      submitted: false // visually hiding search results for now. Maybe in future clear search data from redux store
+    });
   }
 
   handleSubmit = async (e) => {

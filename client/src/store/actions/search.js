@@ -46,7 +46,7 @@ export const lookupPostcode = (postcode) => (
   async dispatch => {
     dispatch(lookupPostcodeStart());
 
-    const response = await fetch(`https://api.postcodes.io/postcodes/${postcode}`);
+    const response = await fetch(`https://api.postcodes.io/postcodes/${postcode.toLowerCase()}`);
     const json = await response.json();
     const { longitude, latitude, admin_ward } = json.result;
 
