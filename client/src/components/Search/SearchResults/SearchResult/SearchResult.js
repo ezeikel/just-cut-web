@@ -64,7 +64,7 @@ const SearchResult = (props) => (
         {props.tags.map(tag => (<li key={tag}>{tag}</li>))}
       </SearchResultTags>
       <SearchResultDistance>
-        <span><img src={markerIcon} alt="marker-icon" /></span><span>{Math.round(props.distance * 10) / 10}miles</span>
+        <span><img src={markerIcon} alt="marker-icon" /></span><span>{Math.round(props.distance * 10) / 10} mile{Math.round(props.distance * 10) / 10 === 1 ? '' : 's'}</span>
       </SearchResultDistance>
       <Rating readonly ratings={props.ratings} />
     </SearchResultDetails>
