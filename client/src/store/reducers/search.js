@@ -2,6 +2,7 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   loading: false,
+  submitted: false,
   postcode: '',
   area: '',
   lat: 0,
@@ -10,11 +11,27 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+  console.log({action});
   switch (action.type) {
     case actionTypes.HANDLE_FORM_INPUT_POSTCODE_CHANGE:
       return {
         ...state,
         postcode: action.value
+      };
+    case actionTypes.SEARCH_SUBMIT:
+      console.log('Search submit reducer');
+      return {
+        ...state,
+        submitted: true
+      };
+    case actionTypes.SEARCH_CLEAR:
+      return {
+        ...state,
+        submitted: false,
+        area: '',
+        lat: 0,
+        lng: 0,
+        results: []
       };
     case actionTypes.LOOKUP_POSTCODE_START:
       return {

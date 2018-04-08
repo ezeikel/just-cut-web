@@ -7,6 +7,18 @@ export const handleFormInputPostcodeChange = (value) => (
   }
 );
 
+export const searchSubmit = () => (
+  {
+    type: actionTypes.SEARCH_SUBMIT
+  }
+);
+
+export const searchClear = () => (
+  {
+    type: actionTypes.SEARCH_CLEAR
+  }
+);
+
 export const lookupPostcodeStart = () => (
   {
     type: actionTypes.LOOKUP_POSTCODE_START

@@ -1,7 +1,9 @@
 export {
-  lookupPostcode,
   lookupCoordinates,
-  handleFormInputPostcodeChange
+  handleFormInputPostcodeChange,
+  searchSubmit,
+  searchClear,
+  lookupPostcode
 } from './search';
 
 export {

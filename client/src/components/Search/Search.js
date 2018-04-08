@@ -33,7 +33,6 @@ const CurrentLocation = styled.button`
 class Search extends Component {
   state = {
     valid: true,
-    submitted: false,
     loadingCurrentLocation: false
   };
 
@@ -54,9 +53,9 @@ class Search extends Component {
         const lng = coords.longitude;
 
         this.props.onLookupCoordinates(lat, lng);
+        this.props.searchSubmit();
         this.setState({
-          loadingCurrentLocation: false,
-          submitted: true
+          loadingCurrentLocation: false
         });
       };
       const error = err => console.warn(`ERROR(${err.code}): ${err.message}`);
@@ -76,9 +75,10 @@ class Search extends Component {
 
   handleFormInputPostcodeChange = (e) => {
     this.props.onHandleFormInputPostcodeChange(e.target.value);
-    this.setState({
-      submitted: false // visually hiding search results for now. Maybe in future clear search data from redux store
-    });
+
+    if (this.props.results.length > 0) {
+      this.props.onSearchClear();
+    }
   }
 
   handleSubmit = async (e) => {
@@ -87,7 +87,8 @@ class Search extends Component {
     const { postcode } = this.props;
     const valid = await this.validatePostcode(postcode);
 
-    this.setState({ valid, submitted: true });
+    this.props.onSearchSubmit();
+    this.setState({ valid });
 
     if (this.state.valid) {
       this.props.onLookupPostcode(postcode);
@@ -95,9 +96,9 @@ class Search extends Component {
   }
 
   renderSearchResults() {
-    if (!this.state.valid && this.state.submitted) {
+    if (!this.state.valid && this.props.submitted) {
       return <div><p>Oops, that doesn't seem like a valid postcode. Are you sure you're entering it correctly (for example, W1T 6PZ)?</p></div>;
-    } else if (this.state.valid && this.state.submitted) {
+    } else if (this.state.valid && this.props.submitted) {
       return <SearchResults postcode={this.props.postcode} area={this.props.area} results={this.props.results} />;
     }
 
@@ -126,6 +127,7 @@ const mapStateToProps = state => (
     lat: state.search.lat,
     lng: state.search.lng,
     loading: state.search.loading,
+    submitted: state.search.submitted,
     results: state.search.results
   }
 );
@@ -134,6 +136,8 @@ const mapDispatchToProps = dispatch => (
   {
     onHandleFormInputPostcodeChange: (value) => dispatch(actions.handleFormInputPostcodeChange(value)),
     onLookupPostcode: (postcode) => dispatch(actions.lookupPostcode(postcode)),
+    onSearchSubmit: () => dispatch(actions.searchSubmit()),
+    onSearchClear: () => dispatch(actions.searchClear()),
     onLookupCoordinates: (lat, lng) => dispatch(actions.lookupCoordinates(lat, lng))
   }
 );
