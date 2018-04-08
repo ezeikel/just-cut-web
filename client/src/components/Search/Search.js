@@ -53,7 +53,7 @@ class Search extends Component {
         const lng = coords.longitude;
 
         this.props.onLookupCoordinates(lat, lng);
-        this.props.searchSubmit();
+        this.props.onSearchSubmit();
         this.setState({
           loadingCurrentLocation: false
         });
