@@ -45,7 +45,7 @@ class Search extends Component {
 
       const options = {
         enableHighAccuracy: true,
-        // timeout: 5000,
+        timeout: 15000,
         maximumAge: 0
       };
       const success = async ({ coords }) => {
@@ -88,7 +88,10 @@ class Search extends Component {
     const valid = await this.validatePostcode(postcode);
 
     this.props.onSearchSubmit();
-    this.setState({ valid });
+    this.setState({
+      valid,
+      loadingCurrentLocation: false
+    });
 
     if (this.state.valid) {
       this.props.onLookupPostcode(postcode);
