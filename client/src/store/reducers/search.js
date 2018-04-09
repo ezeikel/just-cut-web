@@ -11,7 +11,6 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  console.log({action});
   switch (action.type) {
     case actionTypes.HANDLE_FORM_INPUT_POSTCODE_CHANGE:
       return {
@@ -19,7 +18,6 @@ const reducer = (state = initialState, action) => {
         postcode: action.value
       };
     case actionTypes.SEARCH_SUBMIT:
-      console.log('Search submit reducer');
       return {
         ...state,
         submitted: true
