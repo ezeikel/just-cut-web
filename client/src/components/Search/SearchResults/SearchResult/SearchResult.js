@@ -37,6 +37,7 @@ const SearchResultTags = styled.ul`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   grid-gap: var(--spacing-small);
+  grid-auto-rows: 32px;
   font-size: 14px;
   li {
     display: grid;
@@ -44,7 +45,8 @@ const SearchResultTags = styled.ul`
     align-items: center;
     padding: var(--spacing-tiny);
     background-color: palevioletred;
-    color: var(--color-white)
+    color: var(--color-white);
+    font-size: 13px;
   }
 `;
 
@@ -62,6 +64,7 @@ const SearchResult = (props) => (
     <SearchResultDetails>
       <SearchResultTags>
         {props.tags.map(tag => (<li key={tag}>{tag}</li>))}
+        <li>{props.priceLevel}</li>
       </SearchResultTags>
       <SearchResultDistance>
         <span><img src={markerIcon} alt="marker-icon" /></span><span>{Math.round(props.distance * 10) / 10} mile{Math.round(props.distance * 10) / 10 === 1 ? '' : 's'}</span>

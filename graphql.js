@@ -14,6 +14,7 @@ module.exports.schema = buildSchema(`
     slug: String,
     description: String,
     tags: [String],
+    priceLevel: String,
     ratings: [Int]
     location: Location,
     distance: Float,

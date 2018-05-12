@@ -18,6 +18,7 @@ const shopSchema = new Schema(
       trim: true
     },
     tags: [String],
+    priceLevel: String,
     created: {
       type: Date,
       default: Date.now
