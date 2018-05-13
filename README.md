@@ -1,3 +1,3 @@
-# Just Cutt (Client)
+# Just Cutt
 
 Transforming the Barbershop experience ✂️
