@@ -71,7 +71,7 @@ export const lookupPostcode = (postcode) => (
       query: `{ findNearestShops(coordinates: [${coordinates}]) { _id, name, slug, location { coordinates, address }, distance, photo, tags, priceLevel, ratings } }`
     };
 
-    const shopsResponse = await fetch('/graphql', {
+    const shopsResponse = await fetch('/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(query)
@@ -123,7 +123,7 @@ export const lookupCoordinates = (lat, lng) => (
       query: `{ findNearestShops(coordinates: [${coordinates}]) { _id, name, slug, location { coordinates, address }, distance, photo, tags, priceLevel, ratings } }`
     };
 
-    const shopsResponse = await fetch('/graphql', {
+    const shopsResponse = await fetch('/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(query)

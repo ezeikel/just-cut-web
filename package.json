@@ -8,10 +8,9 @@
   "scripts": {
     "start": "node ./start.js",
     "watch": "nodemon ./start.js --ignore public/",
-    "assets": "webpack -w --display-max-modules 0",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name \"npm run client\"",
-    "server": "concurrently \"npm run watch\" \"npm run assets\" --names \"💻,📦\" --prefix name",
+    "dev": "concurrently \"npm run watch\" \"npm run client\"",
+    "server": "concurrently \"npm run watch\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "cacheDirectories": [
@@ -22,10 +21,8 @@
   "dependencies": {
     "aws-sdk": "^2.216.1",
     "body-parser": "1.17.1",
-    "connect-flash": "0.1.1",
     "connect-mongo": "1.3.2",
     "cookie-parser": "1.4.3",
-    "dompurify": "0.8.5",
     "dotenv": "4.0.0",
     "es6-promisify": "5.0.0",
     "express": "4.15.2",
@@ -37,12 +34,13 @@
     "glob": "7.1.1",
     "graphql": "^0.13.2",
     "html-to-text": "3.2.0",
+    "jimp": "^0.2.28",
     "juice": "4.0.2",
-    "md5": "2.2.1",
     "moment": "2.19.3",
     "mongoose": "4.8.7",
     "mongoose-mongodb-errors": "0.0.2",
     "morgan": "^1.9.0",
+    "multer": "^1.3.0",
     "node-fetch": "^1.7.3",
     "nodemailer": "3.1.5",
     "passport": "0.3.2",
@@ -61,24 +59,13 @@
     "react"
   ],
   "devDependencies": {
-    "autoprefixer": "6.7.7",
-    "babel-core": "6.24.0",
     "babel-eslint": "^8.2.2",
-    "babel-loader": "6.4.0",
-    "babel-preset-env": "^1.6.0",
     "concurrently": "3.4.0",
-    "css-loader": "0.27.3",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
-    "extract-text-webpack-plugin": "2.1.0",
-    "node-sass": "4.5.3",
-    "nodemon": "1.11.0",
-    "now": "^6.4.1",
-    "postcss-loader": "1.3.3",
-    "sass-loader": "6.0.3",
-    "webpack": "2.2.1"
+    "nodemon": "1.11.0"
   }
 }

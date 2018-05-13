@@ -28,7 +28,7 @@ export const fetchShops = () => (
       query: '{ shops { _id, name, slug, photo, location { coordinates, address }, tags, ratings } }'
     };
 
-    const response = await fetch('/graphql', {
+    const response = await fetch('/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(query)

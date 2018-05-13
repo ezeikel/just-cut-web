@@ -85,7 +85,7 @@ export const addShop = (name, location, photo) => {
     };
 
     // sending mutation via graphql api
-    const response = await fetch('/graphql', {
+    const response = await fetch('/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(signQuery)
@@ -104,7 +104,7 @@ export const addShop = (name, location, photo) => {
       query: `mutation {createShop(name: "${name}", location: {coordinates: [${coordinates}], address: "${location.address}"}, photo: "${url}") {id, name}}`
     };
 
-    await fetch('/graphql', {
+    await fetch('/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(query)
