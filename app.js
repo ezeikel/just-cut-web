@@ -12,7 +12,6 @@ const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
 const { schema, root } = require('./graphql');
-// const errorHandlers = require('./handlers/errorHandlers');
 
 const graphqlHTTP = require('express-graphql');
 
@@ -74,7 +73,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// after allll that above middleware, we finally handle our own routes!
+// handle our own routes!
 app.use('/', routes);
 
 // the GraphQL endpoint
@@ -99,5 +98,5 @@ if (app.get('env') === 'production') {
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-// done! we export is so we can start the site in start.js
+// export it so we can start the site in start.js
 module.exports = app;

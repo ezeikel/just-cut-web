@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-
 import * as actions from '../../store/actions/index';
-
 import SearchInput from './SearchInput/SearchInput';
 import SearchResults from './SearchResults/SearchResults';
 import spinnerIcon from '../../assets/icons/spinner.svg';
