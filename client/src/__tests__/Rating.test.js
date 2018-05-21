@@ -1,23 +1,23 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Rating from '../components/Rating/Rating';
 
 describe('Rating Component', () => {
-  //TODO: This test just seems to be passing
+  // TODO: This test just seems to be passing
   it('should render without throwing an error', () => {
-    expect(shallow(<Rating />).exists(<form />)).toBe(true)
+    expect(shallow(<Rating />).exists(<form />)).toBe(true);
   });
 
   it('renders five inputs', () => {
-    expect(mount(<Rating />).find('input').length).toEqual(5)
+    expect(mount(<Rating />).find('input').length).toEqual(5);
   });
 
   it('renders five labels', () => {
-    expect(mount(<Rating />).find('label').length).toEqual(5)
+    expect(mount(<Rating />).find('label').length).toEqual(5);
   });
 
   it('renders total ratings if readonly is true', () => {
-    expect(mount(<Rating readonly={true} />).find('span').length).toEqual(1)
+    expect(mount(<Rating readonly />).find('span').length).toEqual(1);
   });
 
   it('renders submit if no readonly prop is passed in', () => {
@@ -25,11 +25,11 @@ describe('Rating Component', () => {
   });
 
   it('doesnt render submit button if readonly is true', () => {
-    expect(mount(<Rating readonly={true} />).find('button').length).toEqual(0);
+    expect(mount(<Rating readonly />).find('button').length).toEqual(0);
   });
 
-  //TODO: Test to make sure this is working properly and commented out test below.
-  //TODO: Add snapshot test
+  // TODO: Test to make sure this is working properly and commented out test below.
+  // TODO: Add snapshot test
   it('default to no ratings', () => {
     const wrapper = shallow(<Rating />);
     const instance = wrapper.instance();

@@ -13,7 +13,8 @@
   "env": {
     "browser": true,
     "node": true,
-    "mongo": true
+    "mongo": true,
+    "jest": true
   },
   "rules": {
     "arrow-parens": 0,
