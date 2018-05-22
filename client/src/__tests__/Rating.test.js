@@ -1,18 +1,26 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { shallowToJson } from 'enzyme-to-json';
 import Rating from '../components/Rating/Rating';
 
 describe('Rating Component', () => {
-  // TODO: This test just seems to be passing
-  it('should render without throwing an error', () => {
-    expect(shallow(<Rating />).exists(<form />)).toBe(true);
+  it('renders without crashing', () => {
+    shallow(<Rating />);
   });
 
-  it('renders five inputs', () => {
+  it('should match snapshot', () => {
+    expect(shallowToJson(shallow(<Rating />))).toMatchSnapshot();
+  });
+
+  it('should render a form', () => {
+    expect(mount(<Rating />).find('form').length).toEqual(1);
+  });
+
+  it('should render 5 inputs', () => {
     expect(mount(<Rating />).find('input').length).toEqual(5);
   });
 
-  it('renders five labels', () => {
+  it('renders 5 labels', () => {
     expect(mount(<Rating />).find('label').length).toEqual(5);
   });
 
@@ -28,23 +36,12 @@ describe('Rating Component', () => {
     expect(mount(<Rating readonly />).find('button').length).toEqual(0);
   });
 
-  // TODO: Test to make sure this is working properly and commented out test below.
-  // TODO: Add snapshot test
   it('default to no ratings', () => {
     const wrapper = shallow(<Rating />);
     const instance = wrapper.instance();
     jest.spyOn(instance, 'totalRatings');
     expect(instance.totalRatings()).toEqual('No ratings yet.');
-  });
 
-  // it('works out average rating', () => {
-  //   const wrapper = shallow(<Rating />);
-  //   const instance = wrapper.instance();
-  //   jest.spyOn(instance, 'totalRatings');
-  //   instance.calculateAverageRating([5, 5, 5]);
-  //   //expect(wrapper.state().rating).to.equal(5);
-  //   //expect(wrapper.state().foo).to.equal(10);
-  //   // console.log(instance.totalRatings);
-  //   expect(instance.totalRatings()).toEqual(5);
-  // });
+    // TODO: Test the component functions
+  });
 });
