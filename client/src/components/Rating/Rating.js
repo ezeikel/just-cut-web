@@ -14,10 +14,12 @@ const RatingWrapper = styled.form`
     display: none;
   }
 `;
+RatingWrapper.displayName = 'RatingWrapper';
 
 const RatingInput = styled.input`
   display: none;
 `;
+RatingInput.displayName = 'RatingInput';
 
 const RatingLabel = styled.label`
   background-image: url(${starIcon});
@@ -31,10 +33,12 @@ const RatingLabel = styled.label`
     animation: ${spinKeyframe} 0.3s ease-in-out;
   }
 `;
+RatingLabel.displayName = 'RatingLabel';
 
 const RatingTotal = styled.span`
   padding-left: var(--spacing-medium);
 `;
+RatingTotal.displayName = 'RatingTotal';
 
 const SubmitRating = styled.button`
   display: none;
@@ -42,6 +46,7 @@ const SubmitRating = styled.button`
     display: block;
   }
 `;
+SubmitRating.displayName = 'SubmitRating';
 
 class Rating extends Component {
   state = {

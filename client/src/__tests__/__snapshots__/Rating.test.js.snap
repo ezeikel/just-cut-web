@@ -1,68 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Rating Component should match snapshot 1`] = `
-<styled.form
+<RatingWrapper
   className=""
 >
-  <styled.input
+  <RatingInput
     id="1"
     type="radio"
     value="1"
   />
-  <styled.label
+  <RatingLabel
     className=""
     htmlFor="1"
   >
     Abysmal
-  </styled.label>
-  <styled.input
+  </RatingLabel>
+  <RatingInput
     id="2"
     type="radio"
     value="2"
   />
-  <styled.label
+  <RatingLabel
     className=""
     htmlFor="2"
   >
     Poor
-  </styled.label>
-  <styled.input
+  </RatingLabel>
+  <RatingInput
     id="3"
     type="radio"
     value="3"
   />
-  <styled.label
+  <RatingLabel
     className=""
     htmlFor="3"
   >
     Alright
-  </styled.label>
-  <styled.input
+  </RatingLabel>
+  <RatingInput
     id="4"
     type="radio"
     value="4"
   />
-  <styled.label
+  <RatingLabel
     className=""
     htmlFor="4"
   >
     Good
-  </styled.label>
-  <styled.input
+  </RatingLabel>
+  <RatingInput
     id="5"
     type="radio"
     value="5"
   />
-  <styled.label
+  <RatingLabel
     className=""
     htmlFor="5"
   >
     Great
-  </styled.label>
-  <styled.button
+  </RatingLabel>
+  <SubmitRating
     className=""
   >
     Submit Rating
-  </styled.button>
-</styled.form>
+  </SubmitRating>
+</RatingWrapper>
 `;
