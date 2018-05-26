@@ -4,7 +4,7 @@ import { shallowToJson } from 'enzyme-to-json';
 import Rating from '../components/Rating/Rating';
 
 describe('Rating Component', () => {
-  it('renders without crashing', () => {
+  it('should render without crashing', () => {
     shallow(<Rating />);
   });
 
@@ -36,12 +36,43 @@ describe('Rating Component', () => {
     expect(shallow(<Rating readonly />).find('SubmitRating').length).toEqual(0);
   });
 
-  it('should default to no ratings', () => {
+  it('totalRatings() should return "No ratings yet." by default', () => {
     const wrapper = shallow(<Rating />);
     const instance = wrapper.instance();
-    jest.spyOn(instance, 'totalRatings');
     expect(instance.totalRatings()).toEqual('No ratings yet.');
+  });
 
-    // TODO: Test the component functions
+  it('totalRatings() should be called once if readonly is true', () => {
+    const wrapper = shallow(<Rating readonly />);
+    const instance = wrapper.instance();
+    const spy = jest.spyOn(instance, 'totalRatings');
+    instance.forceUpdate();
+    expect(spy).toHaveBeenCalledTimes(1);
+    spy.mockClear();
+  });
+
+  it('totalRatings() should not be called if readonly is undefined', () => {
+    const wrapper = shallow(<Rating />);
+    const instance = wrapper.instance();
+    const spy = jest.spyOn(instance, 'totalRatings');
+    instance.forceUpdate();
+    expect(spy).toHaveBeenCalledTimes(0);
+    spy.mockClear();
+  });
+
+  it('renderRating() should be called once', () => {
+    const wrapper = shallow(<Rating />);
+    const instance = wrapper.instance();
+    const spy = jest.spyOn(instance, 'renderRating');
+    instance.forceUpdate();
+    expect(spy).toHaveBeenCalledTimes(1);
+    spy.mockClear();
+  });
+
+  it('should have three active stars based off ratings props passed in', () => {
+    const wrapper = shallow(<Rating readonly ratings={[5, 5, 5, 5, 5, 1, 1, 1, 1, 1]} />);
+    expect(wrapper.find('RatingLabel').at(0).hasClass('active')).toEqual(true);
+    expect(wrapper.find('RatingLabel').at(1).hasClass('active')).toEqual(true);
+    expect(wrapper.find('RatingLabel').at(2).hasClass('active')).toEqual(true);
   });
 });
