@@ -84,8 +84,8 @@ module.exports.root = {
       url
     };
   },
-  addRating: async ({_id, rating}) => Shop.findOneAndUpdate(
-    { "_id": _id },
-    { $push: { "ratings": rating }}
+  addRating: async ({ _id, rating }) => Shop.findOneAndUpdate(
+    { _id },
+    { $push: { ratings: rating } }
   )
 };

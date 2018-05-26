@@ -73,10 +73,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// handle our own routes!
+// handle routes
 app.use('/', routes);
 
-// the GraphQL endpoint
+// GraphQL endpoint
 app.use('/api', graphqlHTTP({
   schema,
   rootValue: root,
