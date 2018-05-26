@@ -30,6 +30,7 @@
     "express-session": "1.15.1",
     "express-validator": "3.1.2",
     "graphql": "^0.13.2",
+    "md5": "^2.2.1",
     "mongoose": "4.8.7",
     "mongoose-mongodb-errors": "0.0.2",
     "morgan": "^1.9.0",
