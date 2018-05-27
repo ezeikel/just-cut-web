@@ -4,10 +4,19 @@ const uuid = require('uuid');
 const mongoose = require('mongoose');
 
 // TODO: Probably need to move this related graphql stuff into a seperate graphql file
+const User = mongoose.model('User'); // eslint-disable-line
 const Shop = mongoose.model('Shop');
+const Review = mongoose.model('Review'); // eslint-disable-line
 
 // the GraphQL schema in string form
 module.exports.schema = buildSchema(`
+  type User {
+    email: String,
+    name: String,
+    resetPasswordToken: String,
+    resetPasswordExpires: String,
+    hearts: [ID]
+  }
   type Shop {
     _id: ID,
     name: String,
@@ -15,18 +24,25 @@ module.exports.schema = buildSchema(`
     description: String,
     tags: [String],
     priceLevel: String,
-    ratings: [Int]
+    ratings: [Int],
+    reviews: [Review],
     location: Location,
     distance: Float,
     photo: String
+  }
+  type Location {
+    coordinates: [Float],
+    address: String
   }
   input LocationInput {
     coordinates: [Float],
     address: String
   }
-  type Location {
-    coordinates: [Float],
-    address: String
+  type Review {
+    author: ID,
+    shop: ID,
+    text: String,
+    rating: Int
   }
   type S3Payload {
     signedRequest: String!,

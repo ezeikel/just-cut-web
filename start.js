@@ -11,7 +11,9 @@ mongoose.connection.on('error', (err) => {
 });
 
 // Load mongodb collections on start up
+require('./models/User');
 require('./models/Shop');
+require('./models/Review');
 
 // scrambles a connection string, showing only relevant info
 const scramble = (connectionString) => connectionString.replace(/:\/\/.*?\//, '://***/');

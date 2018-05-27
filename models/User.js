@@ -22,7 +22,7 @@ const userSchema = new Schema({
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  stars: [
+  hearts: [
     { type: mongoose.Schema.ObjectId, ref: 'Shop' }
   ]
 });
