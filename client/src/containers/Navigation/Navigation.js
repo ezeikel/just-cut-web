@@ -19,8 +19,8 @@ const NavLinks = styled.ul`
 const Navigation = () => (
   <nav>
     <NavLinks>
+      <li><Link to="/register">Register</Link></li>
       <li><Link to="/login">Login</Link></li>
-      <li><Link to="/help">Help</Link></li>
     </NavLinks>
   </nav>
 );

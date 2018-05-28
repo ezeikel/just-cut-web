@@ -11,8 +11,10 @@ const Review = mongoose.model('Review'); // eslint-disable-line
 // the GraphQL schema in string form
 module.exports.schema = buildSchema(`
   type User {
+    _id: ID,
     email: String,
-    name: String,
+    fullName: [String],
+    username: String,
     resetPasswordToken: String,
     resetPasswordExpires: String,
     hearts: [ID]
@@ -39,6 +41,7 @@ module.exports.schema = buildSchema(`
     address: String
   }
   type Review {
+    _id: ID,
     author: ID,
     shop: ID,
     text: String,
@@ -54,6 +57,7 @@ module.exports.schema = buildSchema(`
     findNearestShops(coordinates: [Float!]!): [Shop]
   }
   type Mutation {
+    registerUser(email: String, fullName: [String], username: String, password: String, passwordConfirm: String): User,
     createShop(name: String, location: LocationInput, photo: String): Shop,
     signS3(filetype: String!): S3Payload!,
     addRating(_id: ID!, rating: Int!): Shop
@@ -62,8 +66,11 @@ module.exports.schema = buildSchema(`
 
 // the root provides a resolver function for each API endpoint
 module.exports.root = {
+  // TODO: some validation on userfields
+  // try to use validator middleware
+  registerUser: (user) => new User(user).save(),
   shops: async () => Shop.find(),
-  createShop: async (obj) => new Shop(obj).save(),
+  createShop: async (shop) => new Shop(shop).save(),
   getShopBySlug: async ({ slug }) => Shop.findOne({ slug }),
   findNearestShops: async ({ coordinates }) => Shop.aggregate([
     {

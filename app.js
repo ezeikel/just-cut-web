@@ -12,7 +12,6 @@ const expressValidator = require('express-validator');
 const routes = require('./routes/index');
 const helpers = require('./helpers');
 const { schema, root } = require('./graphql');
-
 const graphqlHTTP = require('express-graphql');
 
 // kept from express-generator
@@ -81,7 +80,7 @@ app.use('/api', graphqlHTTP({
   schema,
   rootValue: root,
   pretty: true,
-  graphiql: true // GraphiQL, a visual editor for queries
+  graphiql: app.get('env') !== 'production' // GraphiQL, a visual editor for queries
 }));
 
 app.use('/public', express.static(path.join(__dirname, '/public')));

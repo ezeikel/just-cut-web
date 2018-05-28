@@ -41,7 +41,7 @@ const Spinner = styled.div`
   background-image: url(${spinnerIcon});
   background-repeat: no-repeat;
   background-position: center;
-`
+`;
 
 class Shop extends Component {
   state = {
@@ -68,7 +68,7 @@ class Shop extends Component {
     this.props.onAddRating(this.props.shop._id, this.props.rating);
     this.setState({
       ratingSubmitted: true
-    })
+    });
   }
 
   renderShop() {
@@ -101,7 +101,7 @@ const mapStateToProps = state => (
 );
 
 const mapDispatchToProps = dispatch => (
-  { 
+  {
     onFetchShop: (slug) => dispatch(actions.fetchShop(slug)),
     onAddRating: (id, rating) => dispatch(actions.addRating(id, rating)),
     onUpdateRating: (rating) => dispatch(actions.updateRating(rating))

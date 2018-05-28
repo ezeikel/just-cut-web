@@ -1,3 +1,5 @@
+export { registerUser } from './user';
+
 export {
   lookupCoordinates,
   handleFormInputPostcodeChange,
@@ -6,9 +8,7 @@ export {
   lookupPostcode
 } from './search';
 
-export {
-  fetchShops
-} from './shops';
+export { fetchShops } from './shops';
 
 export {
   fetchShop,

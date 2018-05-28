@@ -15,10 +15,17 @@ const userSchema = new Schema({
     validate: [validator.isEmail, 'Invalid Email Address'],
     required: 'Please supply an email address'
   },
-  name: {
+  fullName: {
     type: String,
     required: 'Please supply a name',
-    trim: true
+    trim: true,
+    lowercase: true
+  },
+  username: {
+    type: String,
+    required: 'Please supply a username',
+    trim: true,
+    lowercase: true
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
@@ -30,6 +37,15 @@ const userSchema = new Schema({
 userSchema.virtual('gravatar').get(function() {
   const hash = md5(this.email);
   return `https://gravatar.com/avatar/${hash}?s=200`;
+});
+
+userSchema.virtual('firstName').get(function() {
+  return this.fullName.split(' ')[0];
+});
+
+userSchema.virtual('lastName').get(function() {
+  const names = this.fullName.split(' ');
+  return names[names.length - 1];
 });
 
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });

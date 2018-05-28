@@ -1,36 +1,5 @@
 import * as actionTypes from './actionTypes';
 
-export const fetchShopsSuccess = (shops) => (
-  {
-    type: actionTypes.FETCH_SHOPS_SUCCESS,
-    shops
-  }
-);
-
-export const fetchShopsFail = (error) => (
-  {
-    type: actionTypes.FETCH_SHOPS_FAIL,
-    error
-  }
-);
-
-export const fetchShopsStart = () => (
-  {
-    type: actionTypes.FETCH_SHOPS_START
-  }
-);
-
-export const fetchShops = () => (
-  async dispatch => {
-    dispatch(fetchShopsStart());
-
-    let fetchedShops = await fetch('/shops');
-    fetchedShops = await fetchedShops.json();
-
-    dispatch(fetchShopsSuccess(fetchedShops));
-  }
-);
-
 export const handleFormInputChange = (name, value) => (
   {
     type: actionTypes.HANDLE_FORM_INPUT_CHANGE,
@@ -101,7 +70,7 @@ export const addShop = (name, location, photo) => {
     });
 
     const query = {
-      query: `mutation {createShop(name: "${name}", location: {coordinates: [${coordinates}], address: "${location.address}"}, photo: "${url}") {id, name}}`
+      query: `mutation {createShop(name: "${name}", location: {coordinates: [${coordinates}], address: "${location.address}"}, photo: "${url}") {_id, name}}`
     };
 
     await fetch('/api', {
