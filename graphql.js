@@ -69,10 +69,10 @@ module.exports.root = {
   // TODO: some validation on userfields
   // try to use validator middleware
   registerUser: (user) => new User(user).save(),
-  shops: async () => Shop.find(),
-  createShop: async (shop) => new Shop(shop).save(),
-  getShopBySlug: async ({ slug }) => Shop.findOne({ slug }),
-  findNearestShops: async ({ coordinates }) => Shop.aggregate([
+  shops: () => Shop.find(),
+  createShop: (shop) => new Shop(shop).save(),
+  getShopBySlug: ({ slug }) => Shop.findOne({ slug }),
+  findNearestShops: ({ coordinates }) => Shop.aggregate([
     {
       $geoNear: {
         near: { type: 'Point', coordinates },
@@ -83,7 +83,7 @@ module.exports.root = {
         spherical: true
       }
     }
-  ], { cursor: { } }),
+  ]).cursor().exec(), // cursor/explain required from mongo 3.6
   signS3: async ({ filetype }) => {
     const extension = filetype.split('/')[1];
     const name = `${uuid.v4()}.${extension}`;
