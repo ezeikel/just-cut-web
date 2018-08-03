@@ -72,18 +72,22 @@ module.exports.root = {
   shops: () => Shop.find(),
   createShop: (shop) => new Shop(shop).save(),
   getShopBySlug: ({ slug }) => Shop.findOne({ slug }),
-  findNearestShops: ({ coordinates }) => Shop.aggregate([
-    {
-      $geoNear: {
-        near: { type: 'Point', coordinates },
-        distanceMultiplier: 0.000621371,
-        distanceField: 'distance',
-        minDistance: 0,
-        maxDistance: 5 * 1609.344,
-        spherical: true
+  findNearestShops: async ({ coordinates }) => {
+    const cursor = await Shop.aggregate([
+      {
+        $geoNear: {
+          near: { type: 'Point', coordinates },
+          distanceMultiplier: 0.000621371,
+          distanceField: 'distance',
+          minDistance: 0,
+          maxDistance: 5 * 1609.344,
+          spherical: true
+        }
       }
-    }
-  ]).cursor().exec(), // cursor/explain required from mongo 3.6
+    ]).cursor().exec(); // cursor/explain required from mongo 3.6
+
+    return cursor.toArray();
+  },
   signS3: async ({ filetype }) => {
     const extension = filetype.split('/')[1];
     const name = `${uuid.v4()}.${extension}`;
