@@ -83,7 +83,7 @@ module.exports.root = {
         spherical: true
       }
     }
-  ]),
+  ], { cursor: { } }),
   signS3: async ({ filetype }) => {
     const extension = filetype.split('/')[1];
     const name = `${uuid.v4()}.${extension}`;
