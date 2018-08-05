@@ -28,7 +28,7 @@ export const fetchShop = (slug) => (
       query: `{ getShopBySlug(slug: "${slug}") { _id, name, slug, location { coordinates, address }, photo, ratings } }`
     };
 
-    const response = await fetch('/api', {
+    const response = await fetch('/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(query)
@@ -74,7 +74,7 @@ export const addRating = (id, rating) => (
       query: `mutation {addRating(_id: "${id}", rating: ${rating}) {_id, name, ratings}}`
     };
 
-    await fetch('/api', {
+    await fetch('graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(query)

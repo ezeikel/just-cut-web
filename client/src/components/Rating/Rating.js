@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { spinKeyframe } from '../../globalStyles';
 import starIcon from '../../assets/icons/star.svg';
-import goldStarIcon from '../../assets/icons/gold-star.svg';
+import goldStarIcon from '../../assets/icons/star-o.svg';
 
-const RatingWrapper = styled.form`
+const RatingWrapper = styled.section`
   display: grid;
   grid-template-columns: repeat(5, 35px) auto;
   align-items: center;
@@ -16,10 +15,30 @@ const RatingWrapper = styled.form`
 `;
 RatingWrapper.displayName = 'RatingWrapper';
 
-const RatingInput = styled.input`
-  display: none;
+const Star = styled.div`
+  cursor: pointer;
 `;
-RatingInput.displayName = 'RatingInput';
+Star.displayName = 'Star';
+
+const SVG = styled.svg`
+  pointer-events: none;
+  width: 32px;
+  height: 32px;
+  path {
+    fill: var(--color-grey);
+  }
+  .active & {
+    path {
+      fill: var(--color-black);
+    }
+  }
+  .hover & {
+    path {
+      fill: var(--color-yellow);
+    }
+  }
+`;
+SVG.displayName = 'Star';
 
 const RatingLabel = styled.label`
   background-image: url(${starIcon});
@@ -30,7 +49,6 @@ const RatingLabel = styled.label`
   height: 25px;
   &.active {
     background-image: url(${goldStarIcon});
-    animation: ${spinKeyframe} 0.3s ease-in-out;
   }
 `;
 RatingLabel.displayName = 'RatingLabel';
@@ -50,10 +68,11 @@ SubmitRating.displayName = 'SubmitRating';
 
 class Rating extends Component {
   state = {
-    rating: 0
+    hover: 0
   }
 
   componentWillMount() {
+    // if ratings passed into component work out average rating
     if (this.props.ratings && this.props.ratings.length > 0) {
       this.calculateAverageRating(this.props.ratings);
     }
@@ -66,11 +85,13 @@ class Rating extends Component {
   }
 
   calculateAverageRating = (ratings) => {
-    const sum = ratings.reduce((a, b) => a + b);
-    const avg = sum / ratings.length;
-    this.setState({
-      rating: avg
-    });
+    //const sum = ratings.reduce((a, b) => a + b);
+    //const avg = sum / ratings.length;
+
+    // set average rating based on ratings passed to component
+    // this.setState({
+    //   rating: avg
+    // });
   }
 
   totalRatings = () => {
@@ -81,46 +102,49 @@ class Rating extends Component {
     return `No ratings yet.`;
   }
 
-  renderRating = () => {
+  addHoverState = ({ target }) => {
+    const { rating } = target.dataset;
+    this.setState({
+      hover: rating
+    });
+  }
+
+  removeHoverState = () => {
+    console.log('Remove hover state');
+    this.setState({
+      hover: 0
+    });
+  }
+
+  renderStars = () => [1, 2, 3, 4, 5].map(rating => {
+    const hover = rating <= this.state.hover ? 'hover' : '';
+    const active = rating <= this.props.rating ? 'active' : '';
+    return (
+      <Star className={`${active} ${hover}`} onClick={this.props.updateRating} onMouseEnter={this.addHoverState} data-rating={rating} key={rating} >
+        <SVG>
+          <path d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798zM16 23.547l-6.983 3.671 1.334-7.776-5.65-5.507 7.808-1.134 3.492-7.075 3.492 7.075 7.807 1.134-5.65 5.507 1.334 7.776-6.983-3.671z" />
+        </SVG>
+      </Star>
+    );
+  });
+
+  render() {
+    let total = null;
+
     if (this.props.readonly) {
-      return (
-        <RatingWrapper>
-          <RatingInput id="1" type="radio" value="1" />
-          <RatingLabel className={this.state.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
-          <RatingInput id="2" type="radio" value="2" />
-          <RatingLabel className={this.state.rating >= 2 ? 'active' : ''} htmlFor="2">Poor</RatingLabel>
-          <RatingInput id="3" type="radio" value="3" />
-          <RatingLabel className={this.state.rating >= 3 ? 'active' : ''} htmlFor="3">Alright</RatingLabel>
-          <RatingInput id="4" type="radio" value="4" />
-          <RatingLabel className={this.state.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
-          <RatingInput id="5" type="radio" value="5" />
-          <RatingLabel className={this.state.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
-          <RatingTotal>
-            {this.totalRatings()}
-          </RatingTotal>
-        </RatingWrapper>
+      total = (
+        <RatingTotal>
+          {this.totalRatings()}
+        </RatingTotal>
       );
     }
 
     return (
-      <RatingWrapper onSubmit={this.props.handleSubmit} className={this.props.submitted ? 'submitted' : ''}>
-        <RatingInput id="1" type="radio" value="1" onClick={this.props.updateRating} />
-        <RatingLabel className={this.props.rating >= 1 ? 'active' : ''} htmlFor="1">Abysmal</RatingLabel>
-        <RatingInput id="2" type="radio" value="2" onClick={this.props.updateRating} />
-        <RatingLabel className={this.props.rating >= 2 ? 'active' : ''} htmlFor="2">Poor</RatingLabel>
-        <RatingInput id="3" type="radio" value="3" onClick={this.props.updateRating} />
-        <RatingLabel className={this.props.rating >= 3 ? 'active' : ''} htmlFor="3">Alright</RatingLabel>
-        <RatingInput id="4" type="radio" value="4" onClick={this.props.updateRating} />
-        <RatingLabel className={this.props.rating >= 4 ? 'active' : ''} htmlFor="4">Good</RatingLabel>
-        <RatingInput id="5" type="radio" value="5" onClick={this.props.updateRating} />
-        <RatingLabel className={this.props.rating >= 5 ? 'active' : ''} htmlFor="5">Great</RatingLabel>
-        <SubmitRating className={this.props.changed ? 'active' : ''}>Submit Rating</SubmitRating>
+      <RatingWrapper onMouseLeave={this.removeHoverState}>
+        {this.renderStars()}
+        {total}
       </RatingWrapper>
     );
-  }
-
-  render() {
-    return this.renderRating();
   }
 }
 

@@ -76,7 +76,7 @@ app.use((req, res, next) => {
 app.use('/', routes);
 
 // GraphQL endpoint
-app.use('/api', graphqlHTTP({
+app.use('/graphql', graphqlHTTP({
   schema,
   rootValue: root,
   pretty: true,

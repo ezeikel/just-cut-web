@@ -45,7 +45,6 @@ const Spinner = styled.div`
 
 class Shop extends Component {
   state = {
-    ratingChanged: false,
     ratingSubmitted: false
   }
 
@@ -56,11 +55,8 @@ class Shop extends Component {
   }
 
   updateRating = ({ target }) => {
-    this.setState({
-      ratingChanged: true
-    });
-
-    this.props.onUpdateRating(target.id);
+    console.log(target.dataset.rating);
+    this.props.onUpdateRating(target.dataset.rating);
   }
 
   handleSubmit = (e) => {
@@ -79,7 +75,7 @@ class Shop extends Component {
         <ShopTitle>{props.name}</ShopTitle>
         <ShopDetails>
           <address>{props.location.address}</address>
-          <Rating rating={this.props.rating} updateRating={this.updateRating} handleSubmit={this.handleSubmit} changed={this.state.ratingChanged} submitted={this.state.ratingSubmitted} />
+          <Rating rating={this.props.rating} updateRating={this.updateRating} handleSubmit={this.handleSubmit} submitted={this.state.ratingSubmitted} />
         </ShopDetails>
         <ShopImage photo={props.photo ? props.photo : 'http://lorempixel.com/output/business-q-g-640-480-8.jpg'} />
         <GoogleMap lat={props.location.coordinates[1]} lng={props.location.coordinates[0]} />

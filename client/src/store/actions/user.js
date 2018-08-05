@@ -20,7 +20,7 @@ export const registerUser = (email, fullName, username, password, passwordConfir
       query: `mutation {registerUser(email: "${email}", fullName: "${fullName}", username: "${username}", password: "${password}", passwordConfirm: "${passwordConfirm}") {_id}}`
     };
 
-    const result = await fetch('/api', {
+    const result = await fetch('/graphql', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
