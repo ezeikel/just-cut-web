@@ -45,6 +45,7 @@ const Spinner = styled.div`
 
 class Shop extends Component {
   state = {
+    userRating: 0,
     ratingSubmitted: false
   }
 
@@ -54,15 +55,11 @@ class Shop extends Component {
     }
   }
 
-  updateRating = ({ target }) => {
-    console.log(target.dataset.rating);
-    this.props.onUpdateRating(target.dataset.rating);
-  }
+  setRating = rating => {
+    this.props.onSetRating(this.props.shop._id, rating);
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.onAddRating(this.props.shop._id, this.props.rating);
     this.setState({
+      userRating: rating,
       ratingSubmitted: true
     });
   }
@@ -75,7 +72,7 @@ class Shop extends Component {
         <ShopTitle>{props.name}</ShopTitle>
         <ShopDetails>
           <address>{props.location.address}</address>
-          <Rating rating={this.props.rating} updateRating={this.updateRating} handleSubmit={this.handleSubmit} submitted={this.state.ratingSubmitted} />
+          <Rating ratings={this.props.rating} setRating={this.setRating} userRating={this.state.userRating} submitted={this.state.ratingSubmitted} />
         </ShopDetails>
         <ShopImage photo={props.photo ? props.photo : 'http://lorempixel.com/output/business-q-g-640-480-8.jpg'} />
         <GoogleMap lat={props.location.coordinates[1]} lng={props.location.coordinates[0]} />
@@ -99,8 +96,7 @@ const mapStateToProps = state => (
 const mapDispatchToProps = dispatch => (
   {
     onFetchShop: (slug) => dispatch(actions.fetchShop(slug)),
-    onAddRating: (id, rating) => dispatch(actions.addRating(id, rating)),
-    onUpdateRating: (rating) => dispatch(actions.updateRating(rating))
+    onSetRating: (id, rating) => dispatch(actions.setRating(id, rating)),
   }
 );
 

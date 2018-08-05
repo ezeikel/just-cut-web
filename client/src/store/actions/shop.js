@@ -41,45 +41,38 @@ export const fetchShop = (slug) => (
   }
 );
 
-export const updateRating = (rating) => (
+export const setRatingStart = () => (
   {
-    type: actionTypes.UPDATE_RATING,
-    rating
+    type: actionTypes.SET_RATING_START
   }
 );
 
-export const addRatingStart = () => (
+export const setRatingSuccess = () => (
   {
-    type: actionTypes.ADD_RATING_START
+    type: actionTypes.SET_RATING_SUCCESS
   }
 );
 
-export const addRatingSuccess = () => (
+export const setRatingFail = () => (
   {
-    type: actionTypes.ADD_RATING_SUCCESS
+    type: actionTypes.SET_RATING_FAIL
   }
 );
 
-export const addRatingFail = () => (
-  {
-    type: actionTypes.ADD_RATING_FAIL
-  }
-);
-
-export const addRating = (id, rating) => (
+export const setRating = (id, rating) => (
   async dispatch => {
-    dispatch(addRatingStart());
+    dispatch(setRatingStart());
 
     const query = {
-      query: `mutation {addRating(_id: "${id}", rating: ${rating}) {_id, name, ratings}}`
+      query: `mutation {setRating(_id: "${id}", rating: ${rating}) {_id, name, ratings}}`
     };
 
-    await fetch('graphql', {
+    await fetch('/graphql', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(query)
     });
 
-    dispatch(addRatingSuccess());
+    dispatch(setRatingSuccess());
   }
 );

@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import starIcon from '../../assets/icons/star.svg';
-import goldStarIcon from '../../assets/icons/star-o.svg';
-
 const RatingWrapper = styled.section`
   display: grid;
   grid-template-columns: repeat(5, 35px) auto;
   align-items: center;
-  &.submitted {
-    //TODO: Maybe swap DOM with feedback message instead of this
-    display: none;
-  }
 `;
 RatingWrapper.displayName = 'RatingWrapper';
 
@@ -24,74 +17,60 @@ const SVG = styled.svg`
   pointer-events: none;
   width: 32px;
   height: 32px;
-  path {
+  polygon {
     fill: var(--color-grey);
+    fill-rule: nonzero;
   }
   .active & {
-    path {
-      fill: var(--color-black);
+    polygon {
+      fill: var(--color-yellow);
     }
   }
   .hover & {
-    path {
+    polygon {
       fill: var(--color-yellow);
     }
   }
 `;
 SVG.displayName = 'Star';
 
-const RatingLabel = styled.label`
-  background-image: url(${starIcon});
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  text-indent: -9999px;
-  height: 25px;
-  &.active {
-    background-image: url(${goldStarIcon});
-  }
-`;
-RatingLabel.displayName = 'RatingLabel';
-
 const RatingTotal = styled.span`
   padding-left: var(--spacing-medium);
 `;
 RatingTotal.displayName = 'RatingTotal';
 
-const SubmitRating = styled.button`
-  display: none;
-  &.active {
-    display: block;
-  }
-`;
-SubmitRating.displayName = 'SubmitRating';
 
 class Rating extends Component {
   state = {
-    hover: 0
+    hover: 0,
+    rating: 0
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // if ratings passed into component work out average rating
     if (this.props.ratings && this.props.ratings.length > 0) {
       this.calculateAverageRating(this.props.ratings);
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.ratings && nextProps.ratings.length > 0) {
-      this.calculateAverageRating(nextProps.ratings);
-    }
+  onHover = ({ target }) => {
+    const { rating } = target.dataset;
+    this.setState({
+      hover: rating
+    });
   }
 
-  calculateAverageRating = (ratings) => {
-    //const sum = ratings.reduce((a, b) => a + b);
-    //const avg = sum / ratings.length;
+  onLeave = () => {
+    this.setState({
+      hover: 0
+    });
+  }
 
-    // set average rating based on ratings passed to component
-    // this.setState({
-    //   rating: avg
-    // });
+  selectRating = ({ target }) => {
+    const { rating } = target.dataset;
+    this.setState({
+      rating
+    });
   }
 
   totalRatings = () => {
@@ -99,30 +78,28 @@ class Rating extends Component {
       return `${this.props.ratings.length} Rating${this.props.ratings.length > 1 ? 's' : ''}`;
     }
 
-    return `No ratings yet.`;
+    return 'No ratings yet.';
   }
 
-  addHoverState = ({ target }) => {
-    const { rating } = target.dataset;
+  calculateAverageRating = (ratings) => {
+    const sum = ratings.reduce((a, b) => a + b);
+    const avg = Math.round(sum / ratings.length);
+
+    // set average rating based on ratings passed to component
     this.setState({
-      hover: rating
+      rating: avg
     });
   }
 
-  removeHoverState = () => {
-    console.log('Remove hover state');
-    this.setState({
-      hover: 0
-    });
-  }
+  renderStars = () => [1, 2, 3, 4, 5].map(number => {
+    const rating = this.props.userRating ? this.props.userRating : this.state.rating;
+    const hover = number <= this.state.hover ? 'hover' : '';
+    const active = number <= rating ? 'active' : '';
 
-  renderStars = () => [1, 2, 3, 4, 5].map(rating => {
-    const hover = rating <= this.state.hover ? 'hover' : '';
-    const active = rating <= this.props.rating ? 'active' : '';
     return (
-      <Star className={`${active} ${hover}`} onClick={this.props.updateRating} onMouseEnter={this.addHoverState} data-rating={rating} key={rating} >
+      <Star className={`${active} ${hover}`} onClick={this.selectRating} onMouseEnter={this.props.readonly || this.props.submitted ? null : this.onHover} data-rating={number} key={number} >
         <SVG>
-          <path d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798zM16 23.547l-6.983 3.671 1.334-7.776-5.65-5.507 7.808-1.134 3.492-7.075 3.492 7.075 7.807 1.134-5.65 5.507 1.334 7.776-6.983-3.671z" />
+          <polygon points="9.9, 1.1, 3.3, 21.78, 19.8, 8.58, 0, 8.58, 16.5, 21.78" />
         </SVG>
       </Star>
     );
@@ -130,6 +107,10 @@ class Rating extends Component {
 
   render() {
     let total = null;
+    const submitRating = this.props.readonly || this.props.submitted ? null : (
+      <button onClick={() => this.props.setRating(this.state.rating)}>Submit</button>
+      // TODO: https://stackoverflow.com/questions/29810914/react-js-onclick-cant-pass-value-to-method
+    );
 
     if (this.props.readonly) {
       total = (
@@ -140,8 +121,9 @@ class Rating extends Component {
     }
 
     return (
-      <RatingWrapper onMouseLeave={this.removeHoverState}>
+      <RatingWrapper onMouseLeave={this.props.readonly || this.props.submitted ? null : this.onLeave}>
         {this.renderStars()}
+        {submitRating}
         {total}
       </RatingWrapper>
     );

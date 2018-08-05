@@ -13,7 +13,7 @@ export { fetchShops } from './shops';
 export {
   fetchShop,
   updateRating,
-  addRating
+  setRating
 } from './shop';
 
 export {

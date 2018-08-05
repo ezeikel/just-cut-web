@@ -60,7 +60,7 @@ module.exports.schema = buildSchema(`
     registerUser(email: String, fullName: [String], username: String, password: String, passwordConfirm: String): User,
     createShop(name: String, location: LocationInput, photo: String): Shop,
     signS3(filetype: String!): S3Payload!,
-    addRating(_id: ID!, rating: Int!): Shop
+    setRating(_id: ID!, rating: Int!): Shop
   }
 `);
 
@@ -111,7 +111,7 @@ module.exports.root = {
       url
     };
   },
-  addRating: async ({ _id, rating }) => Shop.findOneAndUpdate(
+  setRating: ({ _id, rating }) => Shop.findOneAndUpdate(
     { _id },
     { $push: { ratings: rating } }
   )

@@ -28,17 +28,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false
       };
-    case actionTypes.UPDATE_RATING:
-      return {
-        ...state,
-        rating: action.rating
-      };
-    case actionTypes.ADD_RATING_START:
+    case actionTypes.SET_RATING_START:
       return {
         ...state,
         loading: true
       };
-    case actionTypes.ADD_RATING_SUCCESS:
+    case actionTypes.SET_RATING_SUCCESS:
       return {
         ...state,
         loading: false
