@@ -87,6 +87,16 @@ input, button, submit {
   border: none;
 }
 
+button {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   color: var(--color-light-grey);
