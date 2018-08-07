@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import searchIcon from '../../../assets/icons/search.svg';
+import searchIcon from '../../assets/icons/search.svg';
 
 const SearchInputText = styled.input`
   height: 45px;

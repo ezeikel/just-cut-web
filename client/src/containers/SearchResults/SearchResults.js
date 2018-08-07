@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import SearchResult from './SearchResult/SearchResult';
+import SearchResult from '../SearchResult/SearchResult';
 
 const SearchResultsWrapper = styled.div`
   display: grid;

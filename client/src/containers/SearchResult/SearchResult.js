@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Rating from '../../../Rating/Rating';
+import Rating from '../../components/Rating/Rating';
 
-import markerIcon from '../../../../assets/icons/map-marker.svg';
+import markerIcon from '../../assets/icons/map-marker.svg';
 
 const StyledLink = styled(Link)`
   display: grid;

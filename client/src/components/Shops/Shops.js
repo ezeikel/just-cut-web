@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
 
-import Shop from './Shop/Shop';
+import Shop from '../Shop/Shop';
 
 class Shops extends Component {
   componentDidMount() {

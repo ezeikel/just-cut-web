@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import * as actions from '../../../store/actions/index';
-import GoogleMap from '../../GoogleMap/GoogleMap';
-import Rating from '../../Rating/Rating';
+import * as actions from '../../store/actions/index';
+import GoogleMap from '../GoogleMap/GoogleMap';
+import Rating from '../Rating/Rating';
 
-import spinnerIcon from '../../../assets/icons/spinner.svg';
+import spinnerIcon from '../../assets/icons/spinner.svg';
 
 const ShopWrapper = styled.div`
   display: grid;
