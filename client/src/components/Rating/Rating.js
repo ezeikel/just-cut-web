@@ -3,12 +3,11 @@ import styled from 'styled-components';
 
 const Wrapper = styled.section`
   display: grid;
-  grid-template-rows: ${props => (props.readonly ? `1fr repeat(2, auto)` : `auto`)};
+  grid-template-rows: ${props => (props.readonly ? `repeat(2, auto)` : `auto`)};
   grid-template-columns: ${props => (props.readonly ? `auto` : `1fr auto`)};
-  grid-row-gap: var(--spacing-small);
+  grid-row-gap: var(--spacing-tiny);
   grid-column-gap: var(--spacing-medium);
   place-items: center;
-  width: 33.33%;
 `;
 Wrapper.displayName = 'Wrapper';
 
@@ -23,20 +22,14 @@ const Star = styled.div`
 `;
 Star.displayName = 'Star';
 
-const OverallRating = styled.span`
-  font-size: 54px;
-  line-height: 1;
-`;
-OverallRating.displayName = 'OverallRating';
-
 const Button = styled.button`
   span {
     color: var(--color-black);
     transition: all 0.2s ease-in-out;
-    border: 2px solid var(--color-black);
+    border: 2px solid var(--color-primary);
     padding: var(--spacing-small) var(--spacing-medium);
     &:hover {
-      background-color: var(--color-black);
+      background-color: var(--color-primary);
       color: var(--color-white);
     }
   }
@@ -53,12 +46,12 @@ const SVG = styled.svg`
   }
   .active & {
     polygon {
-      fill: var(--color-yellow);
+      fill: var(--color-gold-star);
     }
   }
   .hover & {
     polygon {
-      fill: var(--color-yellow);
+      fill: var(--color-gold-star);
     }
   }
 `;
@@ -119,10 +112,6 @@ class Rating extends Component {
     return 'No reviews yet.';
   }
 
-  renderOverallRating = () => (
-    <OverallRating>{this.state.rating}</OverallRating>
-  );
-
   renderTotalReviews = () => (
     <TotalReviews>
       {this.totalReviews()}
@@ -152,7 +141,6 @@ class Rating extends Component {
     const { readonly, submitted } = this.props;
     return (
       <Wrapper readonly={readonly} onMouseLeave={readonly || submitted ? null : this.onLeave}>
-        {readonly ? this.renderOverallRating() : null}
         <StarsContainer>
           {this.renderStars()}
         </StarsContainer>
