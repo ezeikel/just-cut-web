@@ -36,7 +36,7 @@ List.displayName = 'List';
 const SearchResults = ({ results, postcode, area }) => (
   <SearchResultsWrapper>
     <ResultsHeader>
-      <Number>{results.length}</Number> barbershop{results.length > 1 || results.length === 0 ? 's' : null} near {postcode.toUpperCase()} {area}
+      <Number>{results.length}</Number> barbershop{results.length > 1 || results.length === 0 ? 's' : null} near {postcode.toUpperCase()} ({area})
     </ResultsHeader>
     <List>
       {

@@ -26,7 +26,6 @@ const SearchInputSubmit = styled.input`
   cursor: pointer;
   color: var(--color-white);
   transition: background-color 0.3s ease-in-out;
-  text-transform: uppercase;
   text-indent: -9999em;
   @media (min-width: 768px) {
     text-indent: 0;

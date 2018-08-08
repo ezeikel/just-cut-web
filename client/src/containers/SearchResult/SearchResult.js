@@ -86,7 +86,7 @@ const MilesAway = styled.span`
 MilesAway.displayName = 'MilesAway';
 
 const BigNumber = styled.span`
-  font-size: 32px;
+  font-size: 22px;
   line-height: 1;
 `;
 BigNumber.displayName = 'BigNumber';

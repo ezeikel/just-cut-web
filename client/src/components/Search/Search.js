@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import * as actions from '../../store/actions/index';
 import SearchInput from '../../containers/SearchInput/SearchInput';
 import SearchResults from '../../containers/SearchResults/SearchResults';
-import spinnerIcon from '../../assets/icons/spinner.svg';
+import Spinner from '../../containers/Spinner/Spinner';
 
 const SearchWrapper = styled.div`
   display: grid;
@@ -15,17 +15,25 @@ const SearchForm = styled.form`
   display: grid;
   grid-template-rows: auto 1fr;
   grid-gap: var(--spacing-medium);
+  max-width: 550px;
 `;
 
-const Spinner = styled.div`
-  height: 100px;
-  background-image: url(${spinnerIcon});
-  background-repeat: no-repeat;
-  background-position: center;
-`;
-
-const CurrentLocation = styled.button`
+const CurrentLocation = styled.div`
+  position: relative;
   display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: var(--spacing-medium);
+  align-items: center;
+  color: var(--color-black);
+  cursor: pointer;
+  > span {
+    text-decoration: underline;
+  }
+`;
+
+const InvalidPostcode = styled.div`
+  max-width: 550px;
+  text-align: left;
 `;
 
 class Search extends Component {
@@ -58,7 +66,6 @@ class Search extends Component {
       };
       const error = err => console.warn(`ERROR(${err.code}): ${err.message}`);
 
-      console.log('Checking current location...');
       navigator.geolocation.getCurrentPosition(success, error, options);
     } else {
       console.log('geolocation is not available.');
@@ -98,7 +105,7 @@ class Search extends Component {
 
   renderSearchResults() {
     if (!this.state.valid && this.props.submitted) {
-      return <div><p>Oops, that doesn't seem like a valid postcode. Are you sure you're entering it correctly (for example, W1T 6PZ)?</p></div>;
+      return <InvalidPostcode><p>Oops, that doesn't seem like a valid postcode. Are you sure you're entering it correctly (for example, W1T 6PZ)?</p></InvalidPostcode>;
     } else if (this.state.valid && this.props.submitted) {
       return <SearchResults postcode={this.props.postcode} area={this.props.area} results={this.props.results} />;
     }
@@ -111,11 +118,9 @@ class Search extends Component {
       <SearchWrapper>
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchInput postcode={this.props.postcode} handleChange={this.handleFormInputPostcodeChange} />
+          <CurrentLocation onClick={this.useCurrentLocation}><span>Use current location</span> {this.state.loadingCurrentLocation ? <Spinner /> : null}</CurrentLocation>
         </SearchForm>
-        <CurrentLocation onClick={this.useCurrentLocation}>Or use current location {this.state.loadingCurrentLocation ? <Spinner /> : ''}</CurrentLocation>
-        <section>
-          {this.props.loading ? <Spinner /> : this.renderSearchResults()}
-        </section>
+        {this.props.loading ? <Spinner /> : this.renderSearchResults()}
       </SearchWrapper>
     );
   }
