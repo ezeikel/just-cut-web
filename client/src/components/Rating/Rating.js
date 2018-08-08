@@ -13,7 +13,7 @@ Wrapper.displayName = 'Wrapper';
 
 const StarsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 28px) auto;
+  grid-template-columns: repeat(5, 24px) auto;
 `;
 StarsContainer.displayName = 'StarsContainer';
 

@@ -14,6 +14,7 @@ export default injectGlobal`
   --color-gold-lighter: #d4af61;
   --color-light-grey: #ecf0f1;
   --color-red: #e74c3c;
+  --color-dark-red: #c0392b;
   --color-green: #2ecc71;
   --color-grey: #bdc3c7;
   --color-gold-star: #f1c40f;
