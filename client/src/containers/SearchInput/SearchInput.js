@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import searchIcon from '../../assets/icons/search.svg';
@@ -39,18 +39,14 @@ const SearchInputWrapper = styled.div`
   grid-template-columns: 1fr minmax(60px, auto);
 `;
 
-class SearchInput extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <label htmlFor="postcode">Enter your postcode</label>
-        <SearchInputWrapper>
-          <SearchInputText type="text" name="postcode" placeholder="e.g. EC4R 3TE" value={this.props.postcode} onChange={this.props.handleChange} />
-          <SearchInputSubmit type="submit" value="Find Shops" />
-        </SearchInputWrapper>
-      </React.Fragment>
-    );
-  }
-}
+const SearchInput = ({ postcode, handleChange }) => (
+  <React.Fragment>
+    <label htmlFor="postcode">Enter your postcode</label>
+    <SearchInputWrapper>
+      <SearchInputText type="text" name="postcode" placeholder="e.g. EC4R 3TE" value={postcode} onChange={handleChange} />
+      <SearchInputSubmit type="submit" value="Find Shops" />
+    </SearchInputWrapper>
+  </React.Fragment>
+);
 
 export default SearchInput;

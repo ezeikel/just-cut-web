@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import SearchResult from '../SearchResult/SearchResult';
@@ -33,31 +33,21 @@ const List = styled.ul`
 `;
 List.displayName = 'List';
 
-class SearchResults extends Component {
-  renderSearchResults = () => {
-    if (this.props.results.length > 0) {
-      return this.props.results.map(shop => (
-        <li key={shop._id}>
-          <SearchResult id={shop._id} slug={shop.slug} location={shop.location} distance={shop.distance} lng={shop.location.coordinates[0]} lat={shop.location.coordinates[1]} name={shop.name} photo={shop.photo} tags={shop.tags} priceLevel={shop.priceLevel} ratings={shop.ratings} />
-        </li>
-      ));
-    }
-  }
-
-  render() {
-    const { results, postcode, area } = this.props;
-
-    return (
-      <SearchResultsWrapper>
-        <ResultsHeader>
-          <Number>{results.length}</Number> barbershop{results.length > 1 || results.length === 0 ? 's' : null} near {postcode.toUpperCase()} {area}
-        </ResultsHeader>
-        <List>
-          {this.renderSearchResults()}
-        </List>
-      </SearchResultsWrapper>
-    );
-  }
-}
+const SearchResults = ({ results, postcode, area }) => (
+  <SearchResultsWrapper>
+    <ResultsHeader>
+      <Number>{results.length}</Number> barbershop{results.length > 1 || results.length === 0 ? 's' : null} near {postcode.toUpperCase()} {area}
+    </ResultsHeader>
+    <List>
+      {
+        results.length > 0 ? results.map(shop => (
+          <li key={shop._id}>
+            <SearchResult id={shop._id} slug={shop.slug} location={shop.location} distance={shop.distance} lng={shop.location.coordinates[0]} lat={shop.location.coordinates[1]} name={shop.name} photo={shop.photo} tags={shop.tags} priceLevel={shop.priceLevel} ratings={shop.ratings} />
+          </li>
+        )) : null
+      }
+    </List>
+  </SearchResultsWrapper>
+);
 
 export default SearchResults;
