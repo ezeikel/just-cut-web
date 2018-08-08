@@ -7,29 +7,37 @@ const SearchResultsWrapper = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   grid-row-gap: var(--spacing-large);
-  .search-results {
-    &__header {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      grid-column-gap: var(--spacing-medium);
-      align-items: center;
-    }
-    &__list {
-      display: grid;
-      grid-row-gap: var(--spacing-large);
-      white-space: nowrap;
-    }
-    &__number {
-      font-size: 32px;
-    }
+`;
+SearchResultsWrapper.displayName = 'SearchResultsWrapper';
+
+const ResultsHeader = styled.header`
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-column-gap: var(--spacing-medium);
+  align-items: center;
+`;
+ResultsHeader.displayName = 'ResultsHeader';
+
+const Number = styled.span`
+  font-size: 32px;
+`;
+Number.displayName = 'Number';
+
+const List = styled.ul`
+  display: grid;
+  grid-row-gap: var(--spacing-medium);
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: var(--spacing-large);
   }
 `;
+List.displayName = 'List';
 
 class SearchResults extends Component {
-  renderSearchResults() {
+  renderSearchResults = () => {
     if (this.props.results.length > 0) {
       return this.props.results.map(shop => (
-        <li key={shop._id} className="search-results__list-item">
+        <li key={shop._id}>
           <SearchResult id={shop._id} slug={shop.slug} location={shop.location} distance={shop.distance} lng={shop.location.coordinates[0]} lat={shop.location.coordinates[1]} name={shop.name} photo={shop.photo} tags={shop.tags} priceLevel={shop.priceLevel} ratings={shop.ratings} />
         </li>
       ));
@@ -37,20 +45,16 @@ class SearchResults extends Component {
   }
 
   render() {
-    let header;
-
-    if (this.props.results.length > 1) {
-      header = <header className="search-results__header"><span className="search-results__number">{this.props.results.length}</span> barbershops near {this.props.postcode.toUpperCase()} {this.props.area}</header>;
-    } else {
-      header = <header className="search-results__header"><span className="search-results__number">{this.props.results.length}</span> barbershop near {this.props.postcode.toUpperCase()} {this.props.area}</header>;
-    }
+    const { results, postcode, area } = this.props;
 
     return (
-      <SearchResultsWrapper className="search-results">
-        {header}
-        <ul className="search-results__list">
+      <SearchResultsWrapper>
+        <ResultsHeader>
+          <Number>{results.length}</Number> barbershop{results.length > 1 || results.length === 0 ? 's' : null} near {postcode.toUpperCase()} {area}
+        </ResultsHeader>
+        <List>
           {this.renderSearchResults()}
-        </ul>
+        </List>
       </SearchResultsWrapper>
     );
   }

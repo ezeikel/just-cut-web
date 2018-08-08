@@ -19,11 +19,9 @@ const SearchResultImage = styled.div`
   height: 200px;
 `;
 
-const SearchResultTitle = styled.h3`
-  margin: 0;
-  font-size: 16px;
+const SearchResultTitle = styled.div`
+  line-height: 24px;
   color: var(--color-black);
-  text-transform: uppercase;
 `;
 
 const SearchResultDetails = styled.div`
@@ -32,23 +30,23 @@ const SearchResultDetails = styled.div`
     grid-row-gap: var(--spacing-small);
     color: #828585;
 `;
+SearchResultDetails.displayName = 'SearchResultDetails';
 
 const SearchResultTags = styled.ul`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(max-content, 50px));
   grid-gap: var(--spacing-small);
-  grid-auto-rows: 32px;
   font-size: 14px;
+  //line-height: 22px;
   li {
     display: grid;
-    justify-items: center;
-    align-items: center;
-    padding: var(--spacing-tiny);
-    background-color: palevioletred;
-    color: var(--color-white);
-    font-size: 13px;
+    place-items: center;
+    padding: var(--spacing-small);
+    background-color: rgb(245, 245, 245);
+    color: var(--color-black);
   }
 `;
+SearchResultTags.displayName = 'SearchResultTags';
 
 const SearchResultDistance = styled.div`
   display: grid;
@@ -56,8 +54,9 @@ const SearchResultDistance = styled.div`
   grid-column-gap: 4px;
   align-items: center;
 `;
+SearchResultDistance.displayName = 'SearchResultDistance';
 
-const SearchResult = (props) => (
+const SearchResult = props => (
   <StyledLink to={`shop/${props.slug}`}>
     <SearchResultImage photo={props.photo} />
     <SearchResultTitle>{props.name}</SearchResultTitle>
